@@ -7,8 +7,10 @@ class SignUp extends React.Component{
     render(){
         return (
         <div className='signup'>
-            <form className='signup-form'>
 
+        
+            <form className='signup-form'>
+            <h1 className='signup-title'>S'inscrire </h1>
             <div className='signup-inputs'>
                 <div class="form-group row">
                     <div class="col-sm-10">
