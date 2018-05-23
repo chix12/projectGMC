@@ -29,7 +29,10 @@ class AjouterEnseignant extends React.Component{
                         </div>
                     </div>
                 </div>
+                <div className='buttons'>
                 <button type="submit" class="btn btn-primary">Ajouter</button>
+                <button type="submit" class="btn btn-secondary">Retour</button>
+                </div>
 
             </form>
         </div>

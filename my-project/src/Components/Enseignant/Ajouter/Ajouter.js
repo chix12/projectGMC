@@ -1,5 +1,6 @@
 import React from 'react'
 import './Ajouter.css'
+import { Link } from 'react-router-dom'
 
 class Ajouter extends React.Component {
     render() {
@@ -26,7 +27,9 @@ class Ajouter extends React.Component {
                 </div>
                 <div className='add-component-buttons' >
                     <button type="button" class="btn btn-primary add-button">Ajouter</button>
-                    <button type="button" class="btn btn-secondary add-button">Ignorer</button>
+                    <Link to='/enseignant'>
+                      <button type="button" class="btn btn-secondary add-button">Ignorer</button>
+                    </Link>
                 </div>
             </div>
         )

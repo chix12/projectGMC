@@ -12,7 +12,7 @@ const Header = () => {
                 <p className="navbar-brand"> <span className='grey-text'> Name </span></p>
                 <div className='logout'> 
                     
-                    <Link to='login'><p className="navbar-brand"> 
+                    <Link to='/'><p className="navbar-brand"> 
                         <span className='grey-text'>Logout</span>
                     </p></Link>
                     <i className="logout-btn fas fa-sign-out-alt"></i>

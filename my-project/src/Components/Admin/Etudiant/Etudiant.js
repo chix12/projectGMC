@@ -1,5 +1,6 @@
 import React from 'react'
 import './Etudiant.css'
+import { Link } from 'react-router-dom'
 
 class Etudiant extends React.Component{
     render(){
@@ -24,7 +25,16 @@ class Etudiant extends React.Component{
                     <div className="admin-etudiant-button">
                         <button type="button" class="admin-add-button">+</button>
                     </div>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <p class="nav-link active" >Etudiants </p>
+                        </li>
+                        <li class="nav-item">
+                            <Link to='/enseignant_list' class="nav-link " href="#">Enseignants</Link>
+                        </li>
 
+
+                    </ul>
                     <table class="table">
                         <thead>
                             <tr>

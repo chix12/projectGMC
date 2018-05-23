@@ -14,37 +14,49 @@ class Enseignant extends React.Component{
                                 <button class="btn search-btn " type="submit">Search</button>
                         </form>   
                     </div>
+                    <div className="enseignant-body">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <p class="nav-link active">Enseignants</p>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <Link to='/etudiant_list' class="nav-link ">Etudiants</Link>
+                            </li>
 
-                    <table class="table enseignant-table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Prenom</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Mot de passe</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">John</th>
-                                <td>Doe</td>
-                                <td>John@Doe.com</td>
-                                <td>XXXXX</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Baklouti</th>
-                                <td>Nada</td>
-                                <td>Bak@nada.com</td>
-                                <td>XXXXX</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Chaima</th>
-                                <td>Zelaiti</td>
-                                <td>Zel@chaima.com</td>
-                                <td>XXXXX</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                        </ul>
+                        <table class="table enseignant-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Prenom</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Mot de passe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">John</th>
+                                    <td>Doe</td>
+                                    <td>John@Doe.com</td>
+                                    <td>XXXXX</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Baklouti</th>
+                                    <td>Nada</td>
+                                    <td>Bak@nada.com</td>
+                                    <td>XXXXX</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Chaima</th>
+                                    <td>Zelaiti</td>
+                                    <td>Zel@chaima.com</td>
+                                    <td>XXXXX</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div className="enseignant-add-btn">
                         <Link to='/admin/enseignant/ajouter'>
                             <button type="button" class="btn btn-primary add-button">Ajouter</button>
