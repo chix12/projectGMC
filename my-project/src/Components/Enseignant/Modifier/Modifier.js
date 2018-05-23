@@ -1,12 +1,10 @@
 import React from 'react'
 import './Modifier.css'
-import Header from '../Header/Header';
 
 class Modifier extends React.Component {
     render() {
         return(
             <div className='edit-component-container'>
-                <Header />
                 <h1 className="edit-component-header"> Modifier Examen</h1>
                 <div className='edit-component-main'>
                     <ul class="nav nav-tabs">

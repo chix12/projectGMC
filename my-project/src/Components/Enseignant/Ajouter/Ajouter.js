@@ -1,12 +1,10 @@
 import React from 'react'
 import './Ajouter.css'
-import Header from '../Header/Header';
 
 class Ajouter extends React.Component {
     render() {
         return(
             <div className='add-component-container'>
-                <Header />
                 <h1 className="add-component-header"> Ajouter Examen</h1>
                 <div className='add-component-main'>
                     <ul class="nav nav-tabs">
