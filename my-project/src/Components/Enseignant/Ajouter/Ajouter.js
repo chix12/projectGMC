@@ -17,9 +17,16 @@ class Ajouter extends React.Component {
                     </ul>
                     <textarea name="text-ajoute" />
                 </div>
+
+                <div className='add-component-duree-matiere'>
+                     <input type="text"  class="form-control signup-input" id="staticEmail" placeholder="Durée"/>
+                     <select class="form-control">
+                        <option>Matière</option>
+                    </select>
+                </div>
                 <div className='add-component-buttons' >
-                    <button type="button" class="btn btn-primary add-button">Valider</button>
-                    <button type="button" class="btn btn-primary add-button">Ignorer</button>
+                    <button type="button" class="btn btn-primary add-button">Ajouter</button>
+                    <button type="button" class="btn btn-secondary add-button">Ignorer</button>
                 </div>
             </div>
         )
