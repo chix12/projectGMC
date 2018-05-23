@@ -1,0 +1,14 @@
+.etudiant-container{
+    display: flex;
+    justify-content : space-around;
+    margin: 20px 0;
+}
+
+.etudiant-table{
+    width: 60%;
+}
+
+.admin-add-button{
+    font-size: 2em;
+    background-image: none;
+}

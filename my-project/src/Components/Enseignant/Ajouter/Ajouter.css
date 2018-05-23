@@ -18,3 +18,7 @@ textarea {
     display: flex;
     justify-content: flex-end;
 }
+.add-button{
+    width: 90px;
+    margin: 15px;
+}

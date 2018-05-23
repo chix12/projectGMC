@@ -1,6 +1,10 @@
 .enseignant-main-container{
     display: flex;
     justify-content : space-around;
-    margin: 20px 20px;
+    margin: 20px;
 
+} 
+
+.exams-card{
+    width: 60%
 }

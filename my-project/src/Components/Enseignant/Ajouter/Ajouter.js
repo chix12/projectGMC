@@ -18,8 +18,8 @@ class Ajouter extends React.Component {
                     <textarea name="text-ajoute" />
                 </div>
                 <div className='add-component-buttons' >
-                    <button type="button" class="btn btn-primary">Valider</button>
-                    <button type="button" class="btn btn-primary">Ignorer</button>
+                    <button type="button" class="btn btn-primary add-button">Valider</button>
+                    <button type="button" class="btn btn-primary add-button">Ignorer</button>
                 </div>
             </div>
         )

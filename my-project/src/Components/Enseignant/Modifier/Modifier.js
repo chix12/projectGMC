@@ -18,8 +18,8 @@ class Modifier extends React.Component {
                     <textarea name="text-modifie" />
                 </div>
                 <div className='edit-component-buttons' >
-                    <button type="button" class="btn btn-primary">Valider</button>
-                    <button type="button" class="btn btn-primary">Ignorer</button>
+                    <button type="button" class="btn btn-primary edit-button">Valider</button>
+                    <button type="button" class="btn btn-primary edit-button">Ignorer</button>
                 </div>
             </div>
         )
