@@ -1,0 +1,20 @@
+.add-component-main{
+    display: flex;
+    flex-direction: column; 
+}
+
+.add-component-header{
+    text-align: center;
+    font-size: 1.2 em;
+    margin: 40px;
+    color: grey
+}
+
+textarea {
+  height: 300px;
+}
+
+.add-component-buttons{
+    display: flex;
+    justify-content: flex-end;
+}

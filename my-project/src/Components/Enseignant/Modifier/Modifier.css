@@ -1,0 +1,25 @@
+.edit-component-main{
+    display: flex;
+    flex-direction: column; 
+}
+
+.edit-component-header{
+    text-align: center;
+    font-size: 1.2 em;
+    margin: 40px;
+    color: grey
+}
+
+.btn{
+    width: 90px;
+    margin: 15px;
+}
+
+.edit-component-buttons{
+    display: flex;
+    justify-content: flex-end;
+}
+
+textarea {
+  height: 300px;
+}
