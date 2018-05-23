@@ -7,18 +7,11 @@
     align-items: center
 }
 .signup-form{
-    flex-direction: column;
     border: 1px solid #ced4da; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width:500px;
     padding: 50px;
 }
 
-.form-control{
-   width:300px
-}
 
 .btn-primary{
     width:100%
@@ -26,4 +19,13 @@
 .signup-title{
     color:#007bff;
     margin-bottom:50px
+}
+
+.signup-inputs{
+    width:100%;
+    
+}
+
+.signup-input{
+    width:400px
 }

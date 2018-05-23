@@ -1,5 +1,6 @@
 import React from 'react'
 import './Header.css'
+import {Link} from 'react-router-dom'
 
 const Header = () => {
     return (
@@ -10,9 +11,10 @@ const Header = () => {
             <div className='my-header-user-logout'>
                 <p className="navbar-brand"> <span className='grey-text'> Name </span></p>
                 <div className='logout'> 
-                    <p className="navbar-brand"> 
+                    
+                    <Link to='login'><p className="navbar-brand"> 
                         <span className='grey-text'>Logout</span>
-                    </p>
+                    </p></Link>
                     <i className="logout-btn fas fa-sign-out-alt"></i>
                 </div>
             </div>

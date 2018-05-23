@@ -9,6 +9,7 @@
 
     border: 1px solid #ced4da;
     padding: 30px;
+    width:400px
     
 }
 
@@ -17,15 +18,22 @@
     display: flex;
     flex-direction: column;
     margin-top:60px;
-    align-items: center
+    align-items: center;
+   
 }
 
+
+.login-btn-signup{
+    display: flex;
+    border: 1px solid #ced4da;
+    width: 100%
+}
 
 .btn-signup{
-   width: 100%
+    width:100%
 }
-
 .signup-label{
     color:#9E9E9E;
     font-size:13px
 }
+

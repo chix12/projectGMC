@@ -8,3 +8,16 @@
 .exams-card{
     width: 60%
 }
+
+.enseignant-add-button{
+    font-size: 2em;
+    background-color: transparent;
+    border: none;
+    color: grey;
+}
+
+.enseignant-button{
+    display: flex;
+    justify-content: flex-end;
+    
+}

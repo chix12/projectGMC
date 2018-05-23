@@ -5,7 +5,7 @@ class Etudiant extends React.Component{
     render(){
         return(
             <div className="etudiant-container">
-                <div className="Filtres" >
+                <div className="filtres" >
                     <select class="custom-select" id="inputGroupSelect01">
                         <option selected>Classes</option>
                         <option value="1">LFI1</option>
@@ -33,6 +33,8 @@ class Etudiant extends React.Component{
                                 <th scope="col">Prenom</th>
                                 <th scope="col">Classe</th>
                                 <th scope="col">Voucher</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Mot de passe</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,13 +44,19 @@ class Etudiant extends React.Component{
                                 <td>Doe</td>
                                 <td>LFI1</td>
                                 <td>XXXX</td>
+                                <td>John@Doe.com</td>
+                                <td>123456</td>
+
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
-                                <td>BK</td>
+                                <td>Baklouti</td>
                                 <td>Nada</td>
                                 <td>LFI2</td>
                                 <td>XXXY</td>
+                                <td>Bak@nada.com</td>
+                                <td>XXXX</td>
+
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
@@ -56,6 +64,9 @@ class Etudiant extends React.Component{
                                 <td>Zelaiti</td>
                                 <td>LFI3</td>
                                 <td>XXYY</td>
+                                <td>Zel@chaima.com</td>
+                                <td>XXXX</td>
+
                             </tr>
                         </tbody>
                     </table>
