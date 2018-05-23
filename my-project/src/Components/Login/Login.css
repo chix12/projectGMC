@@ -6,8 +6,13 @@
     align-items: center
 }
 .login-form{
-    width:40%;
+
     border: 1px solid #ced4da;
     padding: 30px;
+    
 
+}
+
+.form-group{
+   
 }
