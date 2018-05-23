@@ -40,32 +40,32 @@ class SignUp extends React.Component{
             <div className='signup-inputs' >
                 <div class="form-group row" >
                     <div class="col-sm-10" >
-                        <input type="text"  class="form-control signup-input" name='prenom' onChange={this.handleChange} placeholder="Prénom"/>
+                        <input type="text"  class="form-control signup-input" name='prenom' onChange={this.handleChange} placeholder="Prénom" autocomplete="off"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control signup-input" name='nom'  onChange={this.handleChange} placeholder="Nom"/>
+                        <input type="text"  class="form-control signup-input" name='nom'  onChange={this.handleChange} placeholder="Nom" autocomplete="off"/>
                     </div>
                 </div>      
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control signup-input" name='email' onChange={this.handleChange} placeholder="Email"/>
+                        <input type="text"  class="form-control signup-input" name='email' onChange={this.handleChange} placeholder="Email" autocomplete="off"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input type="password" class="form-control signup-input" name='password'  onChange={this.handleChange} placeholder="mot de passe"/>
+                        <input type="password" class="form-control signup-input" name='password'  onChange={this.handleChange} placeholder="mot de passe" autocomplete="off"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control signup-input" name='classe' onChange={this.handleChange} placeholder="Classe"/>
+                        <input type="text"  class="form-control signup-input" name='classe' onChange={this.handleChange} placeholder="Classe" autocomplete="off"/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input type="text"  class="form-control signup-input" name='voucher'  onChange={this.handleChange}placeholder="Code"/>
+                        <input type="text"  class="form-control signup-input" name='voucher'  onChange={this.handleChange}placeholder="Code" autocomplete="off"/>
                     </div>
                 </div>
                 </div>
