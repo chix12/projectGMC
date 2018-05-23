@@ -22,9 +22,9 @@ const Routes =()=>{
             <Route exact path='/' component={Login} />
             <Route exact path='/signup' component={SignUp}/>
             <Route exact path = '/enseignant' component={EnseignantMain}/>
-            <Route exact path='/modifier' component={Modifier} />
+            <Route exact path='/modifier_examen' component={Modifier} />
             <Route exact path='/etudiant' component= {EtudiantMain} />
-            <Route exact path= '/ajouterexamen' component ={Ajouter}/>
+            <Route exact path= '/ajouter_examen' component ={Ajouter}/>
             <Route exact path= '/admin' component={Enseignant}/>
             <Route exact path= '/etudiant_list' component = {Etudiant} />
             <Route exact path='/enseignant_list' component={Enseignant} />

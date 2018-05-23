@@ -74,6 +74,18 @@ MongoClient.connect(mongo_url,(err,client)=>{
 				res.send(data)
 			}
 		})
+	})
+	
+
+	app.get('/exams',(req,res)=>{
+		db.collection('Examen').find().toArray((err,data)=>{
+			if(err) {
+				res.send('not found')
+			}
+			else{
+				res.send(data)
+			}
+		})
     })
 
 
