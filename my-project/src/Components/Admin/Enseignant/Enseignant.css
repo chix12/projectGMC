@@ -1,0 +1,50 @@
+.enseignant-container{
+    display: flex;
+    justify-content : space-around;
+    margin: 20px 0;
+}
+
+.enseignant-add-btn{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.admin-add-button{
+    font-size: 2em;
+    background-color: transparent;
+    border: none;
+    color: grey;
+}
+
+
+.admin-enseignant-header{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 100px;
+    margin-left: 30px;
+}
+
+.search-text{
+    margin: 10px;
+    border: 1px solid grey;
+}
+
+.search-btn{
+    border: 1px solid #007bff;
+}
+
+/*********************************************************************************************************/
+.signup{
+    width:100%;
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
+    height:500px;
+    align-items: center;
+}
+
+.signup-form{
+    border: 1px solid #ced4da; 
+    width:500px;
+    padding: 50px;
+}

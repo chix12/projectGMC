@@ -1,5 +1,6 @@
 import React from 'react'
 import './EnseignantMain.css'
+import { Link } from 'react-router-dom'
 
 class EnseignantMain extends React.Component {
     render (){
@@ -21,6 +22,12 @@ class EnseignantMain extends React.Component {
                 </div>
 
                 <div className="exams-card">
+                    <div className="enseignant-button">
+                        <Link to='/ajouterexamen'>
+                            <button type="button" class="enseignant-add-button">+</button>
+                        </Link>
+                        
+                    </div>
                     <div class="card text-center">
                         <div class="card-header">
                             Examen 1

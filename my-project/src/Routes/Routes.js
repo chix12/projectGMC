@@ -6,19 +6,23 @@ import EnseignantMain from '../Components/Enseignant/EnseignantMain/EnseignantMa
 import Login from '../Components/Login/Login'
 
 import Modifier from '../Components/Enseignant/Modifier/Modifier'
-import Ajouter from '../Components/Enseignant/Ajouter/Ajouter'
+import Ajouter from '../Components/Enseignant/Ajouter/Ajouter';
+import AjouterEnseignant from '../Components/Admin/Enseignant/AjouterEnseignant';
+import Enseignant from '../Components/Admin/Enseignant/Enseignant';
 
 
 
 const Routes =()=>{
     return (
         <div>
-            <Route exact path='/' component={EnseignantMain}/>
             <Route exact path='/signup' component={SignUp}/>
             <Route exact path='/login' component={Login}/>
-            <Route exact path='/modifier_examen' component={Modifier}/>
-            <Route exact path='/enseignant' component={EnseignantMain}/>
-            <Route exact path='/ajouter_examen' component={Ajouter}/>
+            
+            <Route exact path='/modifier' component={Modifier}/>
+            <Route exact path = '/admin/enseignant' component = {Enseignant} />
+            <Route exact path= '/admin/enseignant/ajouter' component ={AjouterEnseignant}/>
+            <Route exact path = '/enseignant' component={EnseignantMain}/>
+            <Route exact path= '/ajouterexamen' component ={Ajouter}/>
         </div>
     )
 }

@@ -5,10 +5,22 @@
 }
 
 .etudiant-table{
-    width: 60%;
+    width: 70%;
 }
 
 .admin-add-button{
     font-size: 2em;
-    background-image: none;
+    background-color: transparent;
+    border: none;
+    color: grey;
+}
+
+.admin-etudiant-button{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+}
+
+.filtres{
+    margin-top: 50px;
 }
