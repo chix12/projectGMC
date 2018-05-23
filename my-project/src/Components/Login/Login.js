@@ -21,9 +21,13 @@ class Login extends React.Component{
                 
                 <button type="submit" class="btn btn-primary">Login</button>
 
-                <div class="form-group form-signup">
+                <div class="form-signup">
                     <label className='signup-label'>Si vous n'avez pas de compte</label> 
-                    <Link to='/signup'><button type="submit" class="btn btn-success btn-signup">S'inscrire</button> </Link>     
+                    <Link to='/signup' style={{width:'100%'}}>
+                        <div className='login-btn-signup' >
+                            <button type="submit" class="btn btn-success btn-signup">S'inscrire</button> 
+                        </div>
+                    </Link>     
                 </div>
 
             </form>
