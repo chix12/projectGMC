@@ -4,6 +4,7 @@
     font-size: 1.2em;
     text-align: center;
     color : white;
+    padding-top: 20px;
 }
 
 .my-header-user-logout{
@@ -14,11 +15,6 @@
 
 .logout{
     display: flex;
-    justify-content : space-between;
     align-items: baseline;
     margin: 0 50px;
-}
-
-.logout-btn{
-    margin-left: 20px;
 }
