@@ -18,11 +18,11 @@ const Routes =()=>{
             <Route exact path='/signup' component={SignUp}/>
             <Route exact path='/login' component={Login}/>
             
-            <Route exact path='/modifier' component={Modifier}/>
+            <Route exact path='/modifier_examen' component={Modifier}/>
             <Route exact path = '/admin/enseignant' component = {Enseignant} />
             <Route exact path= '/admin/enseignant/ajouter' component ={AjouterEnseignant}/>
             <Route exact path = '/enseignant' component={EnseignantMain}/>
-            <Route exact path= '/ajouterexamen' component ={Ajouter}/>
+            <Route exact path= '/ajouter_examen' component ={Ajouter}/>
         </div>
     )
 }

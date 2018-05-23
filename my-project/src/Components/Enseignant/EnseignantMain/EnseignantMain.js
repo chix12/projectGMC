@@ -1,8 +1,30 @@
 import React from 'react'
 import './EnseignantMain.css'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 class EnseignantMain extends React.Component {
+
+    constructor(props){     
+        super(props)
+        this.state={
+            examList:[],
+           
+        }
+    }
+
+
+    componentDidMount(){
+        axios.get('/exams').then(
+            res =>{
+                this.setState({
+                    examList:res.data
+                })
+            }
+        )
+    
+    
+        }
     render (){
         return (
             <div className="enseignant-main-container">
@@ -28,33 +50,28 @@ class EnseignantMain extends React.Component {
                         </Link>
                         
                     </div>
-                    <div class="card text-center">
-                        <div class="card-header">
-                            Examen 1
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <input type='button' class="btn btn-primary" value="Accéder" />
-                        </div>
-                        <div class="card-footer text-muted">
-                            Durée : 2 heures
-                        </div>
-                    </div>
+
+                    {this.state.examList.map((el,i)=><div key={el._id}>
 
                     <div class="card text-center">
                         <div class="card-header">
-                            Examen 2
+                            Examen {i+1}
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <h5 class="card-title">{el.title}</h5>
+                            <p class="card-text">{el.content}</p>
                             <input type='button' class="btn btn-primary" value="Accéder" />
                         </div>
                         <div class="card-footer text-muted">
-                            Durée : 2 heures
+                            Durée : {el.duree} minutes
                         </div>
                     </div>
+
+
+
+                    </div>)}
+                    
+
                 </div>
                 
             </div>

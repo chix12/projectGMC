@@ -39,3 +39,8 @@ textarea {
     justify-content: space-between;
     height:90px;
 }
+
+.add-examen-title{
+    border-bottom: none;
+    border-top: none
+}
