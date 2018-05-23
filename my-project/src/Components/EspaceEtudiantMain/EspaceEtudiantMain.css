@@ -2,12 +2,27 @@
     
     border: 1px solid #ced4da;
     padding: 50px;
+    background-color: #f8f9fa
+    
 }
-
+.etudiant-main-content{
+    border:1px solid #ced4da ;
+    padding :20px;
+    
+}
+.etudiant-probleme-test-code{
+    display: flex;
+    background-color:white ;
+    
+   
+}
 .etudiant-probleme{
-    border: 1px solid #ced4da;
+   
     height:300px;
     padding:30px;
+    border-left: 1px solid #ced4da;
+    border-right: 1px solid #ced4da;
+   
 }
 
 .etudiant-test{
@@ -17,14 +32,33 @@
 }
 .etudiant-code{
     padding:30px;
-}
+    width: 50%;
+    border-right: 1px solid #ced4da;
+    border-bottom: 1px solid #ced4da;
+    
+
+}    
 
 .etudiant-probleme-test{
     width:50%
 }
-.etudiant-probleme-test-code{
 
-    display: flex;
-   
+.etudiant-buttons{
+    margin-top:20px;
+    display:flex;
+    justify-content: flex-end
+}
+.btn-executer{
+    margin-right:10px
 }
 
+.modal-result{
+    height:200px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.modal-result-points{
+    font-size: 70px;
+    color:#007bff
+}

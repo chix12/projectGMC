@@ -14,11 +14,6 @@
 
 .logout{
     display: flex;
-    justify-content : space-between;
     align-items: baseline;
     margin: 0 50px;
-}
-
-.logout-btn{
-    margin-left: 20px;
 }
