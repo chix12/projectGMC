@@ -18,6 +18,12 @@ class Login extends React.Component{
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Login</button>
+
+                <div class="form-group form-signup">
+                    <label className='signup-label'>Si vous n'avez pas de compte</label> 
+                    <button type="submit" class="btn btn-success btn-signup">S'inscrire</button>      
+                </div>
+
             </form>
       </div>
       )

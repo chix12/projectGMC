@@ -10,9 +10,22 @@
     border: 1px solid #ced4da;
     padding: 30px;
     
-
 }
 
-.form-group{
-   
+
+.form-signup{
+    display: flex;
+    flex-direction: column;
+    margin-top:60px;
+    align-items: center
+}
+
+
+.btn-signup{
+   width: 100%
+}
+
+.signup-label{
+    color:#9E9E9E;
+    font-size:13px
 }
