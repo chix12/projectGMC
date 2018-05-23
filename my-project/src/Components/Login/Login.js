@@ -1,5 +1,7 @@
 import React from 'react'
 import './Login.css'
+import {Link} from 'react-router-dom'
+import SignUp from '../Etudiant/SignUp/SignUp'
 
 
 class Login extends React.Component{
@@ -18,6 +20,12 @@ class Login extends React.Component{
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Login</button>
+
+                <div class="form-group form-signup">
+                    <label className='signup-label'>Si vous n'avez pas de compte</label> 
+                    <Link to='/signup'><button type="submit" class="btn btn-success btn-signup">S'inscrire</button> </Link>     
+                </div>
+
             </form>
       </div>
       )
