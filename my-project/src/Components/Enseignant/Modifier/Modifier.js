@@ -95,6 +95,13 @@ class Modifier extends React.Component {
                         <option>PHP</option>
                         <option>C++</option>
                     </select>
+                    
+                    <select class="form-control" name='matiere' onChange={this.handleChange}>
+                        <option selected disabled>Classe</option>
+                        <option>LFI1</option>
+                        <option>LFI2</option>
+                        <option>LFI3 </option>
+                    </select>
 
                     <input type='datetime-local' className='form-control' onChange={this.change}/>
                 </div>

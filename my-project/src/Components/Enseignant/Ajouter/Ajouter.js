@@ -13,9 +13,6 @@ class Ajouter extends React.Component {
           matiere:'',
           date:'',
           isAdded:false
-
-
-
         }
       }
 
@@ -30,7 +27,7 @@ class Ajouter extends React.Component {
             isAdded:true
         })
         
-     }
+    }
  
      handleChange=(e)=>{
          this.setState({
@@ -42,8 +39,11 @@ class Ajouter extends React.Component {
 
      handleChangeSelect=(e)=>{
          this.setState({matiere:e.target.value})
-     }
+    }
+
     render() {
+        console.log(this.state.date)
+        
         return(
             this.state.isAdded?<Redirect to='/enseignant'/>:
             <div className='add-component-container'>
@@ -59,27 +59,26 @@ class Ajouter extends React.Component {
                     </ul>
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
                     <textarea name="text-ajoute" name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
-                
-                
-    
-                
-                
-                
                 </div>
 
-                <div className='add-component-duree-matiere'>
-                
-
-            
+                <div className='add-component-duree-matiere'>          
                      <input type="text"  class="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree'onChange={this.handleChange}/>
-                     <select class="form-control" onChange={this.handleChangeSelect}>
+                    
+                    <select class="form-control" onChange={this.handleChangeSelect}>
                         <option selected disabled >Matière </option>
                         <option>Java Script</option>
                         <option>PHP</option>
                         <option>C++</option>
                     </select>
 
-                     <input type='datetime-local' className='form-control' name='date'onChange={this.handleChange}/>
+                    <select class="form-control" name='classe' onChange={this.handleChange}>
+                        <option selected disabled>Classe</option>
+                        <option>LFI1</option>
+                        <option>LFI2</option>
+                        <option>LFI3 </option>
+                    </select>
+
+                     <input type='datetime-local' className='form-control' name='date' onChange={this.handleChange}/>
                 </div>
                 <div className='add-component-buttons' >
                     
