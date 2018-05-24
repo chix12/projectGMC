@@ -37,6 +37,7 @@ textarea {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height:150px;
     
 }
 
@@ -46,5 +47,5 @@ textarea {
 }
 .ajouter-duree-input{
     width:400px;
-    margin-bottom: 10px
+    
 }

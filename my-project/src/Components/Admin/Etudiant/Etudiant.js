@@ -1,8 +1,29 @@
 import React from 'react'
 import './Etudiant.css'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 class Etudiant extends React.Component{
+
+    constructor(props){     
+        super(props)
+        this.state={
+            etudiantList:[],
+            
+           
+        }
+    }
+
+
+    componentDidMount(){
+        axios.get('/enseignants').then(
+            res =>{
+                this.setState({
+                    etudiantList:res.data
+                })
+            }
+        )
+    }
     render(){
         return(
             <div className="etudiant-container">
@@ -48,6 +69,9 @@ class Etudiant extends React.Component{
                             </tr>
                         </thead>
                         <tbody>
+
+                            {this.state.etudiantList.map(el=>{
+                                return (
                             <tr>
                                 <th scope="row">1</th>
                                 <td>John</td>
@@ -58,26 +82,10 @@ class Etudiant extends React.Component{
                                 <td>123456</td>
 
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Baklouti</td>
-                                <td>Nada</td>
-                                <td>LFI2</td>
-                                <td>XXXY</td>
-                                <td>Bak@nada.com</td>
-                                <td>XXXX</td>
+                                )
+                            })}
+                            
 
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Chaima</td>
-                                <td>Zelaiti</td>
-                                <td>LFI3</td>
-                                <td>XXYY</td>
-                                <td>Zel@chaima.com</td>
-                                <td>XXXX</td>
-
-                            </tr>
                         </tbody>
                     </table>
                     

@@ -60,10 +60,17 @@ class Modifier extends React.Component {
 
          
       }
+
+
+      change=(e)=>{
+          console.log(String(e.target.value).split('T'))
+          
+      }
     
     render() {
         
         return(
+            
             this.state.isModified?<Redirect to='/enseignant'/>:
             <div className='edit-component-container'>
                 <h1 className="edit-component-header"> Modifier Examen</h1>
@@ -88,6 +95,8 @@ class Modifier extends React.Component {
                         <option>PHP</option>
                         <option>C++</option>
                     </select>
+
+                    <input type='datetime-local' className='form-control' onChange={this.change}/>
                 </div>
 
                 <div className='edit-component-buttons' >

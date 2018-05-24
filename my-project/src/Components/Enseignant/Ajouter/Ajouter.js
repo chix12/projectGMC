@@ -11,7 +11,8 @@ class Ajouter extends React.Component {
           content:'',
           duree:0,
           matiere:'',
-          isModified:false
+          date:'',
+          isAdded:false
 
 
 
@@ -19,14 +20,14 @@ class Ajouter extends React.Component {
       }
 
       addExamen=()=>{
-        let obj={title:this.state.title,content:this.state.content,duree:this.state.duree,matiere:this.state.matiere}
+        let obj={title:this.state.title,content:this.state.content,duree:this.state.duree,matiere:this.state.matiere,date:this.state.date}
         
         axios.post('/add_examen',obj).catch((error) =>{
             console.log(error);
           });
 
           this.setState({
-            isModified:true
+            isAdded:true
         })
         
      }
@@ -44,7 +45,7 @@ class Ajouter extends React.Component {
      }
     render() {
         return(
-            this.state.isModified?<Redirect to='/enseignant'/>:
+            this.state.isAdded?<Redirect to='/enseignant'/>:
             <div className='add-component-container'>
                 <h1 className="add-component-header"> Ajouter Examen</h1>
                 <div className='add-component-main'>
@@ -77,12 +78,13 @@ class Ajouter extends React.Component {
                         <option>PHP</option>
                         <option>C++</option>
                     </select>
+
+                     <input type='datetime-local' className='form-control' name='date'onChange={this.handleChange}/>
                 </div>
                 <div className='add-component-buttons' >
-                    <Link to='/enseignant'>
-                    <button type="button" class="btn btn-primary add-button" onClick={this.addExamen}>Ajouter</button>
-                    </Link>
                     
+                    <button type="button" class="btn btn-primary add-button" onClick={this.addExamen}>Ajouter</button>
+                   
                     <Link to='/enseignant'>
                       <button type="button" class="btn btn-secondary add-button">Ignorer</button>
                     </Link>

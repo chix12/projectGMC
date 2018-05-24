@@ -1,10 +1,32 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import axios from 'axios'
 import './Enseignant.css'
 
 class Enseignant extends React.Component{
+
+    constructor(props){     
+        super(props)
+        this.state={
+            enseignantList:[],
+            
+           
+        }
+    }
+
+
+    componentDidMount(){
+        axios.get('/enseignants').then(
+            res =>{
+                this.setState({
+                    enseignantList:res.data
+                })
+            }
+        )
+    }
+
     render(){
+        
         return(
             <div className="enseignant-container">
                 <div className='enseignant-table'>
@@ -32,28 +54,22 @@ class Enseignant extends React.Component{
                                     <th scope="col">Nom</th>
                                     <th scope="col">Prenom</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Mot de passe</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">John</th>
-                                    <td>Doe</td>
-                                    <td>John@Doe.com</td>
-                                    <td>XXXXX</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Baklouti</th>
-                                    <td>Nada</td>
-                                    <td>Bak@nada.com</td>
-                                    <td>XXXXX</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Chaima</th>
-                                    <td>Zelaiti</td>
-                                    <td>Zel@chaima.com</td>
-                                    <td>XXXXX</td>
-                                </tr>
+                                {this.state.enseignantList.map(el=>{
+                                    return (
+                                    <tr>
+                                        <th scope="row">{el.nom}</th>
+                                        <td>{el.prenom}</td>
+                                        <td>{el.email}</td>
+                                        
+                                    </tr>
+                                    )
+                                })}
+                                
+                                
                             </tbody>
                         </table>
                     </div>
