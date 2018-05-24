@@ -1,6 +1,7 @@
 import React from 'react'
 import './Enseignant.css'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 class AjouterEnseignant extends React.Component{
 
@@ -59,8 +60,8 @@ class AjouterEnseignant extends React.Component{
                     </div>
                 </div>
                 <div className='buttons'>
-                <button type="submit" class="btn btn-primary" onClick={this.addEnseignant}>Ajouter</button>
-                <button type="submit" class="btn btn-secondary btn-retour">Retour</button>
+                <button type="button" class="btn btn-primary" onClick={this.addEnseignant}>Ajouter</button>
+                <Link to='/enseignant_list'><button type="button" class="btn btn-secondary btn-retour">Retour</button></Link>
                 </div>
 
             </form>

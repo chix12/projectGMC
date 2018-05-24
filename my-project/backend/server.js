@@ -90,6 +90,20 @@ MongoClient.connect(mongo_url,(err,client)=>{
 	})
 	
 
+	app.get('/enseignant/:id', (req, res) => {
+		const id = ObjectID(req.params.id)
+
+		db.collection('Enseignant').findOne({ "_id": id }, (err, data) => {
+			if (err) {
+				res.send('notfound')
+			}
+			else {
+				res.send(data)
+			}
+		})
+	})
+   
+
 	app.get('/exams',(req,res)=>{
 		db.collection('Examen').find().toArray((err,data)=>{
 			if(err) {
@@ -139,6 +153,21 @@ MongoClient.connect(mongo_url,(err,client)=>{
 			}
 			else{
 				res.send('examen updated')
+			}
+		})
+	})
+
+
+	app.put('/enseignant/:id',(req,res)=>{
+		const id=ObjectID(req.params.id)
+		const updatedInformation=req.body
+
+		db.collection('Enseignant').findOneAndUpdate({"_id":id},{...updatedInformation},(err,data)=>{
+			if(err) {
+				res.send('notfound')
+			}
+			else{
+				res.send('enseignant updated')
 			}
 		})
 	})

@@ -32,7 +32,7 @@ const Routes =()=>{
             <Route exact path='/enseignant_list' component={Enseignant} />
             <Route exact path='/admin/enseignant/ajouter' component={AjouterEnseignant} />
             <Route exact path='/delete_exam' render={()=><Redirect to='/enseignant'/>} />
-            <Route exact path='/modifier_enseignant' component={ModifierEnseignant}/>
+            <Route exact path='/modifier_enseignant/:id' render={(props)=><ModifierEnseignant {...props}/>} />
 
 
         </div>
