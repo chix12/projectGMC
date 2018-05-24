@@ -16,7 +16,7 @@ class Etudiant extends React.Component{
 
 
     componentDidMount(){
-        axios.get('/enseignants').then(
+        axios.get('/etudiants').then(
             res =>{
                 this.setState({
                     etudiantList:res.data
@@ -65,7 +65,7 @@ class Etudiant extends React.Component{
                                 <th scope="col">Classe</th>
                                 <th scope="col">Voucher</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Mot de passe</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -73,13 +73,13 @@ class Etudiant extends React.Component{
                             {this.state.etudiantList.map(el=>{
                                 return (
                             <tr>
-                                <th scope="row">1</th>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>LFI1</td>
-                                <td>XXXX</td>
-                                <td>John@Doe.com</td>
-                                <td>123456</td>
+                                <th scope="row">{el.numInscri}</th>
+                                <td>{el.nom}</td>
+                                <td>{el.prenom}</td>
+                                <td>{el.classe}</td>
+                                <td>{el.voucher}</td>
+                                <td>{el.email}</td>
+                                
 
                             </tr>
                                 )

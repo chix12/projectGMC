@@ -37,7 +37,7 @@
     margin: 20px;
 }
 /*********************************************************************************************************/
-.signup{
+.add-enseignant,.edit-enseignant{
     width:100%;
     display: flex;
     margin-top: 50px;
@@ -46,8 +46,13 @@
     align-items: center;
 }
 
-.signup-form{
+.add-form,.edit-form{
     border: 1px solid #ced4da; 
     width:500px;
     padding: 50px;
+}
+
+.btn-retour{
+    width:100%;
+    margin-top: 10px;
 }

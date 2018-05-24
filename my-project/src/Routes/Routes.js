@@ -14,6 +14,8 @@ import AjouterEnseignant from '../Components/Admin/Enseignant/AjouterEnseignant'
 import Enseignant from '../Components/Admin/Enseignant/Enseignant';
 import Etudiant from '../Components/Admin/Etudiant/Etudiant';
 
+import ModifierEnseignant from '../Components/Admin/Enseignant/ModifierEnseignant';
+
 
 
 const Routes =()=>{
@@ -30,6 +32,7 @@ const Routes =()=>{
             <Route exact path='/enseignant_list' component={Enseignant} />
             <Route exact path='/admin/enseignant/ajouter' component={AjouterEnseignant} />
             <Route exact path='/delete_exam' render={()=><Redirect to='/enseignant'/>} />
+            <Route exact path='/modifier_enseignant' component={ModifierEnseignant}/>
 
 
         </div>

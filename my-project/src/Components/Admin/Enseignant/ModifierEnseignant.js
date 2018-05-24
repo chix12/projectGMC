@@ -2,7 +2,7 @@ import React from 'react'
 import './Enseignant.css'
 import axios from 'axios'
 
-class AjouterEnseignant extends React.Component{
+class ModifierEnseignant extends React.Component{
 
     constructor(props){
         super(props)
@@ -16,7 +16,7 @@ class AjouterEnseignant extends React.Component{
         }
       }
 
-      addEnseignant=()=>{
+      editEnseignant=()=>{
         axios.post('/add_enseignant',{...this.state}).catch((error) =>{
             console.log(error);
           });
@@ -33,9 +33,9 @@ class AjouterEnseignant extends React.Component{
 
     render(){
         return(
-            <div className='add-enseignant'>
-            <form className='add-form'>
-                <h1 className='signup-title'>Ajouter un enseignant </h1>
+            <div className='edit-enseignant'>
+            <form className='edit-form'>
+                <h1 className='signup-title'>Modifier Enseignant </h1>
                 <div className='signup-inputs' >
                     <div class="form-group row" >
                         <div class="col-sm-10" >
@@ -52,11 +52,7 @@ class AjouterEnseignant extends React.Component{
                             <input type="text" class="form-control signup-input" name='email' onChange={this.handleChange} placeholder="Email" autoComplete='off' />
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control signup-input" name='password' onChange={this.handleChange} placeholder="mot de passe" autoComplete='off'/>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div className='buttons'>
                 <button type="submit" class="btn btn-primary" onClick={this.addEnseignant}>Ajouter</button>
@@ -69,4 +65,4 @@ class AjouterEnseignant extends React.Component{
     }
 }
 
-export default AjouterEnseignant  
+export default ModifierEnseignant  

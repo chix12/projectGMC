@@ -64,6 +64,7 @@ class Enseignant extends React.Component{
                                         <th scope="row">{el.nom}</th>
                                         <td>{el.prenom}</td>
                                         <td>{el.email}</td>
+                                        <Link to='/modifier_enseignant'><td><i className="far fa-edit"></i></td></Link>
                                         
                                     </tr>
                                     )

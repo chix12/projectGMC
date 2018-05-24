@@ -9,6 +9,7 @@ class SignUp extends React.Component{
         this.state={
           prenom:'',
           nom:'',
+          numInscri:'',
           email:'',
           password:'',
           classe:'',
@@ -47,7 +48,17 @@ class SignUp extends React.Component{
                     <div class="col-sm-10">
                         <input type="text"  class="form-control signup-input" name='nom'  onChange={this.handleChange} placeholder="Nom" autocomplete="off"/>
                     </div>
-                </div>      
+                </div>  
+
+
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input type="text"  class="form-control signup-input" name='numInscri'  onChange={this.handleChange} placeholder="N° Inscri" autocomplete="off"/>
+                    </div>
+                </div>  
+                
+                    
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <input type="text"  class="form-control signup-input" name='email' onChange={this.handleChange} placeholder="Email" autocomplete="off"/>
@@ -55,7 +66,7 @@ class SignUp extends React.Component{
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input type="password" class="form-control signup-input" name='password'  onChange={this.handleChange} placeholder="mot de passe" autocomplete="off"/>
+                        <input type="password" class="form-control signup-input" name='password'  onChange={this.handleChange} placeholder="Mot de passe" autocomplete="off"/>
                     </div>
                 </div>
                 <div class="form-group row">

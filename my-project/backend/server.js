@@ -102,6 +102,20 @@ MongoClient.connect(mongo_url,(err,client)=>{
 	})
 
 
+	app.get('/etudiant/:id',(req,res)=>{
+		const id=ObjectID(req.params.id)
+
+		db.collection('Etudiant').findOne({"_id":id},(err,data)=>{
+			if(err) {
+				res.send('notfound')
+			}
+			else{
+				res.send(data)
+			}
+		})
+	})
+
+
 	app.put('/examen/:id',(req,res)=>{
 		const id=ObjectID(req.params.id)
 		const updatedInformation=req.body
