@@ -95,8 +95,8 @@ class Modifier extends React.Component {
                         <option>PHP</option>
                         <option>C++</option>
                     </select>
-                    
-                    <select class="form-control" name='matiere' onChange={this.handleChange}>
+
+                    <select class="form-control" name='classe' onChange={this.handleChange}>
                         <option selected disabled>Classe</option>
                         <option>LFI1</option>
                         <option>LFI2</option>

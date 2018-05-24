@@ -11,6 +11,7 @@ class Ajouter extends React.Component {
           content:'',
           duree:0,
           matiere:'',
+          classe:'',
           date:'',
           isAdded:false
         }
@@ -36,11 +37,6 @@ class Ajouter extends React.Component {
         
      }
 
-
-     handleChangeSelect=(e)=>{
-         this.setState({matiere:e.target.value})
-    }
-
     render() {
         console.log(this.state.date)
         
@@ -64,7 +60,7 @@ class Ajouter extends React.Component {
                 <div className='add-component-duree-matiere'>          
                      <input type="text"  class="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree'onChange={this.handleChange}/>
                     
-                    <select class="form-control" onChange={this.handleChangeSelect}>
+                    <select class="form-control" name='matiere' onChange={this.handleChange}>
                         <option selected disabled >Matière </option>
                         <option>Java Script</option>
                         <option>PHP</option>
