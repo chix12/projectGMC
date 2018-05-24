@@ -86,11 +86,48 @@ MongoClient.connect(mongo_url,(err,client)=>{
 				res.send(data)
 			}
 		})
-    })
+	})
+	
+	app.get('/examen/:id',(req,res)=>{
+		const id=ObjectID(req.params.id)
+
+		db.collection('Examen').findOne({"_id":id},(err,data)=>{
+			if(err) {
+				res.send('notfound')
+			}
+			else{
+				res.send(data)
+			}
+		})
+	})
 
 
+	app.put('/examen/:id',(req,res)=>{
+		const id=ObjectID(req.params.id)
+		const updatedInformation=req.body
+
+		db.collection('Examen').findOneAndUpdate({"_id":id},{...updatedInformation},(err,data)=>{
+			if(err) {
+				res.send('notfound')
+			}
+			else{
+				res.send('examen updated')
+			}
+		})
+	})
 
 
+	app.delete('/examen/:id',(req,res)=>{
+		const id=ObjectID(req.params.id)
+		db.collection('Examen').findOneAndDelete({"_id":id},(err,data)=>{
+			if(err) {
+				res.send('not found')
+			}
+			else{
+				res.send('examen removed')
+			}
+		})
+})
 
     
 

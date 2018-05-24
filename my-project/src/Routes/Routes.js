@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route} from 'react-router-dom'
+import {Route,Redirect} from 'react-router-dom'
 
 import Login from '../Components/Login/Login'
 import SignUp from '../Components/Etudiant/SignUp/SignUp'
@@ -22,13 +22,15 @@ const Routes =()=>{
             <Route exact path='/' component={Login} />
             <Route exact path='/signup' component={SignUp}/>
             <Route exact path = '/enseignant' component={EnseignantMain}/>
-            <Route exact path='/modifier_examen' component={Modifier} />
+            <Route exact path='/modifier_examen/:id' render={(props)=><Modifier {...props}/>} />
             <Route exact path='/etudiant' component= {EtudiantMain} />
             <Route exact path= '/ajouter_examen' component ={Ajouter}/>
             <Route exact path= '/admin' component={Enseignant}/>
             <Route exact path= '/etudiant_list' component = {Etudiant} />
             <Route exact path='/enseignant_list' component={Enseignant} />
             <Route exact path='/admin/enseignant/ajouter' component={AjouterEnseignant} />
+            <Route exact path='/delete_exam' render={()=><Redirect to='/enseignant'/>} />
+
 
         </div>
     )

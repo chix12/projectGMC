@@ -1,6 +1,16 @@
+.edit-component-container{
+    display: flex;
+    flex-direction: column; 
+    align-items: center
+
+}
+
 .edit-component-main{
     display: flex;
     flex-direction: column; 
+    
+
+    width:800px;
 }
 
 .edit-component-header{
@@ -21,5 +31,21 @@
 }
 
 textarea {
-  height: 300px;
+    height: 300px;
+}
+
+.edit-examen-title{
+    border-bottom: none;
+    border-top: none
+}
+
+.modifier-duree-input{
+    width:400px
+}
+.edit-component-duree-matiere{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height:90px;
 }

@@ -1,12 +1,16 @@
 .enseignant-main-container{
     display: flex;
-    justify-content : space-around;
+    justify-content: space-around;
     margin: 20px;
-
+    
 } 
 
-.exams-card{
-    width: 60%
+.exams{
+    width: 60%;
+    
+}
+.examen-card{
+    margin-bottom: 50px
 }
 
 .enseignant-add-button{
@@ -20,4 +24,19 @@
     display: flex;
     justify-content: flex-end;
     
+}
+
+.filters{
+    border:1px solid rgba(0,0,0,.125);
+    padding:40px;
+    margin-top:50px;
+    width:300px
+}
+.filter-matiere{
+    margin-bottom: 20px;
+    margin-top: 20px
+}
+
+.enseignant-input-search{
+    margin-top:30px
 }

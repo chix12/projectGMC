@@ -1,6 +1,6 @@
 import React from 'react'
 import './Ajouter.css'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 class Ajouter extends React.Component {
@@ -11,6 +11,7 @@ class Ajouter extends React.Component {
           content:'',
           duree:0,
           matiere:'',
+          isModified:false
 
 
 
@@ -18,9 +19,16 @@ class Ajouter extends React.Component {
       }
 
       addExamen=()=>{
-        axios.post('/add_examen',{...this.state}).catch((error) =>{
+        let obj={title:this.state.title,content:this.state.content,duree:this.state.duree,matiere:this.state.matiere}
+        
+        axios.post('/add_examen',obj).catch((error) =>{
             console.log(error);
           });
+
+          this.setState({
+            isModified:true
+        })
+        
      }
  
      handleChange=(e)=>{
@@ -36,6 +44,7 @@ class Ajouter extends React.Component {
      }
     render() {
         return(
+            this.state.isModified?<Redirect to='/enseignant'/>:
             <div className='add-component-container'>
                 <h1 className="add-component-header"> Ajouter Examen</h1>
                 <div className='add-component-main'>
@@ -49,14 +58,24 @@ class Ajouter extends React.Component {
                     </ul>
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
                     <textarea name="text-ajoute" name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
+                
+                
+    
+                
+                
+                
                 </div>
 
                 <div className='add-component-duree-matiere'>
-                     <input type="text"  class="form-control signup-input" id="staticEmail" placeholder="Durée" name='duree'onChange={this.handleChange}/>
+                
+
+            
+                     <input type="text"  class="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree'onChange={this.handleChange}/>
                      <select class="form-control" onChange={this.handleChangeSelect}>
-                        <option>Matière 1</option>
-                        <option>Matière 2</option>
-                        <option>Matière 3</option>
+                        <option selected disabled >Matière </option>
+                        <option>Java Script</option>
+                        <option>PHP</option>
+                        <option>C++</option>
                     </select>
                 </div>
                 <div className='add-component-buttons' >
