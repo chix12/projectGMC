@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 const Header = () => {
     return (
-    <nav class="navbar navbar-dark">
+    <nav class="navbar navbar-dark header">
             <p className="navbar-brand" href="#"> 
                 <span className='grey-text'>Espace Enseignant / Etudiant </span>
             </p>
