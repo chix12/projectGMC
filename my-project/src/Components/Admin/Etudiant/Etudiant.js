@@ -8,9 +8,7 @@ class Etudiant extends React.Component{
     constructor(props){     
         super(props)
         this.state={
-            etudiantList:[],
-            
-           
+            etudiantList:[],           
         }
     }
 
@@ -79,7 +77,7 @@ class Etudiant extends React.Component{
                                 <td>{el.classe}</td>
                                 <td>{el.voucher}</td>
                                 <td>{el.email}</td>
-                                
+                                <Link to={`/modifier_etudiant/${el._id}`}><td><i className="far fa-edit" ></i></td></Link>
 
                             </tr>
                                 )

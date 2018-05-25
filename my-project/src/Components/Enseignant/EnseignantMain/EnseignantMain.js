@@ -37,7 +37,6 @@ class EnseignantMain extends React.Component {
     deleteMatiere=(id)=>{
         console.log(id)
         axios.delete("/examen/"+id).catch(err=>console.log(err))
-        
         this.setState({isDeleted:true})
     }
 

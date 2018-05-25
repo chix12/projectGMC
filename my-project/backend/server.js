@@ -161,13 +161,25 @@ MongoClient.connect(mongo_url,(err,client)=>{
 	app.put('/enseignant/:id',(req,res)=>{
 		const id=ObjectID(req.params.id)
 		const updatedInformation=req.body
-
 		db.collection('Enseignant').findOneAndUpdate({"_id":id},{...updatedInformation},(err,data)=>{
 			if(err) {
 				res.send('notfound')
 			}
 			else{
 				res.send('enseignant updated')
+			}
+		})
+	})
+
+	app.put('/etudiant/:id', (req, res) => {
+		const id = ObjectID(req.params.id)
+		const updatedInformation = req.body
+		db.collection('Etudiant').findOneAndUpdate({ "_id": id }, { ...updatedInformation }, (err, data) => {
+			if (err) {
+				res.send('notfound')
+			}
+			else {
+				res.send('etudiant updated')
 			}
 		})
 	})

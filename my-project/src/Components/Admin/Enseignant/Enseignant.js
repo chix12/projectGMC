@@ -25,6 +25,9 @@ class Enseignant extends React.Component{
         )
     }
 
+    modifierEnseignant(value){
+        axios.put('/enseignant/:id' + this.props.match.params.id, { ...value })
+    }
     render(){
         
         return(
@@ -64,8 +67,7 @@ class Enseignant extends React.Component{
                                         <th scope="row">{el.nom}</th>
                                         <td>{el.prenom}</td>
                                         <td>{el.email}</td>
-                                        <Link to={`/modifier_enseignant/${el._id}`}><td><i className="far fa-edit"></i></td></Link>
-                                        
+                                            <Link to={`/modifier_enseignant/${el._id}`}><td><i className="far fa-edit" ></i></td></Link>
                                     </tr>
                                     )
                                 })}

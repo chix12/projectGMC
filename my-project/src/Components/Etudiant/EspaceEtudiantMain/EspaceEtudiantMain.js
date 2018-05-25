@@ -2,7 +2,7 @@ import React from 'react'
 import './EspaceEtudiantMain.css'
 import ModalComponent from './ModalComponent'
 import axios from 'axios'
-
+import Timer from './Timer'
 
 class EspaceEtudiantMain extends React.Component{
 
@@ -11,7 +11,8 @@ class EspaceEtudiantMain extends React.Component{
         this.state = {
             exams :[] , 
             etudiant : {},
-            date : new Date()
+            date : new Date(),
+            duree : 0,
         }
     }
 
@@ -33,7 +34,6 @@ class EspaceEtudiantMain extends React.Component{
             }
         )
     }
-
    
     render(){
 
@@ -47,20 +47,16 @@ class EspaceEtudiantMain extends React.Component{
         return (
         <div className='etudiant-main' >
 
-          {this.state.exams.filter(el=>el.classe === this.state.etudiant.classe && el.date === currentTime)
+          {this.state.exams.filter(el=>el.classe === this.state.etudiant.classe && el.date !== currentTime)
                 .map(el=>{return (
 
             <div className='etudiant-main-content'>
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">{el.title}</a>
-                    </li>
-    
-                    
+                    </li>                    
                 </ul>
-
-
-              
+                        <Timer minutes = {el.duree} />          
 
                     <div className='etudiant-probleme-test-code'>
                     <div className='etudiant-probleme-test'>
@@ -82,20 +78,12 @@ class EspaceEtudiantMain extends React.Component{
 
                 </div> 
                
-
-
-
-
                 <div className='etudiant-buttons'>  
                     <button type="button" class="btn btn-outline-primary btn-executer">Exécuter les tests</button>
                     <button type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal">Valider</button>
 
                   <ModalComponent/> 
                 </div>
-    
-
-               
-
                
             </div>
 
