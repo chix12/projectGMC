@@ -72,7 +72,7 @@ class EnseignantMain extends React.Component {
                     </div>
 
                     {this.state.examList
-                    .filter(el=>el.matiere.includes(this.state.matiere)&&el.title.includes(this.state.title))
+                    .filter(el=>el.matiere.includes(this.state.matiere)&&el.title.toUpperCase().includes(this.state.title.toUpperCase()))
                     
                     .map(el=>{
                     return (

@@ -9,6 +9,8 @@ class Etudiant extends React.Component{
         super(props)
         this.state={
             etudiantList:[],
+            nameFiltred:'',
+            classeFiltred:''
             
            
         }
@@ -24,27 +26,35 @@ class Etudiant extends React.Component{
             }
         )
     }
+
+
+    handleChange=(e)=>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
     render(){
+        console.log({...this.state})
         return(
             <div className="etudiant-container">
-                <div className="filtres" >
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Classes</option>
-                        <option value="1">LFI1</option>
-                        <option value="2">LFI2</option>
-                        <option value="3">LFI3</option>
+                <div className="etudiant-filtres" >
+                    <h4>Recherche </h4>
+                    <input type="text"  class="form-control enseignant-input-search" placeholder="Nom et prénom" name='nameFiltred' onChange={this.handleChange} autoComplete='off'/>
+                
+                    <select class="custom-select select-classe" name='classeFiltred' onChange={this.handleChange}>
+                        <option selected disabled value=''>Classes</option>
+                        <option value=''>Tous</option>
+                        <option>LFI1</option>
+                        <option>LFI2</option>
+                        <option>LFI3</option>
                     </select>
 
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Groupes</option>
-                        <option value="1">G1</option>
-                        <option value="2">G2</option>
-                        <option value="3">G3</option>
-                    </select>
+                   
                 </div>
+
                 <div className='etudiant-table'>
-                    <div className="admin-etudiant-button">
-                        <button type="button" class="admin-add-button">+</button>
+                    <div className="admin-etudiant-button" style={{visibility:'hidden'}}>
+                        <button type="button" class="admin-add-button" >+</button>
                     </div>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
@@ -70,7 +80,16 @@ class Etudiant extends React.Component{
                         </thead>
                         <tbody>
 
-                            {this.state.etudiantList.map(el=>{
+                            {this.state.etudiantList
+                            
+                              .filter( el=>(
+                                
+                                (el.nom.toLowerCase().includes(this.state.nameFiltred.toLowerCase()) ||
+                                el.prenom.toLowerCase().includes(this.state.nameFiltred.toLowerCase()))  &&
+                                el.classe.toLowerCase().includes(this.state.classeFiltred.toLowerCase())
+                              )
+                            )
+                            .map(el=>{
                                 return (
                             <tr>
                                 <th scope="row">{el.numInscri}</th>

@@ -143,6 +143,32 @@ MongoClient.connect(mongo_url,(err,client)=>{
 	})
 
 
+	
+	app.get('/etudiant/:email/:password',(req,res)=>{
+		
+		db.collection('Etudiant').findOne({"email":req.params.email,"password":req.params.password},(err,data)=>{
+			if(err) {
+				res.send('notfound')
+			}
+			else{
+				res.send(data)
+			}
+		})
+	})
+
+	app.get('/enseignant/:email/:password',(req,res)=>{
+		
+		db.collection('Enseignant').findOne({"email":req.params.email,"password":req.params.password},(err,data)=>{
+			if(err) {
+				res.send('notfound')
+			}
+			else{
+				res.send(data)
+			}
+		})
+	})
+
+
 	app.put('/examen/:id',(req,res)=>{
 		const id=ObjectID(req.params.id)
 		const updatedInformation=req.body
