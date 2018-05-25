@@ -13,10 +13,13 @@ class EspaceEtudiantMain extends React.Component{
             etudiant : {},
             date : new Date(),
             duree : 0,
+            exam:{}
             
             
         }
     }
+
+
 
     componentDidMount () {
         axios.get('/etudiant/'+this.props.match.params.id).then(
@@ -24,19 +27,23 @@ class EspaceEtudiantMain extends React.Component{
                 this.setState({
                     etudiant: res.data,
                 })
-                console.log(this.state.etudiant.classe)
-                axios.get(`exam/${this.state.etudiant.classe}/${this.getDate(this.state.date)}`).then(
-                    res => {
-                        this.setState({
-                            exam: res.data
-                        })
-                        console.log(res.data)
-                    }
-                )
                 
-            }
-        )
+               let d=this.getDate(this.state.date)
+              
+               //this.getExam(this.state.etudiant.classe,d)
+
+               axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
+                res => {
+                    this.setState({
+                        exam: res.data,
+                    })
+                }
+            )
+        }
+    )
     }
+       
+    
 
 
     getDate=(date)=>{
@@ -62,42 +69,45 @@ class EspaceEtudiantMain extends React.Component{
         <div className='etudiant-main' >
         <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>
 
-        {this.state.exam?            <div className='etudiant-main-content'>
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">{this.state.exam.title}</a>
-                    </li>                    
-                </ul>
-                        <Timer minutes = {this.state.exam.duree} />          
 
-                    <div className='etudiant-probleme-test-code'>
-                    <div className='etudiant-probleme-test'>
-                        <div className='etudiant-probleme'>
 
-                            <h3>Enoncé </h3>{this.state.exam.content}
-                        </div>
+{this.state.exam ?        <div className='etudiant-main-content'>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="#">{this.state.exam.title}</a>
+    </li>                    
+</ul>
+        <Timer minutes = {this.state.exam.duree} />          
 
-                        <div className='etudiant-test'>
+    <div className='etudiant-probleme-test-code'>
+    <div className='etudiant-probleme-test'>
+        <div className='etudiant-probleme'>
 
-                            <h3>Test </h3>
-                        </div>
-                    </div>
+            <h3>Enoncé </h3>{this.state.exam.content}
+        </div>
 
-                    <div className='etudiant-code'>
-                        <h3>Code </h3>
-                        <code contenteditable="true" >//write your code here</code>
-                    </div>
+        <div className='etudiant-test'>
 
-                </div> 
-               
-                <div className='etudiant-buttons'>  
-                    <button type="button" class="btn btn-outline-primary btn-executer">Exécuter les tests</button>
-                    <button type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal">Valider</button>
+            <h3>Test </h3>
+        </div>
+    </div>
 
-                  <ModalComponent/> 
-                </div>
-               
-            </div>:""}
+    <div className='etudiant-code'>
+        <h3>Code </h3>
+        <code contenteditable="true" >//write your code here</code>
+    </div>
+
+</div> 
+
+<div className='etudiant-buttons'>  
+    <button type="button" class="btn btn-outline-primary btn-executer">Exécuter les tests</button>
+    <button type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal">Valider</button>
+
+  <ModalComponent/> 
+</div>
+
+</div> : ""}
+
 
 
 </div>

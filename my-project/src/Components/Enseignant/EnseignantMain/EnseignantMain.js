@@ -11,7 +11,8 @@ class EnseignantMain extends React.Component {
             examList:[],
             matiere:'',
             title:'',
-            isDeleted:false
+            isDeleted:false,
+            enseignant:{}
            
         }
     }
@@ -25,6 +26,15 @@ class EnseignantMain extends React.Component {
                 })
             }
         )
+
+        axios.get('/enseignant/'+this.props.match.params.id).then(
+            res =>{
+                this.setState({
+                    enseignant:res.data
+                })
+
+            }
+        )
     }
 
     handleChange=(e)=>{
@@ -35,7 +45,7 @@ class EnseignantMain extends React.Component {
 
 
     deleteMatiere=(id)=>{
-        console.log(id)
+        
         axios.delete("/examen/"+id).catch(err=>console.log(err))
         this.setState({isDeleted:true})
     }
@@ -47,6 +57,7 @@ class EnseignantMain extends React.Component {
             <div className="enseignant-main-container">
                 <div className = "filters" >
                     <h4>Recherche </h4>
+                    <p>{this.state.enseignant.prenom} {this.state.enseignant.nom}</p>
                     <input type="text"  class="form-control enseignant-input-search" placeholder="Titre" name='title' onChange={this.handleChange} autoComplete='off'/>
                   
                   <select class="custom-select filter-matiere"  name='matiere'onChange={this.handleChange}>
@@ -62,31 +73,40 @@ class EnseignantMain extends React.Component {
                      </select>
                 </div>
 
+               
                 <div className="exams">
                     <div className="enseignant-button">
-                        <Link to='/ajouter_examen'>
+                        <Link to={`/ajouter_examen/${this.state.enseignant._id}}`}>
                             <button type="button" class="enseignant-add-button">+</button>
                         </Link>
                         
                     </div>
 
                     {this.state.examList
-                    .filter(el=>el.matiere.includes(this.state.matiere)&&el.title.toUpperCase().includes(this.state.title.toUpperCase()))
-                    
-                    .map(el=>{
+                    .filter(el=>el.matiere.includes(this.state.matiere) && 
+                    el.title.toUpperCase().includes(this.state.title.toUpperCase())&&
+                    el.idEnseignant===this.state.enseignant._id
+
+
+
+
+
+
+
+                )
+                  
+                .map(el=>{
                     return (
-                        
                         <div key={el._id} className='examen-card'>
                             <div class="card text-center">
                                 <div class="card-header">
                                     {el.matiere}
                                 </div>
-                                <div class="card-body">
-                                    
-                                        <h5 class="card-title">{el.title}</h5>
-                                        <Link to='/delete_exam'><input type='button'value='X' style={{background:'none',border:'none',color:'gray', position:'absolute', top:60,right:20}} 
-                                        onClick={()=>this.deleteMatiere(el._id)}/></Link>
-                                    
+                                <div class="card-body"> 
+                                    <h5 class="card-title">{el.title}</h5>
+                                    <Link to='/delete_exam'><input type='button'value='X' style={{background:'none',border:'none',color:'gray', position:'absolute', top:60,right:20}} 
+                                    onClick={()=>this.deleteMatiere(el._id)}/></Link>
+                                
                                     <p class="card-text">{el.content}</p>
                                     <Link to={`/modifier_examen/${el._id}`}>
                                         <input type='button' class="btn btn-primary" value="Accéder" />

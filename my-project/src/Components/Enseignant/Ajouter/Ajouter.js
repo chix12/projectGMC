@@ -13,10 +13,28 @@ class Ajouter extends React.Component {
           matiere:'',
           classe:'',
           date:'',
+          idEnseignant:this.props.match.params.id.slice(0,-1),
           isAdded:false
         }
       }
-      // 2018-05-25T22:58
+      
+      componentDidMount(){
+        console.log('hey',this.state.idEnseignant)
+        axios.get('/enseignant/'+this.state.idEnseignant).then(
+            res =>{
+                this.setState({
+                    enseignant:res.data
+                })
+
+
+                console.log('ens',res.data)
+
+            }
+        )
+    }
+
+
+
 
       FormatDate = (date) => {
         let myDateTab = String(date).split('T')
@@ -32,8 +50,9 @@ class Ajouter extends React.Component {
                 duree:this.state.duree,
                 classe:this.state.classe,
                 matiere:this.state.matiere,
+                idEnseignant:this.state.idEnseignant,
                 date:date}
-        console.log(obj)
+       
         axios.post('/add_examen',obj).catch((error) =>{
             console.log(error);
           });
@@ -52,10 +71,8 @@ class Ajouter extends React.Component {
      }
 
     render() {
-        //console.log(typeof(this.state.date))
-        
-        return(
-            this.state.isAdded?<Redirect to='/enseignant'/>:
+       return(
+            this.state.isAdded?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
             <div className='add-component-container'>
                 <h1 className="add-component-header"> Ajouter Examen</h1>
                 <div className='add-component-main'>

@@ -29,7 +29,7 @@ const Routes =()=>{
             <Route exact path='/modifier_examen/:id' render={(props)=><Modifier {...props}/>} />
             <Route exact path='/etudiant/:id' render={(props)=><EtudiantMain {...props}/>} />
             <Route exact path='/etudiant/' render={() => <EtudiantMain />} />
-            <Route exact path= '/ajouter_examen' component ={Ajouter}/>
+            <Route exact path= '/ajouter_examen/:id' render={(props)=><Ajouter {...props}/>}/>
             <Route exact path= '/admin' component={Enseignant}/>
             <Route exact path= '/etudiant_list' component = {Etudiant} />
             <Route exact path='/enseignant_list' component={Enseignant} />

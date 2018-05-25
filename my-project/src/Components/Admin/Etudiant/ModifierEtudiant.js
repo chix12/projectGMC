@@ -14,6 +14,7 @@ class ModifierEtudiant extends React.Component{
           classe:'',
           email:'',
           password:''
+         
         }
       }
 
@@ -45,15 +46,13 @@ class ModifierEtudiant extends React.Component{
                  email:this.state.email,
                  password:this.state.password
                 }
-        console.log(this.state)
+        
           axios.put(`/etudiant/${this.props.match.params.id}`,obj)
           .catch((error) =>{
             console.log(error);
           });
 
-          this.setState({
-              isModified:true
-          })
+         
           
 
      }
