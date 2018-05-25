@@ -9,7 +9,9 @@ const Header = () => {
                 <span className='grey-text'>Espace Enseignant / Etudiant </span>
             </p>
             <div className='my-header-user-logout'>
+                <i class="fas fa-user user-btn"></i>
                 <p className="navbar-brand"> <span className='grey-text'> Name </span></p>
+                
                 <div className='logout'> 
                     
                     <Link to='/'><p className="navbar-brand"> 

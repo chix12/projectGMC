@@ -13,7 +13,7 @@ class EspaceEtudiantMain extends React.Component{
             etudiant : {},
             date : new Date(),
             duree : 0,
-            exam:{}
+            
             
         }
     }
@@ -40,6 +40,7 @@ class EspaceEtudiantMain extends React.Component{
 
 
     getDate=(date)=>{
+        
         let newDateFormat = String('Y' + this.state.date.getFullYear()) + 'M' + String((this.state.date.getMonth()) + 1).padStart(2, 0) + 'D' + String(this.state.date.getDate()).padStart(2, 0)
         let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + 'M' + String(this.state.date.getMinutes()).padStart(2, 0)
         let currentTime = newDateFormat + 'T' + newTimeFormat
@@ -47,27 +48,9 @@ class EspaceEtudiantMain extends React.Component{
         return currentTime
 
     }
-    getExam=(classe,date)=>{
-
-        console.log('classe',classe)
-        console.log('date',date)
-        
-        axios.get(`exam/${classe}/${date}`).then(
-            res => {
-                this.setState({
-                    exam: res.data
-                })
-                console.log('exam',res.data)
-            }
-        )
-    }
-   
     render(){
 
 
-       
-
-        this.getExam(this.state.etudiant.classe, "Y2018M05D24T12M27")
 
         console.log('exam',this.state.exam)
 
@@ -79,8 +62,7 @@ class EspaceEtudiantMain extends React.Component{
         <div className='etudiant-main' >
         <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>
 
-        
-            <div className='etudiant-main-content'>
+        {this.state.exam?            <div className='etudiant-main-content'>
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">{this.state.exam.title}</a>
@@ -115,7 +97,8 @@ class EspaceEtudiantMain extends React.Component{
                   <ModalComponent/> 
                 </div>
                
-            </div>
+            </div>:""}
+
 
 </div>
 
