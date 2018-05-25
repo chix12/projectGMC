@@ -16,10 +16,23 @@ class Ajouter extends React.Component {
           isAdded:false
         }
       }
+      // 2018-05-25T22:58
+
+      FormatDate = (date) => {
+        let myDateTab = String(date).split('T')
+        let myDate = myDateTab[0].split('-')
+        let heure = myDateTab[1].split(':')
+        return ('Y' + myDate[0] + 'M' + myDate[1] + 'D' + myDate[2] + 'T' + heure[0] + 'M' + heure [1])
+      } 
 
       addExamen=()=>{
-        let obj={title:this.state.title,content:this.state.content,duree:this.state.duree,matiere:this.state.matiere,date:this.state.date}
-        
+          let date = this.FormatDate(this.state.date)
+            let obj={title:this.state.title,
+                content:this.state.content,
+                duree:this.state.duree,
+                matiere:this.state.matiere,
+                date:date}
+        console.log(obj)
         axios.post('/add_examen',obj).catch((error) =>{
             console.log(error);
           });
@@ -38,7 +51,7 @@ class Ajouter extends React.Component {
      }
 
     render() {
-        console.log(this.state.date)
+        //console.log(typeof(this.state.date))
         
         return(
             this.state.isAdded?<Redirect to='/enseignant'/>:

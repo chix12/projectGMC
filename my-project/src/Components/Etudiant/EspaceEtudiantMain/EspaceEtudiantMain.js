@@ -13,54 +13,72 @@ class EspaceEtudiantMain extends React.Component{
             etudiant : {},
             date : new Date(),
             duree : 0,
+            exam:{}
         }
     }
 
     componentDidMount () {
-        axios.get('/exams').then(
+        axios.get('/etudiant/5b069b49165a8713d0e24d59' /*+this.props.match.params.id*/).then(
             res => {
                 this.setState({
-                    exams : res.data
+                    etudiant: res.data
                 })
+                
             }
         )
-      
-        axios.get('/etudiant/'+this.props.match.params.id).then(
+
+        axios.get('exam/LFI1/Y2018M05D24T12M27').then(
             res => {
                 this.setState({
-                    etudiant : res.data
+                    exam: res.data
                 })
+                console.log(res.data)
             }
         )
+    }
+
+    getExam=(classe,date)=>{
+        /*axios.get('exam/LFI1/2018-05-24T12:2').then(
+            res => {
+                this.setState({
+                    exam: res.data
+                })
+                console.log(res.data)
+            }
+        )*/
+
+
+
     }
    
     render(){
 
 
-        let newDateFormat = String(this.state.date.getFullYear()) + '-' + String((this.state.date.getMonth())+1).padStart(2,0) + '-' + String(this.state.date.getDate()).padStart(2,0)
-        let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + ':' + String(this.state.date.getMinutes()).padStart(2, 0) 
+        let newDateFormat = String('Y' + this.state.date.getFullYear()) + 'M' + String((this.state.date.getMonth())+1).padStart(2,0) + 'D' + String(this.state.date.getDate()).padStart(2,0)
+        let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + 'M' + String(this.state.date.getMinutes()).padStart(2, 0) 
         let currentTime = newDateFormat + 'T' + newTimeFormat
+
+        this.getExam(this.state.etudiant.classe, "2018-05-24T12:27")
+
+        //console.log(this.state.exam)
 
         return (
         <div className='etudiant-main' >
         <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>
 
-          {this.state.exams.filter(el=>el.classe === this.state.etudiant.classe && el.date !== currentTime)
-                .map(el=>{return (
-
             <div className='etudiant-main-content'>
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">{el.title}</a>
+                        <a class="nav-link active" href="#">{this.state.exam.title}</a>
                     </li>                    
                 </ul>
-                        <Timer minutes = {el.duree} />          
+                        <Timer minutes = {this.state.exam.duree} />          
 
                     <div className='etudiant-probleme-test-code'>
                     <div className='etudiant-probleme-test'>
                         <div className='etudiant-probleme'>
 
-                            <h3>Enoncé </h3>{el.content}
+                            <h3>Enoncé </h3>{this.state.exam.content}
                         </div>
 
                         <div className='etudiant-test'>
