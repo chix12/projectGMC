@@ -18,7 +18,7 @@ class EspaceEtudiantMain extends React.Component{
     }
 
     componentDidMount () {
-        axios.get('/etudiant/5b069b49165a8713d0e24d59' /*+this.props.match.params.id*/).then(
+        axios.get('/etudiant/' +this.props.match.params.id).then(
             res => {
                 this.setState({
                     etudiant: res.data
@@ -39,6 +39,7 @@ class EspaceEtudiantMain extends React.Component{
 
 
     getDate=(date)=>{
+        
         let newDateFormat = String('Y' + this.state.date.getFullYear()) + 'M' + String((this.state.date.getMonth()) + 1).padStart(2, 0) + 'D' + String(this.state.date.getDate()).padStart(2, 0)
         let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + 'M' + String(this.state.date.getMinutes()).padStart(2, 0)
         let currentTime = newDateFormat + 'T' + newTimeFormat
@@ -46,20 +47,7 @@ class EspaceEtudiantMain extends React.Component{
         return currentTime
 
     }
-    getExam=(classe,date)=>{
-        /*axios.get('exam/LFI1/2018-05-24T12:2').then(
-            res => {
-                this.setState({
-                    exam: res.data
-                })
-                console.log(res.data)
-            }
-        )*/
 
-
-
-    }
-   
     render(){
 
 

@@ -2,7 +2,7 @@ import React from "react";
 import './Timer.css'
 
 
-const msToTime = minutes => {  
+const Time = minutes => {  
 
     let minToSeconds = minutes * 60
     let secondsToMs = minToSeconds * 60
@@ -16,14 +16,14 @@ const msToTime = minutes => {
     );
 };
 
-const Time = ({ minutes }) => {
+const Timer = ({ minutes }) => {
     return (
         <div className="time-container">
             <div className="time-inner-container">
-                <div className="time-digits">{msToTime(minutes)}</div>
+                <div className="time-digits">{Time(minutes)}</div>
             </div>
         </div>
     );
 };
 
-export default Time;
+export default Timer;

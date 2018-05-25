@@ -11,8 +11,12 @@
 .my-header-user-logout{
     display: flex;
     justify-content : space-around;
+    align-items: baseline;
 }
+.user-btn{
+    margin-right: 20px; 
 
+}
 
 .logout{
     display: flex;
