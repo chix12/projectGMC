@@ -15,6 +15,7 @@ import Enseignant from '../Components/Admin/Enseignant/Enseignant';
 import Etudiant from '../Components/Admin/Etudiant/Etudiant';
 
 import ModifierEnseignant from '../Components/Admin/Enseignant/ModifierEnseignant';
+import ModifierEtudiant from '../Components/Admin/Etudiant/ModifierEtudiant';
 
 
 
@@ -34,6 +35,7 @@ const Routes =()=>{
             <Route exact path='/admin/enseignant/ajouter' component={AjouterEnseignant} />
             <Route exact path='/delete_exam' render={()=><Redirect to='/enseignant'/>} />
             <Route exact path='/modifier_enseignant/:id' render={(props)=><ModifierEnseignant {...props}/>} />
+            <Route exact path= '/modifier_etudiant/:id' render={(props) => <ModifierEtudiant {...props} />} />
 
 
         </div>

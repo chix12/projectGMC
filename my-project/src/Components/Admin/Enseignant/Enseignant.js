@@ -26,6 +26,10 @@ class Enseignant extends React.Component{
         )
     }
 
+    modifierEnseignant(value){
+        axios.put('/enseignant/:id' + this.props.match.params.id, { ...value })
+    }
+    
     handleChange=(e)=>{
         this.setState({
             nameFiltred:e.target.value

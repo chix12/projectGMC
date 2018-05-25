@@ -1,0 +1,9 @@
+.time-container{
+    background-color: white;
+    font-size: 2em;
+    display: flex;
+     align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 20px;
+    border-right: 1px solid gray
+}
