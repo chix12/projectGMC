@@ -156,6 +156,8 @@ MongoClient.connect(mongo_url,(err,client)=>{
 		})
 	})
 
+
+
 	app.get('/enseignant/:email/:password',(req,res)=>{
 		
 		db.collection('Enseignant').findOne({"email":req.params.email,"password":req.params.password},(err,data)=>{
@@ -163,6 +165,18 @@ MongoClient.connect(mongo_url,(err,client)=>{
 				res.send('notfound')
 			}
 			else{
+				res.send(data)
+			}
+		})
+	})
+
+	app.get('/exam/:classe/:date', (req, res) => {
+
+		db.collection('Examen').findOne({ "classe": req.params.classe, "date": req.params.date }, (err, data) => {
+			if (err) {
+				res.send('notfound')
+			}
+			else {
 				res.send(data)
 			}
 		})
@@ -205,21 +219,6 @@ MongoClient.connect(mongo_url,(err,client)=>{
 				res.send('notfound')
 			}
 			else {
-				res.send('etudiant updated')
-			}
-		})
-	})
-
-
-	app.put('/etudiant/:id',(req,res)=>{
-		const id=ObjectID(req.params.id)
-		const updatedInformation=req.body
-
-		db.collection('Etudiant').findOneAndUpdate({"_id":id},{...updatedInformation},(err,data)=>{
-			if(err) {
-				res.send('notfound')
-			}
-			else{
 				res.send('etudiant updated')
 			}
 		})
