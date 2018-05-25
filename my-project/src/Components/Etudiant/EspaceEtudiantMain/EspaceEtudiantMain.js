@@ -14,23 +14,39 @@ class EspaceEtudiantMain extends React.Component{
             date : new Date(),
             duree : 0,
             exam:{}
+            
         }
     }
 
     componentDidMount () {
-        axios.get('/etudiant/5b068d097d1a081f4c2eb567' /*+this.props.match.params.id*/).then(
+        axios.get('/etudiant/'+this.props.match.params.id).then(
             res => {
                 this.setState({
                     etudiant: res.data,
                 })
+                console.log(this.state.etudiant.classe)
+                axios.get(`exam/${this.state.etudiant.classe}/${this.getDate(this.state.date)}`).then(
+                    res => {
+                        this.setState({
+                            exam: res.data
+                        })
+                        console.log(res.data)
+                    }
+                )
                 
             }
         )
-
-        
     }
 
 
+    getDate=(date)=>{
+        let newDateFormat = String('Y' + this.state.date.getFullYear()) + 'M' + String((this.state.date.getMonth()) + 1).padStart(2, 0) + 'D' + String(this.state.date.getDate()).padStart(2, 0)
+        let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + 'M' + String(this.state.date.getMinutes()).padStart(2, 0)
+        let currentTime = newDateFormat + 'T' + newTimeFormat
+
+        return currentTime
+
+    }
     getExam=(classe,date)=>{
 
         console.log('classe',classe)
@@ -49,9 +65,7 @@ class EspaceEtudiantMain extends React.Component{
     render(){
 
 
-        let newDateFormat = String('Y' + this.state.date.getFullYear()) + 'M' + String((this.state.date.getMonth())+1).padStart(2,0) + 'D' + String(this.state.date.getDate()).padStart(2,0)
-        let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + 'M' + String(this.state.date.getMinutes()).padStart(2, 0) 
-        let currentTime = newDateFormat + 'T' + newTimeFormat
+       
 
         this.getExam(this.state.etudiant.classe, "Y2018M05D24T12M27")
 
@@ -65,6 +79,7 @@ class EspaceEtudiantMain extends React.Component{
         <div className='etudiant-main' >
         <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>
 
+        
             <div className='etudiant-main-content'>
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -101,11 +116,6 @@ class EspaceEtudiantMain extends React.Component{
                 </div>
                
             </div>
-
-        )})
-                
-    }
-
 
 </div>
 
