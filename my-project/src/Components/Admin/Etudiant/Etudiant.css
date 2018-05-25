@@ -21,6 +21,14 @@
     margin-right: 100px;
 }
 
-.filtres{
-    margin-top: 50px;
+.etudiant-filtres{
+    border:1px solid rgba(0,0,0,.125);
+    padding:40px;   
+    width:300px; 
+    margin:50px 50px 0px 20px;
+    height:400px;
+}
+
+.select-classe{
+    margin-top:20px
 }

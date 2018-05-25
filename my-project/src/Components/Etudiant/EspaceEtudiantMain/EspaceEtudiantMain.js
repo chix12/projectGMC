@@ -24,9 +24,8 @@ class EspaceEtudiantMain extends React.Component{
                 })
             }
         )
-        let id ='5b0692e17d1a081f4c2eb569'
-
-        axios.get('/etudiant/'+id).then(
+      
+        axios.get('/etudiant/'+this.props.match.params.id).then(
             res => {
                 this.setState({
                     etudiant : res.data
@@ -42,10 +41,9 @@ class EspaceEtudiantMain extends React.Component{
         let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + ':' + String(this.state.date.getMinutes()).padStart(2, 0) 
         let currentTime = newDateFormat + 'T' + newTimeFormat
 
-        console.log('examen',this.state.exams)
-        console.log('etudiant',this.state.etudiant)
         return (
         <div className='etudiant-main' >
+        <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>
 
           {this.state.exams.filter(el=>el.classe === this.state.etudiant.classe && el.date !== currentTime)
                 .map(el=>{return (

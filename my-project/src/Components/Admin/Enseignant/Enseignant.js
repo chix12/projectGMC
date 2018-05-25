@@ -9,6 +9,7 @@ class Enseignant extends React.Component{
         super(props)
         this.state={
             enseignantList:[],
+            nameFiltred:''
             
            
         }
@@ -28,19 +29,28 @@ class Enseignant extends React.Component{
     modifierEnseignant(value){
         axios.put('/enseignant/:id' + this.props.match.params.id, { ...value })
     }
+    
+    handleChange=(e)=>{
+        this.setState({
+            nameFiltred:e.target.value
+        })
+    }
+
     render(){
         
         return(
             <div className="enseignant-container">
-                <div className='enseignant-table'>
-                    <div className="admin-enseignant-header">
-                        <form class="form-inline">
-                            <input class="form-control search-text" type="search" placeholder="Search" />
-                                <button class="btn search-btn " type="submit">Search</button>
-                        </form>   
-                    </div>
-                    <div className="enseignant-body">
-                        <ul class="nav nav-tabs">
+                <div className = "enseignant-filters" >
+                    <h4>Recherche </h4>
+                    <input type="text"  class="form-control enseignant-input-search" placeholder="Nom et prénom" name='nameFiltred' onChange={this.handleChange} autoComplete='off'/>
+                </div>
+            <div className='enseignant-table'>
+                <div className="admin-enseignant-button">
+                    <Link to='/admin/enseignant/ajouter'>
+                        <button type="button" class="admin-add-button">+</button>
+                    </Link>
+                </div>
+                <ul class="nav nav-tabs">
                             <li class="nav-item">
                                 <p class="nav-link active">Enseignants</p>
                             </li>
@@ -51,39 +61,48 @@ class Enseignant extends React.Component{
 
 
                         </ul>
-                        <table class="table enseignant-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Prenom</th>
-                                    <th scope="col">Email</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.enseignantList.map(el=>{
-                                    return (
-                                    <tr>
-                                        <th scope="row">{el.nom}</th>
-                                        <td>{el.prenom}</td>
-                                        <td>{el.email}</td>
-                                            <Link to={`/modifier_enseignant/${el._id}`}><td><i className="far fa-edit" ></i></td></Link>
-                                    </tr>
-                                    )
-                                })}
-                                
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="enseignant-add-btn">
-                        <Link to='/admin/enseignant/ajouter'>
-                            <button type="button" class="btn btn-primary add-button">Ajouter</button>
-                        </Link>
-                    </div>
-                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prenom</th>
+                            
+                            <th scope="col">Email</th>
+                           
 
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {this.state.enseignantList
+
+                        .filter(el=>el.nom.toLowerCase().includes(this.state.nameFiltred.toLowerCase())||el.prenom.toLowerCase().includes(this.state.nameFiltred.toLowerCase()))
+                        
+                        .map(el=>{
+                            return (
+                        <tr>
+                            
+                            <td>{el.nom}</td>
+                            <td>{el.prenom}</td>
+                            
+                            <td>{el.email}</td>
+                            
+                            <Link to={`/modifier_enseignant/${el._id}`}><td><i className="far fa-edit"></i></td></Link>
+                                       
+
+                        </tr>
+                            )
+                        })}
+                        
+
+                    </tbody>
+                </table>
+                
             </div>
+
+        </div>
         )
     }
 }
