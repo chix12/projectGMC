@@ -23,20 +23,29 @@ class EspaceEtudiantMain extends React.Component{
                 this.setState({
                     etudiant: res.data
                 })
+                console.log(this.state.etudiant.classe)
+                axios.get(`exam/${this.state.etudiant.classe}/${this.getDate(this.state.date)}`).then(
+                    res => {
+                        this.setState({
+                            exam: res.data
+                        })
+                        console.log(res.data)
+                    }
+                )
                 
-            }
-        )
-
-        axios.get('exam/LFI1/Y2018M05D24T12M27').then(
-            res => {
-                this.setState({
-                    exam: res.data
-                })
-                console.log(res.data)
             }
         )
     }
 
+
+    getDate=(date)=>{
+        let newDateFormat = String('Y' + this.state.date.getFullYear()) + 'M' + String((this.state.date.getMonth()) + 1).padStart(2, 0) + 'D' + String(this.state.date.getDate()).padStart(2, 0)
+        let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + 'M' + String(this.state.date.getMinutes()).padStart(2, 0)
+        let currentTime = newDateFormat + 'T' + newTimeFormat
+
+        return currentTime
+
+    }
     getExam=(classe,date)=>{
         /*axios.get('exam/LFI1/2018-05-24T12:2').then(
             res => {
@@ -54,9 +63,7 @@ class EspaceEtudiantMain extends React.Component{
     render(){
 
 
-        let newDateFormat = String('Y' + this.state.date.getFullYear()) + 'M' + String((this.state.date.getMonth())+1).padStart(2,0) + 'D' + String(this.state.date.getDate()).padStart(2,0)
-        let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + 'M' + String(this.state.date.getMinutes()).padStart(2, 0) 
-        let currentTime = newDateFormat + 'T' + newTimeFormat
+       
 
         this.getExam(this.state.etudiant.classe, "2018-05-24T12:27")
 
@@ -102,12 +109,6 @@ class EspaceEtudiantMain extends React.Component{
                 </div>
                
             </div>
-
-        )})
-                
-    }
-
-
 </div>
 
 

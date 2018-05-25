@@ -30,6 +30,7 @@ class Ajouter extends React.Component {
             let obj={title:this.state.title,
                 content:this.state.content,
                 duree:this.state.duree,
+                classe:this.state.classe,
                 matiere:this.state.matiere,
                 date:date}
         console.log(obj)
