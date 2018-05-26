@@ -30,8 +30,7 @@ class EspaceEtudiantMain extends React.Component{
                 
                let d=this.getDate(this.state.date)
               
-               //this.getExam(this.state.etudiant.classe,d)
-
+               
                axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
                 res => {
                     this.setState({
@@ -74,7 +73,7 @@ class EspaceEtudiantMain extends React.Component{
 {this.state.exam ?        <div className='etudiant-main-content'>
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link active" href="#">{this.state.exam.title}</a>
+        <a class="nav-link active" href="">{this.state.exam.title}</a>
     </li>                    
 </ul>
         <Timer minutes = {this.state.exam.duree} />          

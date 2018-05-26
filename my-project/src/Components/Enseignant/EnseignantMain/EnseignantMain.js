@@ -1,6 +1,6 @@
 import React from 'react'
 import './EnseignantMain.css'
-import { Link ,Redirect} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import axios from 'axios'
 
 class EnseignantMain extends React.Component {

@@ -1,10 +1,7 @@
 import React from 'react'
 import './Login.css'
 import {Link, Redirect} from 'react-router-dom'
-import SignUp from '../Etudiant/SignUp/SignUp'
 import axios from 'axios'
-import RadioButton from './RadioButton'
-
 
 class Login extends React.Component{
     constructor(props){
@@ -78,25 +75,25 @@ class Login extends React.Component{
                 <form className='login-form'>
 
         
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
-                        <input type="email" class="form-control" name='email' onChange={this.handleChange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email"/>
+                    <div className="form-group">
+                        <label htmlFor="exampleInputEmail1">Email</label>
+                        <input type="email" className="form-control" name='email' onChange={this.handleChange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email"/>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Mot de passe</label>
-                        <input type="password" class="form-control " name='password' onChange={this.handleChange} id="exampleInputPassword1" placeholder="mot de passe"/>
+                    <div className="form-group">
+                        <label htmlFor="exampleInputPassword1">Mot de passe</label>
+                        <input type="password" className="form-control " name='password' onChange={this.handleChange} id="exampleInputPassword1" placeholder="mot de passe"/>
                     </div>
 
                                         
 
-                    <button type="button" onClick={this.loginFunc} class="btn btn-primary">Login</button>
+                    <button type="button" onClick={this.loginFunc} className="btn btn-primary">Login</button>
                     
 
-                    <div class="form-signup">
+                    <div className="form-signup">
                         <label className='signup-label'>Si vous n'avez pas de compte</label> 
                         <Link to='/signup' style={{width:'100%'}}>
                             <div className='login-btn-signup' >
-                                <button type="button" class="btn btn-success btn-signup">S'inscrire</button> 
+                                <button type="button" className="btn btn-success btn-signup">S'inscrire</button> 
                             </div>
                         </Link>     
                     </div>

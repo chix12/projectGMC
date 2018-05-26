@@ -9,11 +9,15 @@ class Modifier extends React.Component {
         super()
         this.state={
            
-            title:'',
-            content:'',
-            duree:0,
-            matiere:'',
-            isModified:false
+          title:"",
+          content:'',
+          duree:0,
+          matiere:'',
+          classe:'',
+          date:'',
+          idEnseignant:'',
+          fullDate:'',
+          isModified:false
         
         }
     }
@@ -24,11 +28,16 @@ class Modifier extends React.Component {
             res =>{
                 
                 this.setState({
+
+                    title:res.data.title,
+                    content:res.data.content,
+                    duree:res.data.duree,
+                    matiere:res.data.matiere,
+                    classe:res.data.classe,
+                    date:res.data.date,
+                    idEnseignant:res.data.idEnseignant,
+                    fullDate:res.data.fullDate,
                    
-                    title: res.data.title,
-                    content: res.data.content,
-                    duree: res.data.duree,
-                    matiere: res.data.matiere,
                     
                 })
             }
@@ -44,11 +53,27 @@ class Modifier extends React.Component {
         })
       }
 
+      FormatDate = (date) => {
+        let myDateTab = String(date).split('T')
+        let myDate = myDateTab[0].split('-')
+        let heure = myDateTab[1].split(':')
+        return ('Y' + myDate[0] + 'M' + myDate[1] + 'D' + myDate[2] + 'T' + heure[0] + 'M' + heure [1])
+      } 
 
       editExamen=()=>{
 
-        let obj={title:this.state.title,content:this.state.content,duree:this.state.duree,matiere:this.state.matiere}
-          axios.put(`/examen/${this.props.match.params.id}`,obj)
+        let date = this.FormatDate(this.state.fullDate)
+        let obj={title:this.state.title,
+            content:this.state.content,
+            duree:this.state.duree,
+            classe:this.state.classe,
+            matiere:this.state.matiere,
+            idEnseignant:this.state.idEnseignant,
+            date:date,
+            fullDate:this.state.fullDate
+        }
+        
+        axios.put(`/examen/${this.props.match.params.id}`,obj)
           .catch((error) =>{
             console.log(error);
           });
@@ -62,25 +87,22 @@ class Modifier extends React.Component {
       }
 
 
-      change=(e)=>{
-          console.log(String(e.target.value).split('T'))
-          
-      }
+      
     
     render() {
         
         return(
             
-            this.state.isModified?<Redirect to='/enseignant'/>:
+            this.state.isModified?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
             <div className='edit-component-container'>
                 <h1 className="edit-component-header"> Modifier Examen</h1>
                 <div className='edit-component-main'>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Enoncé</a>
+                            <a class="nav-link active" href="">Enoncé</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Tests</a>
+                            <a class="nav-link" href="">Tests</a>
                         </li>
                     </ul>
                     <input type='text' placeholder='Titre' value={this.state.title} className='edit-examen-title' name='title' onChange={this.handleChange}/>
@@ -96,14 +118,14 @@ class Modifier extends React.Component {
                         <option>C++</option>
                     </select>
 
-                    <select class="form-control" name='classe' onChange={this.handleChange}>
+                    <select class="form-control" name='classe' value={this.state.classe} onChange={this.handleChange}>
                         <option selected disabled>Classe</option>
                         <option>LFI1</option>
                         <option>LFI2</option>
                         <option>LFI3 </option>
                     </select>
 
-                    <input type='datetime-local' className='form-control' onChange={this.change}/>
+                    <input type='datetime-local' className='form-control' name='fullDate' value={this.state.fullDate} onChange={this.handleChange}/>
                 </div>
 
                 <div className='edit-component-buttons' >

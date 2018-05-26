@@ -4,12 +4,12 @@ import {Link} from 'react-router-dom'
 
 const Header = () => {
     return (
-    <nav class="navbar navbar-dark header">
+    <nav className="navbar navbar-dark header">
             <p className="navbar-brand" href="#"> 
                 <span className='grey-text'>Espace Enseignant / Etudiant </span>
             </p>
             <div className='my-header-user-logout'>
-                <i class="fas fa-user user-btn"></i>
+                <i className="fas fa-user user-btn"></i>
                 <p className="navbar-brand"> <span className='grey-text'> Name </span></p>
                 
                 <div className='logout'> 

@@ -60,7 +60,7 @@ class AjouterEnseignant extends React.Component{
                     </div>
                 </div>
                 <div className='buttons'>
-                <button type="button" class="btn btn-primary" onClick={this.addEnseignant}>Ajouter</button>
+                <Link to='/enseignant_list'><button type="button" class="btn btn-primary" onClick={this.addEnseignant}>Ajouter</button></Link>
                 <Link to='/enseignant_list'><button type="button" class="btn btn-secondary btn-retour">Retour</button></Link>
                 </div>
 

@@ -23,6 +23,7 @@ const Routes =()=>{
     return (
         <div>
             <Route exact path='/' component={Login} />
+            <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp}/>
             <Route exact path = '/enseignant/:id' render={(props)=><EnseignantMain {...props}/>}/>
             <Route exact path = '/enseignant' render={()=><EnseignantMain />}/>

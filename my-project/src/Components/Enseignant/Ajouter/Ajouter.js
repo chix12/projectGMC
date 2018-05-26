@@ -7,31 +7,27 @@ class Ajouter extends React.Component {
     constructor(props){
         super(props)
         this.state={
-        title:"",
+          title:"",
           content:'',
           duree:0,
           matiere:'',
           classe:'',
           date:'',
           idEnseignant:this.props.match.params.id.slice(0,-1),
+          fullDate:'',
           isAdded:false
         }
       }
       
       componentDidMount(){
-        console.log('hey',this.state.idEnseignant)
         axios.get('/enseignant/'+this.state.idEnseignant).then(
             res =>{
                 this.setState({
                     enseignant:res.data
                 })
-
-
-                console.log('ens',res.data)
-
             }
         )
-    }
+        }
 
 
 
@@ -44,14 +40,16 @@ class Ajouter extends React.Component {
       } 
 
       addExamen=()=>{
-          let date = this.FormatDate(this.state.date)
-            let obj={title:this.state.title,
-                content:this.state.content,
-                duree:this.state.duree,
-                classe:this.state.classe,
-                matiere:this.state.matiere,
-                idEnseignant:this.state.idEnseignant,
-                date:date}
+        let date = this.FormatDate(this.state.date)
+        let obj={title:this.state.title,
+            content:this.state.content,
+            duree:this.state.duree,
+            classe:this.state.classe,
+            matiere:this.state.matiere,
+            idEnseignant:this.state.idEnseignant,
+            date:date,
+            fullDate:this.state.date
+        }
        
         axios.post('/add_examen',obj).catch((error) =>{
             console.log(error);
@@ -78,14 +76,14 @@ class Ajouter extends React.Component {
                 <div className='add-component-main'>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Enoncé</a>
+                            <a class="nav-link active" href="">Enoncé</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Tests</a>
+                            <a class="nav-link" href="">Tests</a>
                         </li>
                     </ul>
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
-                    <textarea name="text-ajoute" name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
+                    <textarea name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
                 </div>
 
                 <div className='add-component-duree-matiere'>          
