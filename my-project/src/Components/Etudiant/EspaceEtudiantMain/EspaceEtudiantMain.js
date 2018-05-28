@@ -3,6 +3,7 @@ import './EspaceEtudiantMain.css'
 import ModalComponent from './ModalComponent'
 import axios from 'axios'
 import Timer from './Timer'
+import TimerExp from './TimerExp/TimerExp'
 
 class EspaceEtudiantMain extends React.Component{
 
@@ -13,7 +14,7 @@ class EspaceEtudiantMain extends React.Component{
             etudiant : {},
             date : new Date(),
             duree : 0,
-            exam:{}
+            exam:{},
             
             
         }
@@ -28,88 +29,97 @@ class EspaceEtudiantMain extends React.Component{
                     etudiant: res.data,
                 })
                 
-               let d=this.getDate(this.state.date)
+               let d=JSON.stringify(this.getDate(this.state.date))
               
                
-               axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
+               //axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
+                axios.get(`/exam/LFI2/{\"annee\":\"2018\",\"mois\":\"05\",\"jour\":\"28\",\"heure\":\"01\",\"minutes\":\"57\"}`).then(
                 res => {
                     this.setState({
                         exam: res.data,
                     })
+                   
                 }
             )
         }
     )
     }
-       
-    
+
+
 
 
     getDate=(date)=>{
         
         let newDateFormat = String('Y' + this.state.date.getFullYear()) + 'M' + String((this.state.date.getMonth()) + 1).padStart(2, 0) + 'D' + String(this.state.date.getDate()).padStart(2, 0)
         let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + 'M' + String(this.state.date.getMinutes()).padStart(2, 0)
-        let currentTime = newDateFormat + 'T' + newTimeFormat
+        //let currentTime = newDateFormat + 'T' + newTimeFormat
 
-        return currentTime
+        let dateObj={
+            annee: String(this.state.date.getFullYear()),
+            mois:String(this.state.date.getMonth() + 1).padStart(2, 0),
+            jour:String(this.state.date.getDate()).padStart(2, 0),
+            heure:String(this.state.date.getHours()).padStart(2, 0) ,
+            minutes:String(this.state.date.getMinutes()).padStart(2, 0)
+        }
+
+        return dateObj
 
     }
     render(){
-
-
-
-        console.log('exam',this.state.exam)
-
         
-
-        return (
-
-            
+        return (   
         <div className='etudiant-main' >
-        <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>
+            <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>
 
 
+            {this.state.exam ? 
+            <div className='etudiant-main-content'>
+            <ul className="nav nav-tabs">
+                <li className="nav-item">
+                    <a className="nav-link active" href="">{this.state.exam.title}</a>
+                </li>                    
+            </ul>
 
-{this.state.exam ?        <div className='etudiant-main-content'>
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active" href="">{this.state.exam.title}</a>
-    </li>                    
-</ul>
-        <Timer minutes = {this.state.exam.duree} />          
+            {this.state.exam.duree ?
+                <TimerExp duree={this.state.exam.duree}/>
+            :""}
+                    
 
-    <div className='etudiant-probleme-test-code'>
-    <div className='etudiant-probleme-test'>
-        <div className='etudiant-probleme'>
+                   {/*<Timer minutes = {this.state.exam.duree} />  */}    
 
-            <h3>Enoncé </h3>{this.state.exam.content}
+                <div className='etudiant-probleme-test-code'>
+                <div className='etudiant-probleme-test'>
+                    <div className='etudiant-probleme'>
+
+                        <h3>Enoncé </h3>{this.state.exam.content}
+                    </div>
+
+                    <div className='etudiant-test'>
+
+                        <h3>Test </h3>
+                    </div>
+                </div>
+
+                <div className='etudiant-code'>
+                    <h3>Code </h3>
+                    <pre  contentEditable={true} style={{height:"400px"}}>
+                    <code >//write your code here</code>
+                    </pre>
+  
+                </div>
+
+            </div> 
+
+            <div className='etudiant-buttons'>  
+                <button type="button" className="btn btn-outline-primary btn-executer">Exécuter les tests</button>
+                <button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" onClick={this.startFunc}>Valider</button>
+                
+                <ModalComponent />
+            
+            </div>
+            </div> : ""}
+
         </div>
-
-        <div className='etudiant-test'>
-
-            <h3>Test </h3>
-        </div>
-    </div>
-
-    <div className='etudiant-code'>
-        <h3>Code </h3>
-        <code contenteditable="true" >//write your code here</code>
-    </div>
-
-</div> 
-
-<div className='etudiant-buttons'>  
-    <button type="button" class="btn btn-outline-primary btn-executer">Exécuter les tests</button>
-    <button type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal">Valider</button>
-
-  <ModalComponent/> 
-</div>
-
-</div> : ""}
-
-
-
-</div>
 
 
 

@@ -1,27 +1,71 @@
 import React from 'react'
 import './Header.css'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import axios from 'axios'
 
-const Header = () => {
+class Header extends React.Component{
+
+
+    render(){
+       
     return (
-    <nav className="navbar navbar-dark header">
-            <p className="navbar-brand" href="#"> 
-                <span className='grey-text'>Espace Enseignant / Etudiant </span>
+    this.props.user._id?
+        <nav className="navbar navbar-dark header">
+            <p className="navbar-brand">   
+                <span className='grey-text'>Espace {this.props.user.numInscri?'Etudiant':'Enseignant'} </span>    
             </p>
             <div className='my-header-user-logout'>
                 <i className="fas fa-user user-btn"></i>
-                <p className="navbar-brand"> <span className='grey-text'> Name </span></p>
+                <p className="navbar-brand"> <span className='grey-text'> {this.props.user.prenom} {this.props.user.nom}</span></p>
                 
-                <div className='logout'> 
-                    
-                    <Link to='/'><p className="navbar-brand"> 
-                        <span className='grey-text'>Logout</span>
-                    </p></Link>
+                <div className='logout' onClick={()=>this.props.logoutFn({})}>     
+                    <Link to='/'>
+                        <p className="navbar-brand"> <span className='grey-text'>Logout</span></p>
+                    </Link>
                     <i className="logout-btn fas fa-sign-out-alt"></i>
+                    
                 </div>
             </div>
-    </nav>
+        </nav>
+    :
+    <nav className="navbar navbar-dark header"style={{justifyContent:'flex-end'}}>
+           
+               <div className='logout'>     
+                    <Link to='/'>
+                        <p className="navbar-brand"> <span className='grey-text'>Login</span></p>
+                    </Link>
+                    <i className="logout-btn fas fa-sign-out-alt"></i>
+                    
+                </div>
+            
+        </nav>
     )
 }
+}
 
-export default Header
+
+const mapStateToProp = state => {
+  
+    return {
+        user:state.user
+    }
+  }
+
+
+  const mapDispatchTpProps=dispatch=>{
+    return {
+      logoutFn:(user)=>{
+        dispatch({
+          type: "SET_USER",
+            user: user
+        })
+      }
+    }
+  }
+  
+
+const HeaderContainer = connect(mapStateToProp,mapDispatchTpProps)(Header);
+
+
+export default HeaderContainer;

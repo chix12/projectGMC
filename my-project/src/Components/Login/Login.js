@@ -2,6 +2,7 @@ import React from 'react'
 import './Login.css'
 import {Link, Redirect} from 'react-router-dom'
 import axios from 'axios'
+import {connect} from 'react-redux'
 
 class Login extends React.Component{
     constructor(props){
@@ -24,6 +25,7 @@ class Login extends React.Component{
                         id:res.data._id,
                         statut:'enseignant'   
                     })
+                    this.props.setUser(res.data)
                 }
                 else{
                     alert ("email ou mot de passe incorrect")
@@ -45,6 +47,8 @@ class Login extends React.Component{
                             id:res.data._id, 
                             statut:'etudiant'  
                         })
+
+                        this.props.setUser(res.data)
                     }
                     else{
                         this.fetchEnseignant()
@@ -65,15 +69,11 @@ class Login extends React.Component{
      
     
     render(){
-        console.log(this.state.statut)
+       
         return (
             this.state.id ? <Redirect to={`/${this.state.statut}/${this.state.id}`}  /> :
-            <div className='login'>
-
-
- 
+            <div className='login'>            
                 <form className='login-form'>
-
         
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Email</label>
@@ -104,5 +104,22 @@ class Login extends React.Component{
     }
 }
 
-export default Login
+const mapDispatchToProps = dispatch => {
     
+    return {
+      setUser: (user) => {
+        dispatch({
+          type: "SET_USER",
+          user: user
+        })
+      }
+    }
+  }
+
+
+
+
+
+  const LoginContainer = connect(null, mapDispatchToProps)(Login);
+
+export default LoginContainer

@@ -36,11 +36,22 @@ class Ajouter extends React.Component {
         let myDateTab = String(date).split('T')
         let myDate = myDateTab[0].split('-')
         let heure = myDateTab[1].split(':')
-        return ('Y' + myDate[0] + 'M' + myDate[1] + 'D' + myDate[2] + 'T' + heure[0] + 'M' + heure [1])
+
+        let dateObj={
+            annee:myDate[0],
+            mois:myDate[1],
+            jour:myDate[2],
+            heure:heure[0] ,
+            minutes:heure[1]
+        }
+        //return ('Y' + myDate[0] + 'M' + myDate[1] + 'D' + myDate[2] + 'T' + heure[0] + 'M' + heure [1])
+
+        return JSON.stringify(dateObj)
       } 
 
       addExamen=()=>{
         let date = this.FormatDate(this.state.date)
+        console.log('date',date)
         let obj={title:this.state.title,
             content:this.state.content,
             duree:this.state.duree,

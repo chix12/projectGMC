@@ -2,27 +2,60 @@ import React from 'react'
 
 
 class ModalComponent extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.state={
+      x:0,
+      points:0,   
+    }
+  }
+
+  counter=()=>{
+  
+        this.setState({
+          x:setInterval(
+            ()=>{
+              this.setState({
+                points:this.state.points+1
+              })
+            }
+          ,80)
+        })
+      
+  }
+
+ 
  render(){
+  
+  
+  if(this.state.points===17){
+    clearInterval(this.state.x)
+   
+  }
+  
    return (
     <div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Résultat</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Résultat</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                   <div className='modal-result'>
-                    <h1 className='modal-result-points'>17 points </h1>
+                  <input type='button' value='start' onClick={this.counter}/>
+                    
+                    <h1 className='modal-result-points'>{this.state.points} points </h1>
                   </div>
                   
               </div>
-              <div class="modal-footer">
-                {/*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*/}
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Terminé</button>
+              <div className="modal-footer">
+                {/*<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>*/}
+                <button type="button" className="btn btn-primary" data-dismiss="modal">Terminé</button>
               </div>
             </div>
           </div>

@@ -1,0 +1,13 @@
+.time-container {
+    text-align: center;
+  }
+  .time-inner-container {
+    display: inline-block;
+  }
+  
+  .time-text {
+    display: flex;
+    justify-content: space-around;
+    color: grey;
+  }
+  

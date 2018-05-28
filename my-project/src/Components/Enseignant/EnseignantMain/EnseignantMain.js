@@ -86,16 +86,8 @@ class EnseignantMain extends React.Component {
                     .filter(el=>el.matiere.includes(this.state.matiere) && 
                     el.title.toUpperCase().includes(this.state.title.toUpperCase())&&
                     el.idEnseignant===this.state.enseignant._id
-
-
-
-
-
-
-
-                )
-                  
-                .map(el=>{
+                    )
+                    .map(el=>{
                     return (
                         <div key={el._id} className='examen-card'>
                             <div class="card text-center">
@@ -104,7 +96,7 @@ class EnseignantMain extends React.Component {
                                 </div>
                                 <div class="card-body"> 
                                     <h5 class="card-title">{el.title}</h5>
-                                    <Link to='/delete_exam'><input type='button'value='X' style={{background:'none',border:'none',color:'gray', position:'absolute', top:60,right:20}} 
+                                    <Link to={'/delete_exam/'+this.state.enseignant._id}><input type='button'value='X' style={{background:'none',border:'none',color:'gray', position:'absolute', top:60,right:20}} 
                                     onClick={()=>this.deleteMatiere(el._id)}/></Link>
                                 
                                     <p class="card-text">{el.content}</p>
