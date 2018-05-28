@@ -1,31 +1,28 @@
 import { createStore, combineReducers } from "redux";
-//import axios from 'axios'
-//import {autoRehydrate} from 'redux-persist'
-//import {applyMiddleware,compose} from 'redux'
+
+const UserReducer = (state = localStorage.getItem('user'), action) => {
 
 
-
-const UserReducer = (state = {}, action) => {
-   
     if (action.type === "SET_USER") {
-     
-      return action.user
+      
+       localStorage.setItem('user',JSON.stringify(action.user))
+      
+      return localStorage.getItem('user')
     }
   
     return state;
-  };
+  }
 
 
-  
-  
+
 
 
 const store = createStore(
     combineReducers({
       user:UserReducer,
+      
      
-//compse(applyMiddleware(...middlewares),autoRehydrate())
-   
+  
 
         })
   );

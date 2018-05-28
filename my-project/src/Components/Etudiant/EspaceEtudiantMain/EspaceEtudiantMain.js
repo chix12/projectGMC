@@ -15,6 +15,7 @@ class EspaceEtudiantMain extends React.Component{
             date : new Date(),
             duree : 0,
             exam:{},
+            isStarted:false
             
             
         }
@@ -46,7 +47,11 @@ class EspaceEtudiantMain extends React.Component{
     }
 
 
-
+    startFunc=()=>{
+        this.setState({
+            isStarted:!this.state.isStarted
+        })
+    }
 
     getDate=(date)=>{
         
@@ -112,9 +117,9 @@ class EspaceEtudiantMain extends React.Component{
 
             <div className='etudiant-buttons'>  
                 <button type="button" className="btn btn-outline-primary btn-executer">Exécuter les tests</button>
-                <button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" onClick={this.startFunc}>Valider</button>
+                <button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" onClick={()=>this.startFunc()}>Valider</button>
                 
-                <ModalComponent />
+                {!this.state.isStarted && <ModalComponent />}
             
             </div>
             </div> : ""}

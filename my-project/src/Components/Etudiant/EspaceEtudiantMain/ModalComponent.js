@@ -13,22 +13,26 @@ class ModalComponent extends React.Component {
 
   counter=()=>{
   
-        this.setState({
-          x:setInterval(
-            ()=>{
-              this.setState({
-                points:this.state.points+1
-              })
-            }
-          ,80)
-        })
-      
+    this.setState({
+      x:setInterval(
+        ()=>{
+          this.setState({
+            points:this.state.points+1
+          })
+        }
+      ,100)
+    })
+  
+}
+  componentDidMount(){
+    setTimeout(()=>this.counter(),1000)
+   
   }
+  
 
  
  render(){
-  
-  
+ 
   if(this.state.points===17){
     clearInterval(this.state.x)
    

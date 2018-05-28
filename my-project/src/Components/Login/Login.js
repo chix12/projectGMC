@@ -16,6 +16,8 @@ class Login extends React.Component{
         }
     }
 
+    
+
     fetchEnseignant=()=>{
         axios.get(`/enseignant/${this.state.email}/${this.state.password}`).then(
             res =>{
@@ -25,6 +27,8 @@ class Login extends React.Component{
                         id:res.data._id,
                         statut:'enseignant'   
                     })
+
+                   
                     this.props.setUser(res.data)
                 }
                 else{
@@ -47,6 +51,8 @@ class Login extends React.Component{
                             id:res.data._id, 
                             statut:'etudiant'  
                         })
+
+                      
 
                         this.props.setUser(res.data)
                     }
@@ -108,6 +114,8 @@ const mapDispatchToProps = dispatch => {
     
     return {
       setUser: (user) => {
+        
+        
         dispatch({
           type: "SET_USER",
           user: user
@@ -115,9 +123,6 @@ const mapDispatchToProps = dispatch => {
       }
     }
   }
-
-
-
 
 
   const LoginContainer = connect(null, mapDispatchToProps)(Login);

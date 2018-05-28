@@ -8,7 +8,7 @@ class Header extends React.Component{
 
 
     render(){
-       
+        console.log('localStorage',localStorage)
     return (
     this.props.user._id?
         <nav className="navbar navbar-dark header">
@@ -17,7 +17,7 @@ class Header extends React.Component{
             </p>
             <div className='my-header-user-logout'>
                 <i className="fas fa-user user-btn"></i>
-                <p className="navbar-brand"> <span className='grey-text'> {this.props.user.prenom} {this.props.user.nom}</span></p>
+                <p className="navbar-brand"> <span className='grey-text'>{this.props.user.prenom} {this.props.user.nom}</span></p>
                 
                 <div className='logout' onClick={()=>this.props.logoutFn({})}>     
                     <Link to='/'>
@@ -46,9 +46,10 @@ class Header extends React.Component{
 
 
 const mapStateToProp = state => {
-  
+  console.log('state',state.user)
     return {
-        user:state.user
+
+        user:JSON.parse(state.user)
     }
   }
 
