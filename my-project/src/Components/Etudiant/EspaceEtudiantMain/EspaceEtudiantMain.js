@@ -5,6 +5,8 @@ import axios from 'axios'
 import TimerExp from './TimerExp/TimerExp'
 import './TimerExp/TimerExp.css'
 
+import CodeMirror from "react-codemirror"
+
 class EspaceEtudiantMain extends React.Component{
 
     constructor(props){
@@ -88,6 +90,7 @@ class EspaceEtudiantMain extends React.Component{
 
             {this.state.exam.duree && <TimerExp duree={this.state.exam.duree}/>}
           
+            
                     
 
                 <div className='etudiant-probleme-test-code'>
@@ -100,14 +103,35 @@ class EspaceEtudiantMain extends React.Component{
                     <div className='etudiant-test'>
 
                         <h3>Test </h3>
-                    </div>
+
+                <div>
+                    <CodeMirror className='code-mirror'
+                        value={`
+                            let x=12
+                            console.log(x)
+
+                            `}
+                        options={{mode:'jsx',lineNumbers:true,tabSize:2}} 
+                
+                    />
+
                 </div>
 
+
+
+                    </div>
+                </div>
+                
                 <div className='etudiant-code'>
                     <h3>Code </h3>
-                    <pre  /*contentEditable={true}*/ style={{height:"400px"}}>
+
+                     {/*<pre  contentEditable={true} style={{height:"400px"}}>
                     <code >//write your code here</code>
-                    </pre>
+            </pre>*/}
+
+
+            
+
   
                 </div>
 
@@ -122,10 +146,6 @@ class EspaceEtudiantMain extends React.Component{
                 <ModalComponent/>
             
             </div>
-
-
-
-
 
 
 
