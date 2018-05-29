@@ -27,7 +27,6 @@ class TimerExp extends React.Component {
    
     render() {
      
-      //this.exp(this.props.duree)
       return (
         <div>
           <TimeExp ms={this.state.timer} />

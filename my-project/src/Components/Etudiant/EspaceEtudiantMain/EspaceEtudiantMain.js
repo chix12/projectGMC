@@ -2,8 +2,8 @@ import React from 'react'
 import './EspaceEtudiantMain.css'
 import ModalComponent from './ModalComponent'
 import axios from 'axios'
-import Timer from './Timer'
 import TimerExp from './TimerExp/TimerExp'
+import './TimerExp/TimerExp.css'
 
 class EspaceEtudiantMain extends React.Component{
 
@@ -15,13 +15,13 @@ class EspaceEtudiantMain extends React.Component{
             date : new Date(),
             duree : 0,
             exam:{},
-            isStarted:false
+            show:false
             
             
         }
     }
 
-
+  
 
     componentDidMount () {
         axios.get('/etudiant/'+this.props.match.params.id).then(
@@ -34,7 +34,7 @@ class EspaceEtudiantMain extends React.Component{
               
                
                //axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-                axios.get(`/exam/LFI2/{\"annee\":\"2018\",\"mois\":\"05\",\"jour\":\"28\",\"heure\":\"01\",\"minutes\":\"57\"}`).then(
+                axios.get(`/exam/LFI2/{"annee":"2018","mois":"05","jour":"28","heure":"01","minutes":"57"}`).then(
                 res => {
                     this.setState({
                         exam: res.data,
@@ -49,8 +49,9 @@ class EspaceEtudiantMain extends React.Component{
 
     startFunc=()=>{
         this.setState({
-            isStarted:!this.state.isStarted
+            show:true
         })
+       
     }
 
     getDate=(date)=>{
@@ -71,13 +72,13 @@ class EspaceEtudiantMain extends React.Component{
 
     }
     render(){
-        
+      
         return (   
         <div className='etudiant-main' >
-            <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>
+           {/* <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>*/}
 
 
-            {this.state.exam ? 
+            {this.state.exam &&
             <div className='etudiant-main-content'>
             <ul className="nav nav-tabs">
                 <li className="nav-item">
@@ -85,12 +86,9 @@ class EspaceEtudiantMain extends React.Component{
                 </li>                    
             </ul>
 
-            {this.state.exam.duree ?
-                <TimerExp duree={this.state.exam.duree}/>
-            :""}
+            {this.state.exam.duree && <TimerExp duree={this.state.exam.duree}/>}
+          
                     
-
-                   {/*<Timer minutes = {this.state.exam.duree} />  */}    
 
                 <div className='etudiant-probleme-test-code'>
                 <div className='etudiant-probleme-test'>
@@ -107,7 +105,7 @@ class EspaceEtudiantMain extends React.Component{
 
                 <div className='etudiant-code'>
                     <h3>Code </h3>
-                    <pre  contentEditable={true} style={{height:"400px"}}>
+                    <pre  /*contentEditable={true}*/ style={{height:"400px"}}>
                     <code >//write your code here</code>
                     </pre>
   
@@ -117,12 +115,29 @@ class EspaceEtudiantMain extends React.Component{
 
             <div className='etudiant-buttons'>  
                 <button type="button" className="btn btn-outline-primary btn-executer">Exécuter les tests</button>
-                <button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" onClick={()=>this.startFunc()}>Valider</button>
-                
-                {!this.state.isStarted && <ModalComponent />}
+              
+                   
+                        <button type="button"  onClick={this.startFunc} className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" >Valider</button>
+                    
+                <ModalComponent/>
             
             </div>
-            </div> : ""}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>}
 
         </div>
 

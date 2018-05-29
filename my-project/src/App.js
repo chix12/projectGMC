@@ -6,6 +6,8 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import { Provider } from "react-redux";
 import appStore from "./store";
 
+import Exp from './Exp'
+
 
 
 class App extends Component {

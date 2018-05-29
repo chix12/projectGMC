@@ -8,7 +8,7 @@ class Header extends React.Component{
 
 
     render(){
-        console.log('localStorage',localStorage)
+       
     return (
     this.props.user._id?
         <nav className="navbar navbar-dark header">
@@ -46,10 +46,10 @@ class Header extends React.Component{
 
 
 const mapStateToProp = state => {
-  console.log('state',state.user)
+ 
     return {
 
-        user:JSON.parse(state.user)
+        user:state.user
     }
   }
 

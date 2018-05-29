@@ -1,4 +1,5 @@
 import React from "react";
+import './TimerExp.css'
 
 const msToTime = ms => {
   const msPerSecond = 1000;

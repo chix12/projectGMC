@@ -1,13 +1,15 @@
 .time-container {
-    text-align: center;
+  background-color: white;
+  font-size: 2em;
+  display: flex;
+   align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 20px;
+  border-right: 1px solid gray
   }
   .time-inner-container {
     display: inline-block;
+    
   }
   
-  .time-text {
-    display: flex;
-    justify-content: space-around;
-    color: grey;
-  }
   
