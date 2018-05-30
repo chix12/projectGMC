@@ -44,11 +44,22 @@ class EspaceEtudiantMain extends React.Component{
 }
 
     getParams=(code)=>{
-        let ouvrante = code.indexOf('(') + 1
-        let fermante = code.indexOf(')')
+        let ouvrante = code.indexOf('=')+ 1
+        let fermante = code.indexOf('=>')
 
-        let paramsTab = code.slice(ouvrante,fermante).split(',').map(el => el.trim())
-        return paramsTab
+        let paramsString = String(code.slice(ouvrante,fermante))
+        if (paramsString.includes('('))
+            {
+                let parentheseOuvrante = paramsString.indexOf('(') + 1
+                let parentheseFermante = paramsString.indexOf(')')
+                let paramsTab = paramsString.slice(parentheseOuvrante, parentheseFermante)
+                                            .split(',').map(el => el.trim())
+                console.log(paramsTab)
+                return paramsTab
+            }
+        else 
+            console.log(paramsString)
+            return Array.from(paramsString.trim())
     }
 
     getCode = (code) => {
@@ -81,9 +92,9 @@ class EspaceEtudiantMain extends React.Component{
         const storedCode = localStorage.getItem('code')
         const code = this.getCode(storedCode)
         const params = this.getParams(storedCode)
-        let funct = new Function (...params, code)
+        //let funct = new Function (...params, code)
 
-        console.log(funct)
+        console.log(params)
         /*axios.post('https://api.judge0.com/submissions?wait=true', {
             source_code: new Func,
             language_id: languageId,
