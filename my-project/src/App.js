@@ -18,8 +18,7 @@ class App extends Component {
                   <Router>
                      <div>
                       <Header />
-                      <Editeur />
-
+                        <Routes />
                       <Routes />
                       
                     </div>
