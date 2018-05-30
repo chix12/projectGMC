@@ -10,7 +10,7 @@ class Header extends React.Component{
     render(){
        
     return (
-    this.props.user._id?
+    this.props.user._id ?
         <nav className="navbar navbar-dark header">
             <p className="navbar-brand">   
                 <span className='grey-text'>Espace {this.props.user.numInscri?'Etudiant':'Enseignant'} </span>    
@@ -28,7 +28,7 @@ class Header extends React.Component{
                 </div>
             </div>
         </nav>
-    :
+        :
     <nav className="navbar navbar-dark header"style={{justifyContent:'flex-end'}}>
            
                <div className='logout'>     
@@ -46,9 +46,8 @@ class Header extends React.Component{
 
 
 const mapStateToProp = state => {
-    if(!state.user) return {}
+ //(if(!state.user) return {user:{}}
     return {
-
         user:state.user
     }
   }

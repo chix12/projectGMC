@@ -5,11 +5,7 @@ import UserReducer from './Reducers/UserReducer'
 
 const store = createStore(
     combineReducers({
-      user:UserReducer,
-      
-     
-  
-
+      user:UserReducer
         })
   );
   

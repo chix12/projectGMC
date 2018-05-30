@@ -4,25 +4,27 @@ import CodeMirror from "react-codemirror"
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/jsx/jsx'
+import './Editeur.css'
 
 class Editeur extends React.Component {
 
     constructor(props){
         super(props)
         this.state={
-            code:`
-  function Somme (a,b){
-     return a+b
-    }`
+            code:`function sum(a, b) {return a + b}`
         
         }
     } 
 
 
 	updateCode= (newCode)=> {
+        const localStorage = window.localStorage
+
 		this.setState({
 			code: newCode,
-		});
+        });
+        
+        localStorage.setItem('code', JSON.stringify(newCode))
     }
   
     render() {
@@ -31,12 +33,7 @@ class Editeur extends React.Component {
             mode: 'jsx'
         };
         return <CodeMirror value={this.state.code} onChange={this.updateCode} options={options} />
-    }
-
-
-
-       
-	
+    }	
 }
 
 export default Editeur

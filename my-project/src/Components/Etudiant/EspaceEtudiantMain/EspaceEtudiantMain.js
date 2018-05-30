@@ -17,7 +17,6 @@ class EspaceEtudiantMain extends React.Component{
             date : new Date(),
             duree : 0,
             exam:{},
-            show:false
             
             
         }
@@ -49,12 +48,6 @@ class EspaceEtudiantMain extends React.Component{
     }
 
 
-    startFunc=()=>{
-        this.setState({
-            show:true
-        })
-       
-    }
 
     getDate=(date)=>{
         
@@ -73,8 +66,69 @@ class EspaceEtudiantMain extends React.Component{
         return dateObj
 
     }
+
+
+    getParams=(code)=>{
+        let ouvrante=code.indexOf('(')+1
+
+        let fermante =code.indexOf(')')
+
+        let tabParams=code.slice(ouvrante,fermante).split(',').map(el=>el.trim())
+        return tabParams
+
+    }
+
+
+    getCode=(code)=>{
+        let ouvrante=code.indexOf('{')+1
+
+        let fermante =code.lastIndexOf('}')
+
+        return code.slice(ouvrante,fermante).trim()
+        
+    }
+
+    test=()=>{
+        const localStorage = window.localStorage
+        const storedCode=localStorage.getItem('code')
+        const code =this.getCode(storedCode)
+        const params=this.getParams(storedCode)
+        console.log(code, params)
+        let func = new Function('a', 'b', code)
+
+      /*  axios.post('https://api.judge0.com/submissions?wait=true', {
+        source_code: localStorage,
+        language_id: languageId,
+        stdin: tc.input,
+        expected_output: tc.output
+      }).then(res => {
+        let stdout = res.data.stdout
+        let accepted = res.data.status.description
+        // console.log('stdout', stdout);
+        this.setState({
+          result: this.state.result.concat({
+            stdin: tc.input,
+            expected_output: tc.output,
+            stdout,
+            accepted
+          }),
+          accepted: this.state.accepted && (accepted === 'Accepted')
+        })
+      })*/
+    }
+
+
+
+
+
+
+
+
     render(){
-      
+      let codeString=localStorage.getItem('code')
+      console.log('code',codeString.slice(codeString.indexOf('(')),codeString.slice(codeString.indexOf(')')))
+
+      //let params=codeString.slice(code)
         return (   
         <div className='etudiant-main' >
            {/* <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>*/}
@@ -89,9 +143,7 @@ class EspaceEtudiantMain extends React.Component{
             </ul>
 
             {this.state.exam.duree && <TimerExp duree={this.state.exam.duree}/>}
-          
-            
-                    
+
 
                 <div className='etudiant-probleme-test-code'>
                 <div className='etudiant-probleme-test'>
@@ -133,10 +185,9 @@ class EspaceEtudiantMain extends React.Component{
             </div> 
 
             <div className='etudiant-buttons'>  
-                <button type="button" className="btn btn-outline-primary btn-executer">Exécuter les tests</button>
-              
+                <button type="button"  onClick={this.test} className="btn btn-outline-primary btn-executer">Exécuter les tests</button>
                    
-                        <button type="button"  onClick={this.startFunc} className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" >Valider</button>
+                <button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" >Valider</button>
                     
                 <ModalComponent/>
             

@@ -15,9 +15,8 @@ class App extends Component {
                   <Provider store={appStore}>
                   <Router>
                      <div>
-                    <Header />
-                    <Routes />
-                      
+                      <Header />
+                      <Routes />                      
                     </div>
                   </Router>
                   </Provider>
