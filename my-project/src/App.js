@@ -5,8 +5,6 @@ import Routes from './Routes/Routes'
 import {BrowserRouter as Router} from 'react-router-dom'
 import { Provider } from "react-redux";
 import appStore from "./store";
-import Editeur from "./Components/Etudiant/EspaceEtudiantMain/Editeur"
-
 
 
 class App extends Component {
@@ -18,9 +16,7 @@ class App extends Component {
                   <Router>
                      <div>
                       <Header />
-                        <Routes />
-                      <Routes />
-                      
+                      <Routes />                      
                     </div>
                   </Router>
                   </Provider>

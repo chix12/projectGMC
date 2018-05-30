@@ -16,6 +16,9 @@ class Login extends React.Component{
         }
     }
 
+    componentDidMount(){
+        this.props.setUser({})
+    }
     
 
     fetchEnseignant=()=>{

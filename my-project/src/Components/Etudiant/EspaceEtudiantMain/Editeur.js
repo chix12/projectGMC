@@ -1,21 +1,39 @@
-import CodeMirror from "react-codemirror"
+//var React = require('react');
 import React from 'react'
+import CodeMirror from "react-codemirror"
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/mode/jsx/jsx'
+import './Editeur.css'
+
+class Editeur extends React.Component {
+
+    constructor(props){
+        super(props)
+        this.state={
+            code:`//Write your code here`
+        
+        }
+    } 
 
 
-const Editeur=()=>{
+	updateCode= (newCode)=> {
+        const localStorage = window.localStorage
 
-
-return <div><CodeMirror value={`
-                let x=12
-                console.log(x)
-
-                `}
-                options={{mode:'jsx',lineNumbers:true,tabSize:2}} 
-                
-                />
-                </div>
-
+		this.setState({
+			code: newCode,
+        });
+        
+        localStorage.setItem('code', JSON.stringify(newCode))
+    }
+  
+    render() {
+        let options = {
+            lineNumbers: true,
+            mode: 'jsx'
+        };
+        return <CodeMirror value={this.state.code} onChange={this.updateCode} options={options} />
+    }	
 }
 
 export default Editeur
-

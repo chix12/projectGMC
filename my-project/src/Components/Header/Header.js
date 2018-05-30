@@ -46,9 +46,8 @@ class Header extends React.Component{
 
 
 const mapStateToProp = state => {
- if(!state.user) return {user:{}}
+ //(if(!state.user) return {user:{}}
     return {
-
         user:state.user
     }
   }

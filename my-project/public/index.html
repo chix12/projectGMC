@@ -24,7 +24,13 @@
 
 
 
-
+    <link rel="stylesheet" href="lib/codemirror.css">
+    <script src="lib/codemirror.js"></script>
+    <script>
+      var editor = CodeMirror.fromTextArea(myTextarea, {
+        lineNumbers: true
+      });
+    </script>
     
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
