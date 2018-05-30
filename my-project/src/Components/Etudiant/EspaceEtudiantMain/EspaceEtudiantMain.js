@@ -16,13 +16,9 @@ class EspaceEtudiantMain extends React.Component{
             etudiant : {},
             date : new Date(),
             duree : 0,
-            exam:{},
-            
-            
+            exam:{}           
         }
-    }
-
-  
+    }  
 
     componentDidMount () {
         axios.get('/etudiant/'+this.props.match.params.id).then(
@@ -45,9 +41,22 @@ class EspaceEtudiantMain extends React.Component{
             )
         }
     )
+}
+
+    getParams=(code)=>{
+        let ouvrante = code.indexOf('(') + 1
+        let fermante = code.indexOf(')')
+
+        let paramsTab = code.slice(ouvrante,fermante).split(',').map(el => el.trim())
+        return paramsTab
     }
 
+    getCode = (code) => {
+        let ouvrante = code.indexOf('{') + 1
+        let fermante = code.lastIndexOf('}')
 
+        return code.slice(ouvrante,fermante).trim()
+    }
 
     getDate=(date)=>{
         
@@ -67,63 +76,35 @@ class EspaceEtudiantMain extends React.Component{
 
     }
 
-
-    getParams=(code)=>{
-        let ouvrante=code.indexOf('(')+1
-
-        let fermante =code.indexOf(')')
-
-        let tabParams=code.slice(ouvrante,fermante).split(',').map(el=>el.trim())
-        return tabParams
-
-    }
-
-
-    getCode=(code)=>{
-        let ouvrante=code.indexOf('{')+1
-
-        let fermante =code.lastIndexOf('}')
-
-        return code.slice(ouvrante,fermante).trim()
-        
-    }
-
-    test=()=>{
+    executerTests = () => {
         const localStorage = window.localStorage
-        const storedCode=localStorage.getItem('code')
-        const code =this.getCode(storedCode)
-        const params=this.getParams(storedCode)
-        console.log(code, params)
-        let func = new Function('a', 'b', code)
+        const storedCode = localStorage.getItem('code')
+        const code = this.getCode(storedCode)
+        const params = this.getParams(storedCode)
+        let funct = new Function (...params, code)
 
-      /*  axios.post('https://api.judge0.com/submissions?wait=true', {
-        source_code: localStorage,
-        language_id: languageId,
-        stdin: tc.input,
-        expected_output: tc.output
-      }).then(res => {
-        let stdout = res.data.stdout
-        let accepted = res.data.status.description
-        // console.log('stdout', stdout);
-        this.setState({
-          result: this.state.result.concat({
+        console.log(funct)
+        /*axios.post('https://api.judge0.com/submissions?wait=true', {
+            source_code: new Func,
+            language_id: languageId,
             stdin: tc.input,
-            expected_output: tc.output,
-            stdout,
-            accepted
-          }),
-          accepted: this.state.accepted && (accepted === 'Accepted')
-        })
-      })*/
+            expected_output: tc.output
+        }).then(res => {
+            let stdout = res.data.stdout
+            let accepted = res.data.status.description
+            // console.log('stdout', stdout);
+            this.setState({
+                result: this.state.result.concat({
+                    stdin: tc.input,
+                    expected_output: tc.output,
+                    stdout,
+                    accepted
+                }),
+                accepted: this.state.accepted && (accepted === 'Accepted')
+            })
+        })*/
+
     }
-
-
-
-
-
-
-
-
     render(){
       let codeString=localStorage.getItem('code')
       console.log('code',codeString.slice(codeString.indexOf('(')),codeString.slice(codeString.indexOf(')')))
@@ -148,61 +129,32 @@ class EspaceEtudiantMain extends React.Component{
                 <div className='etudiant-probleme-test-code'>
                 <div className='etudiant-probleme-test'>
                     <div className='etudiant-probleme'>
-
-                        <h3>Enoncé </h3>{this.state.exam.content}
+                        <h3> Enoncé </h3>{this.state.exam.content}
                     </div>
 
                     <div className='etudiant-test'>
-
                         <h3>Test </h3>
-
-
-
                     </div>
                 </div>
                 
                 <div className='etudiant-code'>
-                    <h3>Code </h3>
-
-                    {/*<CodeMirror className='code-mirror'  
-                            value={`
-                                let x=12
-                                console.log(x)
-
-                                `}
-                            options={{mode:'jsx',lineNumbers:true,tabSize:2}} 
-                    
-            />*/}
-
+                    <h3> Code </h3>
                     <div >
                         <Editeur/>
-                    </div>
-
-
-  
+                    </div>  
                 </div>
 
             </div> 
 
             <div className='etudiant-buttons'>  
-                <button type="button"  onClick={this.test} className="btn btn-outline-primary btn-executer">Exécuter les tests</button>
-                   
+                <button type="button" className="btn btn-outline-primary btn-executer" onClick={this.executerTests}>
+                    Exécuter les tests
+                </button>
                 <button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" >Valider</button>
                     
                 <ModalComponent/>
             
             </div>
-
-
-
-
-
-
-
-
-
-
-
             </div>}
 
         </div>
