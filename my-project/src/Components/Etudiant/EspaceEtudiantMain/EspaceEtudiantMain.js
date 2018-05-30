@@ -4,8 +4,8 @@ import ModalComponent from './ModalComponent'
 import axios from 'axios'
 import TimerExp from './TimerExp/TimerExp'
 import './TimerExp/TimerExp.css'
+import Editeur from './Editeur'
 
-import CodeMirror from "react-codemirror"
 
 class EspaceEtudiantMain extends React.Component{
 
@@ -104,19 +104,6 @@ class EspaceEtudiantMain extends React.Component{
 
                         <h3>Test </h3>
 
-                <div>
-                    <CodeMirror className='code-mirror'
-                        value={`
-                            let x=12
-                            console.log(x)
-
-                            `}
-                        options={{mode:'jsx',lineNumbers:true,tabSize:2}} 
-                
-                    />
-
-                </div>
-
 
 
                     </div>
@@ -125,12 +112,20 @@ class EspaceEtudiantMain extends React.Component{
                 <div className='etudiant-code'>
                     <h3>Code </h3>
 
-                     {/*<pre  contentEditable={true} style={{height:"400px"}}>
-                    <code >//write your code here</code>
-            </pre>*/}
+                    {/*<CodeMirror className='code-mirror'  
+                            value={`
+                                let x=12
+                                console.log(x)
 
+                                `}
+                            options={{mode:'jsx',lineNumbers:true,tabSize:2}} 
+                    
+            />*/}
 
-            
+                    <div >
+                        <Editeur/>
+                    </div>
+
 
   
                 </div>
