@@ -16,14 +16,9 @@ class EspaceEtudiantMain extends React.Component{
             etudiant : {},
             date : new Date(),
             duree : 0,
-            exam:{},
-            show:false
-            
-            
+            exam:{}           
         }
-    }
-
-  
+    }  
 
     componentDidMount () {
         axios.get('/etudiant/'+this.props.match.params.id).then(
@@ -46,14 +41,21 @@ class EspaceEtudiantMain extends React.Component{
             )
         }
     )
+}
+
+    getParams=(code)=>{
+        let ouvrante = code.indexOf('(') + 1
+        let fermante = code.indexOf(')')
+
+        let paramsTab = code.slice(ouvrante,fermante).split(',').map(el => el.trim())
+        return paramsTab
     }
 
+    getCode = (code) => {
+        let ouvrante = code.indexOf('{') + 1
+        let fermante = code.lastIndexOf('}')
 
-    startFunc=()=>{
-        this.setState({
-            show:true
-        })
-       
+        return code.slice(ouvrante,fermante).trim()
     }
 
     getDate=(date)=>{
@@ -71,6 +73,36 @@ class EspaceEtudiantMain extends React.Component{
         }
 
         return dateObj
+
+    }
+
+    executerTests = () => {
+        const localStorage = window.localStorage
+        const storedCode = localStorage.getItem('code')
+        const code = this.getCode(storedCode)
+        const params = this.getParams(storedCode)
+        let funct = new Function (...params, code)
+
+        console.log(funct)
+        /*axios.post('https://api.judge0.com/submissions?wait=true', {
+            source_code: new Func,
+            language_id: languageId,
+            stdin: tc.input,
+            expected_output: tc.output
+        }).then(res => {
+            let stdout = res.data.stdout
+            let accepted = res.data.status.description
+            // console.log('stdout', stdout);
+            this.setState({
+                result: this.state.result.concat({
+                    stdin: tc.input,
+                    expected_output: tc.output,
+                    stdout,
+                    accepted
+                }),
+                accepted: this.state.accepted && (accepted === 'Accepted')
+            })
+        })*/
 
     }
     render(){
@@ -94,62 +126,32 @@ class EspaceEtudiantMain extends React.Component{
                 <div className='etudiant-probleme-test-code'>
                 <div className='etudiant-probleme-test'>
                     <div className='etudiant-probleme'>
-
-                        <h3>Enoncé </h3>{this.state.exam.content}
+                        <h3> Enoncé </h3>{this.state.exam.content}
                     </div>
 
                     <div className='etudiant-test'>
-
                         <h3>Test </h3>
-
-
-
                     </div>
                 </div>
                 
                 <div className='etudiant-code'>
-                    <h3>Code </h3>
-
-                    {/*<CodeMirror className='code-mirror'  
-                            value={`
-                                let x=12
-                                console.log(x)
-
-                                `}
-                            options={{mode:'jsx',lineNumbers:true,tabSize:2}} 
-                    
-            />*/}
-
+                    <h3> Code </h3>
                     <div >
                         <Editeur/>
-                    </div>
-
-
-  
+                    </div>  
                 </div>
 
             </div> 
 
             <div className='etudiant-buttons'>  
-                <button type="button" className="btn btn-outline-primary btn-executer">Exécuter les tests</button>
-              
-                   
-                        <button type="button"  onClick={this.startFunc} className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" >Valider</button>
+                <button type="button" className="btn btn-outline-primary btn-executer" onClick={this.executerTests}>
+                    Exécuter les tests
+                </button>
+                <button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" >Valider</button>
                     
                 <ModalComponent/>
             
             </div>
-
-
-
-
-
-
-
-
-
-
-
             </div>}
 
         </div>

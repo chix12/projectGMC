@@ -11,7 +11,9 @@ class Editeur extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            code:`//Write your code here`
+            code:`function sum(a, b) {
+                    return a + b;
+                  }`
         
         }
     } 
