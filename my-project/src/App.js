@@ -16,7 +16,12 @@ class App extends Component {
                   <Router>
                      <div>
                       <Header />
+<<<<<<< HEAD
                       <Routes />                      
+=======
+                      <AjouterTest />
+                                        
+>>>>>>> 1f44c9e48f140db62a78a39f707ac94dea521844
                     </div>
                   </Router>
                   </Provider>
