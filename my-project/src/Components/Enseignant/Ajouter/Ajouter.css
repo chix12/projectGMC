@@ -1,7 +1,9 @@
+
 .add-component-container{
     display: flex;
     flex-direction: column; 
-    align-items: center
+    align-items: center;
+    margin: auto
 }
 
 .add-component-main{
@@ -26,24 +28,46 @@ textarea {
     justify-content: flex-end;
 }
 .add-button{
-    width: 90px;
     margin: 15px;
 }
 
+.tests{
+    width: 90%;
+}
+
 .add-component-duree-matiere{
-    margin-top: 40px;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    height:200px;
-    
+    flex-direction: column;
+}
+
+.duree-date, .matiere-classe{
+    display: flex;
+    margin: 10px;
+}
+
+.matiere, .classe{
+    width: 50%;
+}
+.test-container{
+    display: flex;
+    justify-content: space-between
+}
+.matiere{
+    margin-right: 10px;
 }
 
 .add-examen-title{
     border-bottom: none;
     border-top: none
 }
+
 .ajouter-duree-input{
-    width:400px;
-    
+    width: auto;
+    margin-right: 10px;
+
+}
+
+.inputdata, .outputdata{
+    margin: 10px;
 }
