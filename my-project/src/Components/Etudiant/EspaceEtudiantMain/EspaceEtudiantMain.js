@@ -26,12 +26,14 @@ class EspaceEtudiantMain extends React.Component{
             }
         ]
         this.state = {
-            exams :[] , 
+           
             etudiant : {},
             date : new Date(),
             duree : 0,
             exam:{},
-            result:[]           
+            result:[] ,
+            
+            answer:{}
         }
     }  
 
@@ -57,6 +59,7 @@ class EspaceEtudiantMain extends React.Component{
         }
     )
 }
+
 
 
     getDate=(date)=>{
@@ -133,6 +136,36 @@ class EspaceEtudiantMain extends React.Component{
             .catch(e=>console.log(e))
         })
     }
+
+
+
+    addCodeEtudiant=()=>{
+       //console.log('this.state.exam.answers',this.state.exam.answers)
+      
+       let objAnswer={idEtudiant:this.props.match.params.id,answer:localStorage.getItem('code')} 
+        let answers=this.state.exam.answers.concat(objAnswer)
+
+
+        let obj={title:this.state.exam.title,
+            content:this.state.exam.content,
+            duree:this.state.exam.duree,
+            classe:this.state.exam.classe,
+            matiere:this.state.exam.matiere,
+            idEnseignant:this.state.exam.idEnseignant,
+            date:this.state.exam.date,
+            fullDate:this.state.exam.fullDate,
+            answers:answers
+        }
+        
+        console.log(obj)        
+        axios.put(`/examen/${this.state.exam._id}`,obj)
+          .catch((error) =>{
+            console.log(error);
+          });
+
+         
+
+    }
     render(){
      
         return (   
@@ -184,7 +217,9 @@ class EspaceEtudiantMain extends React.Component{
                 <button type="button" className="btn btn-outline-primary btn-executer" onClick={this.executerTests}>
                     Exécuter les tests
                 </button>
-                <button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" >Valider</button>
+                <button type="button" className="btn btn-outline-success"onClick={this.addCodeEtudiant}>Valider</button>
+               
+                {/*<button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal">Valider</button>*/}
                     
                 <ModalComponent/>
             

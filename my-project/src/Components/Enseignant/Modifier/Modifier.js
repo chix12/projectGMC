@@ -80,7 +80,8 @@ class Modifier extends React.Component {
             matiere:this.state.matiere,
             idEnseignant:this.state.idEnseignant,
             date:date,
-            fullDate:this.state.fullDate
+            fullDate:this.state.fullDate,
+            answers:[]
         }
         
         axios.put(`/examen/${this.props.match.params.id}`,obj)
