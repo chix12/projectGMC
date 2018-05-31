@@ -11,12 +11,27 @@ class EspaceEtudiantMain extends React.Component{
 
     constructor(props){
         super(props)
+        this.testArray=[
+            {
+                input:[2,5],
+                expectedOutput:7,
+            },
+            {
+                input:[9,1],
+                expectedOutput:10,
+            },
+            {
+                input:[0,23],
+                expectedOutput:23,
+            }
+        ]
         this.state = {
             exams :[] , 
             etudiant : {},
             date : new Date(),
             duree : 0,
-            exam:{}           
+            exam:{},
+            result:[]           
         }
     }  
 
@@ -43,23 +58,9 @@ class EspaceEtudiantMain extends React.Component{
     )
 }
 
-    getParams=(code)=>{
-        let ouvrante = code.indexOf('(') + 1
-        let fermante = code.indexOf(')')
-
-        let paramsTab = code.slice(ouvrante,fermante).split(',').map(el => el.trim())
-        return paramsTab
-    }
-
-    getCode = (code) => {
-        let ouvrante = code.indexOf('{') + 1
-        let fermante = code.lastIndexOf('}')
-
-        return code.slice(ouvrante,fermante).trim()
-    }
 
     getDate=(date)=>{
-        
+            
         let newDateFormat = String('Y' + this.state.date.getFullYear()) + 'M' + String((this.state.date.getMonth()) + 1).padStart(2, 0) + 'D' + String(this.state.date.getDate()).padStart(2, 0)
         let newTimeFormat = String(this.state.date.getHours()).padStart(2, 0) + 'M' + String(this.state.date.getMinutes()).padStart(2, 0)
         //let currentTime = newDateFormat + 'T' + newTimeFormat
@@ -76,45 +77,82 @@ class EspaceEtudiantMain extends React.Component{
 
     }
 
+    getParams=(code)=>{
+        let ouvrante = code.indexOf('=')+ 1
+        let fermante = code.indexOf('=>')
+
+        let paramsString = String(code.slice(ouvrante,fermante))
+        if (paramsString.includes('('))
+            {
+                let parentheseOuvrante = paramsString.indexOf('(') + 1
+                let parentheseFermante = paramsString.indexOf(')')
+                let paramsTab = paramsString.slice(parentheseOuvrante, parentheseFermante)
+                                            .split(',').map(el => el.trim())
+               
+                return paramsTab
+            }
+        else 
+           
+            return Array.from(paramsString.trim())
+    }
+
+    getCode = (code) => {
+        let ouvrante = code.indexOf('{') + 1
+        let fermante = code.lastIndexOf('}')
+
+        return code.slice(ouvrante,fermante).trim()
+    }
+
+   
+
     executerTests = () => {
         const localStorage = window.localStorage
         const storedCode = localStorage.getItem('code')
         const code = this.getCode(storedCode)
         const params = this.getParams(storedCode)
-        let funct = new Function (...params, code)
+        const funct = new Function (...params, code)
 
-        console.log(funct)
-        /*axios.post('https://api.judge0.com/submissions?wait=true', {
-            source_code: new Func,
-            language_id: languageId,
-            stdin: tc.input,
-            expected_output: tc.output
-        }).then(res => {
-            let stdout = res.data.stdout
-            let accepted = res.data.status.description
-            // console.log('stdout', stdout);
-            this.setState({
-                result: this.state.result.concat({
-                    stdin: tc.input,
-                    expected_output: tc.output,
-                    stdout,
-                    accepted
-                }),
-                accepted: this.state.accepted && (accepted === 'Accepted')
+        
+        this.setState({result:[]})
+       
+        this.testArray.map(el=>{
+
+
+            axios.post('https://api.judge0.com/submissions?wait=true', {
+                source_code: `console.log(${funct(el.input[0],el.input[1])})`,
+                language_id: 29,    
+                expected_output: el.expectedOutput
             })
-        })*/
+            .then(res => {
+               
+    
+                this.setState({
+                    result: this.state.result.concat({
+                        input: el.input,
+                        expectedOutput: el.expectedOutput,
+                        output: res.data.stdout,
+                        description:res.data.status.description
+                    }),
+                    
+                })
+            })
+            .catch(e=>console.log(e))
+
+
+
+
+
+
+
+        })
+        
 
     }
     render(){
-      let codeString=localStorage.getItem('code')
-      console.log('code',codeString.slice(codeString.indexOf('(')),codeString.slice(codeString.indexOf(')')))
-
-      //let params=codeString.slice(code)
+     
         return (   
         <div className='etudiant-main' >
-           {/* <h3 style={{textAlign:'center'}}>{this.state.etudiant.prenom} {this.state.etudiant.nom}</h3>*/}
-
-
+          
             {this.state.exam &&
             <div className='etudiant-main-content'>
             <ul className="nav nav-tabs">
@@ -134,6 +172,17 @@ class EspaceEtudiantMain extends React.Component{
 
                     <div className='etudiant-test'>
                         <h3>Test </h3>
+
+                        {this.state.result.map(el=>{
+                            return (
+                                <div>
+                                    {el.description}: 
+                                    Input: ({el.input[0]},{el.input[1]})
+                                    Expected: {el.expectedOutput} instead got: {el.output}
+                                    
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
                 

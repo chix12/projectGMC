@@ -2,11 +2,9 @@ import React from 'react'
 import './Header.css'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import axios from 'axios'
+
 
 class Header extends React.Component{
-
-
     render(){
        
     return (

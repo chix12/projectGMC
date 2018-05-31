@@ -57,7 +57,6 @@ class EnseignantMain extends React.Component {
             <div className="enseignant-main-container">
                 <div className = "filters" >
                     <h4>Recherche </h4>
-                    <p>{this.state.enseignant.prenom} {this.state.enseignant.nom}</p>
                     <input type="text"  class="form-control enseignant-input-search" placeholder="Titre" name='title' onChange={this.handleChange} autoComplete='off'/>
                   
                   <select class="custom-select filter-matiere"  name='matiere'onChange={this.handleChange}>

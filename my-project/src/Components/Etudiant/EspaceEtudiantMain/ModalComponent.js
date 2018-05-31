@@ -71,7 +71,7 @@ class ModalComponent extends React.Component {
               <div className="modal-body">
 
 
-              <div class="bg-primary" onClick={this.getResult} style={{color:'white',zIndex:100, width:'100%',height:this.state.height,position:'absolute',top:0,left:0}}>
+              <div className="bg-primary" onClick={this.getResult} style={{color:'white',zIndex:100, width:'100%',height:this.state.height,position:'absolute',top:0,left:0}}>
               <h3 style={{textAlign:'center',margin:'50px'}}>Votre Résultat</h3>
               <div style={{textAlign:'center',marginTop:'68px'}}>
                 <i className="fas fa-arrow-down fa-lg" style={{marginRight:'10px'}}></i>
