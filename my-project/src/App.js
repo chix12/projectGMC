@@ -5,6 +5,7 @@ import Routes from './Routes/Routes'
 import {BrowserRouter as Router} from 'react-router-dom'
 import { Provider } from "react-redux";
 import appStore from "./store";
+import AjouterTest from './Components/Enseignant/Ajouter/AjouterTest/AjouterTest';
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
                   <Router>
                      <div>
                       <Header />
+                      <AjouterTest />
                       <Routes />                      
                     </div>
                   </Router>

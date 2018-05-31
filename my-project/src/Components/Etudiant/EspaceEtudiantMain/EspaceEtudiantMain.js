@@ -101,7 +101,7 @@ class EspaceEtudiantMain extends React.Component{
         let fermante = code.lastIndexOf('}')
         let codeTab = code.slice(ouvrante, fermante).trim().split('')
         console.log('funct', codeTab.filter(el => el != "\n").join(''))
-        return codeTab.filter(el => (el != "\n" && (el != "\t"))).join('')
+        return codeTab.filter(el => el != "\t").map(el => el==='\n' ? ";" : el).join('')
     }
 
     executerTests = () => {
@@ -115,30 +115,23 @@ class EspaceEtudiantMain extends React.Component{
         this.setState({result:[]})
        
         this.testArray.map(el=>{
-
-
             axios.post('https://api.judge0.com/submissions?wait=true', {
                 source_code: `console.log(${funct(...el.input)})`,
                 language_id: 29,    
                 expected_output: el.expectedOutput
             })
-            .then(res => {
-               
-    
+            .then(res => {    
                 this.setState({
                     result: this.state.result.concat({
                         input: el.input,
                         expectedOutput: el.expectedOutput,
                         output: res.data.stdout,
                         description:res.data.status.description
-                    }),
-                    
+                    }),  
                 })
             })
             .catch(e=>console.log(e))
         })
-        
-
     }
     render(){
      
