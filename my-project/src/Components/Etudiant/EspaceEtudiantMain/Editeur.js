@@ -23,7 +23,7 @@ class Editeur extends React.Component {
 			code: newCode,
         });
         
-        localStorage.setItem('code', JSON.stringify(newCode))
+        localStorage.setItem('code', newCode)
     }
   
     render() {
