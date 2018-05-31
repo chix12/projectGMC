@@ -99,19 +99,18 @@ class EspaceEtudiantMain extends React.Component{
     getCode = (code) => {
         let ouvrante = code.indexOf('{') + 1
         let fermante = code.lastIndexOf('}')
-
-        return code.slice(ouvrante,fermante).trim()
+        let codeTab = code.slice(ouvrante, fermante).trim().split('')
+        console.log('funct', codeTab.filter(el => el != "\n").join(''))
+        return codeTab.filter(el => (el != "\n" && (el != "\t"))).join('')
     }
-
-   
 
     executerTests = () => {
         const localStorage = window.localStorage
         const storedCode = localStorage.getItem('code')
         const code = this.getCode(storedCode)
+        console.log(code)
         const params = this.getParams(storedCode)
         const funct = new Function (...params, code)
-
         
         this.setState({result:[]})
        
@@ -119,7 +118,7 @@ class EspaceEtudiantMain extends React.Component{
 
 
             axios.post('https://api.judge0.com/submissions?wait=true', {
-                source_code: `console.log(${funct(el.input[0],el.input[1])})`,
+                source_code: `console.log(${funct(...el.input)})`,
                 language_id: 29,    
                 expected_output: el.expectedOutput
             })
@@ -137,13 +136,6 @@ class EspaceEtudiantMain extends React.Component{
                 })
             })
             .catch(e=>console.log(e))
-
-
-
-
-
-
-
         })
         
 
