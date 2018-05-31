@@ -6,7 +6,7 @@ import SignUp from '../Components/Etudiant/SignUp/SignUp'
 
 import EnseignantMain from '../Components/Enseignant/EnseignantMain/EnseignantMain'
 import Modifier from '../Components/Enseignant/Modifier/Modifier'
-import Ajouter from '../Components/Enseignant/Ajouter/Ajouter';
+import Ajouter from '../Components/Enseignant/Ajouter/AjouterExamen/Ajouter';
 
 import EtudiantMain from '../Components/Etudiant/EspaceEtudiantMain/EspaceEtudiantMain'
 import AjouterEnseignant from '../Components/Admin/Enseignant/AjouterEnseignant';

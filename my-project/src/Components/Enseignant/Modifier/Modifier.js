@@ -105,7 +105,7 @@ class Modifier extends React.Component {
             
             this.state.isModified?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
             <div className='edit-component-container'>
-                <h1 className="edit-component-header"> Modifier Examen</h1>
+                <h1 className="edit-component-header"> Modifier Enoncé</h1>
                 <div className='edit-component-main'>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
@@ -141,7 +141,7 @@ class Modifier extends React.Component {
                 <div className='edit-component-buttons' >
                    
                         <button type="button" class="btn btn-primary edit-button" onClick={this.editExamen}>Modifier</button>
-                        <Link to='/enseignant'>  <button type="button" class="btn btn-secondary edit-button">Ignorer</button> </Link>
+                        <Link to={`/enseignant/${this.state.idEnseignant}`}>  <button type="button" class="btn btn-secondary edit-button">Ignorer</button> </Link>
                    
                 </div>
             </div>
