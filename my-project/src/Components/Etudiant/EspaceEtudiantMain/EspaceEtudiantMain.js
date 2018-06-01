@@ -161,7 +161,7 @@ class EspaceEtudiantMain extends React.Component{
         axios.put(`/examen/${this.state.exam._id}`,obj)
           .catch((error) =>{
             console.log(error);
-          });
+          })
 
          
 
