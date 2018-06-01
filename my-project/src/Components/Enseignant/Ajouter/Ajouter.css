@@ -49,10 +49,12 @@ textarea {
 .matiere, .classe{
     width: 50%;
 }
+
 .test-container{
     display: flex;
     justify-content: space-between
 }
+
 .matiere{
     margin-right: 10px;
 }

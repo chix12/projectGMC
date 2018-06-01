@@ -37,7 +37,7 @@ class Modifier extends React.Component {
                     date:res.data.date,
                     idEnseignant:res.data.idEnseignant,
                     fullDate:res.data.fullDate,
-                   
+                    test : res.data.test
                     
                 })
             }
@@ -81,7 +81,8 @@ class Modifier extends React.Component {
             idEnseignant:this.state.idEnseignant,
             date:date,
             fullDate:this.state.fullDate,
-            answers:[]
+            answers:[],
+            test : this.state.test
         }
         
         axios.put(`/examen/${this.props.match.params.id}`,obj)
@@ -92,14 +93,8 @@ class Modifier extends React.Component {
           this.setState({
               isModified:true
           })
-          
-
-         
       }
 
-
-      
-    
     render() {
         
         return(
@@ -119,7 +114,6 @@ class Modifier extends React.Component {
                     <input type='text' placeholder='Titre' value={this.state.title} className='edit-examen-title' name='title' onChange={this.handleChange}/>
                     <textarea name='content' placeholder='Enoncé' value={this.state.content}onChange={this.handleChange}/>  
                 </div>
-
                 <div className='edit-component-duree-matiere'>
                      <input type="text"  class="form-control modifier-duree-input"  placeholder="Durée" value={this.state.duree} name='duree'onChange={this.handleChange}/>
                      <select class="form-control" name='matiere' value={this.state.matiere} onChange={this.handleChange}>

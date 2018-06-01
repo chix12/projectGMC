@@ -29,11 +29,7 @@ class Ajouter extends React.Component {
                     enseignant:res.data
                 })
             }
-        )
-        }
-
-
-
+        )}
 
       FormatDate = (date) => {
         let myDateTab = String(date).split('T')
@@ -85,11 +81,24 @@ class Ajouter extends React.Component {
 
      handleInputChange=(e)=>{
         let inputString = e.target.value
-        let outputTab = inputString.split(',')
-        console.log(outputTab)
-        this.setState({
-            inputData : outputTab
-        })
+        if (inputString.length>0)
+       {
+            let outputTab = inputString.split(',')
+            for (let i=0;i<outputTab.length;i++){
+                if (outputTab[i].toLowerCase().trim()==='true') 
+                    outputTab[i]= true
+                else if ((outputTab[i].toLowerCase().trim() === 'false'))
+                    outputTab[i] = false
+                else if (!isNaN(parseInt(outputTab[i])))
+                    outputTab[i] = Number(outputTab[i])
+                else 
+                    outputTab[i] = String(outputTab[i])
+        }
+            console.log(outputTab)
+            this.setState({
+                inputData: outputTab
+            }) 
+        }
      }
 
      addTest=()=>{
