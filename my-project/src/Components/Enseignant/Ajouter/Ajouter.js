@@ -54,7 +54,7 @@ class Ajouter extends React.Component {
 
       addExamen=()=>{
         let date = this.FormatDate(this.state.date)
-        console.log('date',date)
+       
         let obj={title:this.state.title,
             content:this.state.content,
             duree:this.state.duree,
@@ -86,13 +86,18 @@ class Ajouter extends React.Component {
      handleInputChange=(e)=>{
         let inputString = e.target.value
         let outputTab = inputString.split(',')
-        console.log(outputTab)
+        
+        
+
+
         this.setState({
             inputData : outputTab
         })
      }
 
      addTest=()=>{
+
+        
          let Test = {
              input : this.state.inputData,
              expectedOutput : this.state.outputData
@@ -105,10 +110,7 @@ class Ajouter extends React.Component {
 
      }
     render() {
-        console.log('state', this.state.testTab)
-        console.log('input', this.state.inputData)
-        console.log('output', this.state.outputData)
-
+       
        return(
             this.state.isAdded?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
             <div className='add-component-container'>

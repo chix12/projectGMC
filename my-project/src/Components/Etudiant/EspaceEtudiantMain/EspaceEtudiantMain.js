@@ -50,9 +50,12 @@ class EspaceEtudiantMain extends React.Component{
                axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
                // axios.get(`/exam/LFI2/{"annee":"2018","mois":"05","jour":"28","heure":"01","minutes":"57"}`).then(
                 res => {
+                    window.localStorage.setItem('exam',JSON.stringify(res.data))
                     this.setState({
-                        exam: res.data,
+                        exam: JSON.parse(localStorage.getItem('exam')),
                     })
+
+                   // console.log('storage',window.localStorage.getItem('exam'))
                    
                 }
             )

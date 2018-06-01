@@ -11,6 +11,7 @@ class EnseignantMain extends React.Component {
             examList:[],
             matiere:'',
             title:'',
+            classe:'',
             isDeleted:false,
             enseignant:{}
            
@@ -66,8 +67,11 @@ class EnseignantMain extends React.Component {
                         <option>PHP</option>
                         <option>C++</option>
                    </select>
-                     <select class="custom-select" >
+                     <select class="custom-select" name='classe'onChange={this.handleChange}>
                         <option selected disabled>Classes</option>
+                            <option>LFI1</option>
+                            <option>LFI2</option>
+                            <option>LFI3 </option>
                         
                      </select>
                 </div>
@@ -83,6 +87,7 @@ class EnseignantMain extends React.Component {
 
                     {this.state.examList
                     .filter(el=>el.matiere.includes(this.state.matiere) && 
+                    el.classe.includes(this.state.classe) && 
                     el.title.toUpperCase().includes(this.state.title.toUpperCase())&&
                     el.idEnseignant===this.state.enseignant._id
                     )
