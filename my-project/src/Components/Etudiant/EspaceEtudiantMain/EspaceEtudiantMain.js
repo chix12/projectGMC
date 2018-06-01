@@ -11,7 +11,7 @@ class EspaceEtudiantMain extends React.Component{
 
     constructor(props){
         super(props)
-        this.testArray=[
+       /* this.testArray=[
             {
                 input:[2,5],
                 expectedOutput:7,
@@ -24,7 +24,7 @@ class EspaceEtudiantMain extends React.Component{
                 input:[0,23],
                 expectedOutput:23,
             }
-        ]
+        ]*/
         this.state = {
            
             etudiant : {},
@@ -47,8 +47,8 @@ class EspaceEtudiantMain extends React.Component{
                let d=JSON.stringify(this.getDate(this.state.date))
               
                
-               //axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-                axios.get(`/exam/LFI2/{"annee":"2018","mois":"05","jour":"28","heure":"01","minutes":"57"}`).then(
+               axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
+               // axios.get(`/exam/LFI2/{"annee":"2018","mois":"05","jour":"28","heure":"01","minutes":"57"}`).then(
                 res => {
                     this.setState({
                         exam: res.data,
@@ -117,7 +117,7 @@ class EspaceEtudiantMain extends React.Component{
         
         this.setState({result:[]})
        
-        this.testArray.map(el=>{
+        this.state.exam.test.map(el=>{
             axios.post('https://api.judge0.com/submissions?wait=true', {
                 source_code: `console.log(${funct(...el.input)})`,
                 language_id: 29,    

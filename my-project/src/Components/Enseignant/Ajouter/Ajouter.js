@@ -62,7 +62,8 @@ class Ajouter extends React.Component {
             matiere:this.state.matiere,
             idEnseignant:this.state.idEnseignant,
             date:date,
-            fullDate:this.state.date
+            fullDate:this.state.date,
+            test:this.state.testTab
         }
        
         axios.post('/add_examen',obj).catch((error) =>{
