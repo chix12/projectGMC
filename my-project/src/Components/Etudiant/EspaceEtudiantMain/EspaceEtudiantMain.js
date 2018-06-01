@@ -47,8 +47,8 @@ class EspaceEtudiantMain extends React.Component{
                let d=JSON.stringify(this.getDate(this.state.date))
               
                
-              // axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-                axios.get(`/exam/LFI1/{"annee":"2018","mois":"06","jour":"01","heure":"12","minutes":"15"}`).then(
+               axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
+              //  axios.get(`/exam/LFI1/{"annee":"2018","mois":"06","jour":"01","heure":"12","minutes":"15"}`).then(
                 res => {
                     this.setState({
                         exam: res.data,
@@ -198,8 +198,9 @@ class EspaceEtudiantMain extends React.Component{
                         {this.state.result.map(el=>{
                             return (
                                 <div>
+                                    
                                     {el.description}: 
-                                    Input: ({el.input[0]},{el.input[1]})
+                                    Input: ({[...el.input].join()})
                                     Expected: {el.expectedOutput} instead got: {el.output}
                                     
                                 </div>
@@ -221,24 +222,16 @@ class EspaceEtudiantMain extends React.Component{
                 <button type="button" className="btn btn-outline-primary btn-executer" onClick={this.executerTests}>
                     Exécuter les tests
                 </button>
-                <button type="button" className="btn btn-outline-success"onClick={this.addCodeEtudiant}>Valider</button>
-               
-                {/*<button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal">Valider</button>*/}
+                {//<button type="button" className="btn btn-outline-success"onClick={this.addCodeEtudiant}>Valider</button>
+                }
+                        <button type="button" className="btn btn-outline-success" onClick={this.addCodeEtudiant}  data-toggle="modal" data-target="#exampleModal">Valider</button>
                     
-                <ModalComponent/>
+                <ModalComponent nbrTest={this.state.exam.test}/>
             
             </div>
             </div>}
 
         </div>
-
-
-
-
-
-
-
-
       )
     }
 }

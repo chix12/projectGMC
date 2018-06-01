@@ -9,7 +9,9 @@ class ModalComponent extends React.Component {
       intervalCounter:0,
       points:0,   
       intervalResult:0,
-      height:200
+      height:200,
+      nbrTest:this.props.nbrTest,
+      grade:0
     }
 } 
 
@@ -44,7 +46,17 @@ class ModalComponent extends React.Component {
   }
 
 
+ /* getGrade=()=>{
+    if(this.props.nbrTest!==undefined){
+    this.setState({
+      grade:Math.floor(20/this.state.nbrTest.length)
+    })
+  }
+  }*/
+
+
   render(){
+//console.log('length',this.props.nbrTest)
 
   if(this.state.points===17){
     clearInterval(this.state.intervalCounter)

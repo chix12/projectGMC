@@ -18,7 +18,8 @@ class Ajouter extends React.Component {
           isAdded:false,
           inputData:[],
           outputData:"",
-          testTab : []  
+          testTab : [] ,
+          answers:[] 
         }
       }
       
@@ -59,7 +60,8 @@ class Ajouter extends React.Component {
             idEnseignant:this.state.idEnseignant,
             date:date,
             fullDate:this.state.date,
-            test:this.state.testTab
+            test:this.state.testTab,
+            answers:this.state.answers
         }
        
         axios.post('/add_examen',obj).catch((error) =>{
