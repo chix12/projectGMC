@@ -18,7 +18,7 @@ class Ajouter extends React.Component {
           isAdded:false,
           exercices:[] ,
 
-          content:''
+          
         }
       }
       
@@ -80,27 +80,7 @@ class Ajouter extends React.Component {
         
      }
 
-     handleInputChange=(e)=>{
-        let inputString = e.target.value
-        if (inputString.length>0)
-       {
-            let outputTab = inputString.split(',')
-            for (let i=0;i<outputTab.length;i++){
-                if (outputTab[i].toLowerCase().trim()==='true') 
-                    outputTab[i]= true
-                else if ((outputTab[i].toLowerCase().trim() === 'false'))
-                    outputTab[i] = false
-                else if (!isNaN(parseInt(outputTab[i])))
-                    outputTab[i] = Number(outputTab[i])
-                else 
-                    outputTab[i] = String(outputTab[i])
-        }
-            console.log(outputTab)
-            this.setState({
-                inputData: outputTab
-            }) 
-        }
-     }
+     
 
      
 
@@ -108,7 +88,7 @@ class Ajouter extends React.Component {
 
      }
     render() {
-       
+        console.log(this.props.match.params.id)
        return(
             this.state.isAdded?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
             <div className='add-component-container'>

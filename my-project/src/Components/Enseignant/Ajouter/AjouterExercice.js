@@ -7,16 +7,59 @@ class AjouterExercice extends React.Component {
         super(props)
         this.state={ 
             titre:'exercie',
+<<<<<<< HEAD
             //points:0 ,
+=======
+            points:0 ,
+>>>>>>> ffca67069468f6c1b6a369402df2dc5be60438cc
             idExamen:'' , 
             content:'',
             inputData:[],
             outputData:"",
             testTab : [] ,
+<<<<<<< HEAD
             //answers:[],
         }
     }
 
+=======
+          
+        }
+    }
+
+
+    handleChange=(e)=>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+       
+    }
+
+    handleInputChange=(e)=>{
+       let inputString = e.target.value
+       if (inputString.length>0)
+      {
+           let outputTab = inputString.split(',')
+           for (let i=0;i<outputTab.length;i++){
+               if (outputTab[i].toLowerCase().trim()==='true') 
+                   outputTab[i]= true
+               else if ((outputTab[i].toLowerCase().trim() === 'false'))
+                   outputTab[i] = false
+               else if (!isNaN(parseInt(outputTab[i])))
+                   outputTab[i] = Number(outputTab[i])
+               else 
+                   outputTab[i] = String(outputTab[i])
+       }
+           console.log(outputTab)
+           this.setState({
+               inputData: outputTab
+           }) 
+       }
+    }
+
+    
+
+>>>>>>> ffca67069468f6c1b6a369402df2dc5be60438cc
     addTest=()=>{
 
         
@@ -32,6 +75,7 @@ class AjouterExercice extends React.Component {
 
     }
 
+<<<<<<< HEAD
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -56,11 +100,28 @@ class AjouterExercice extends React.Component {
     }
 
 
+=======
+    saveExercice=()=>{
+
+
+    }
+
+>>>>>>> ffca67069468f6c1b6a369402df2dc5be60438cc
     render(){
+        
         return (
             <div style={{display:'flex'}}> 
+            
             <div className="ajouter-enonce">
+<<<<<<< HEAD
                     <textarea style={{width:'100%'}}name='content' placeholder='Enoncé'onChange={this.handleChange}/>
+=======
+                    <textarea style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
+            
+            
+                    <button type="button" className="btn btn-outline-secondary add-test-btn btn-sm" onClick={()=>this.saveExercice()}>Save</button>
+                      
+>>>>>>> ffca67069468f6c1b6a369402df2dc5be60438cc
             </div>
 
             <div className="ajouter-test">
@@ -71,7 +132,7 @@ class AjouterExercice extends React.Component {
                         <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
                         <div className='add-test-buttons'>
                             <button type="button" className="btn btn-outline-primary add-test-btn btn-sm" onClick={this.addTest}>Ajouter</button>
-                            <button type="button" className="btn btn-outline-success btn-sm" onClick={this.addTest}>Afficher</button>
+                            <button type="button" className="btn btn-outline-success btn-sm" >Afficher</button>
                     
                         </div>
                     </div>
@@ -82,6 +143,7 @@ class AjouterExercice extends React.Component {
         )}
 }
 
+<<<<<<< HEAD
 const mapStateToProp = state => {
     if (!state.exercice) return { exercice: {} }
     return {
@@ -104,3 +166,22 @@ const mapDispatchToProps = dispatch => {
 const AjouterExerciceContainer = connect(mapStateToProp, mapDispatchToProps)(AjouterExercice)
 
 export default AjouterExerciceContainer
+=======
+const mapDispatchToProps = dispatch => {
+    
+    return {
+      AddExercice: (exercice) => {
+        dispatch({
+          type: "SET_EXERCICE",
+          exercice
+        })
+      }
+    }
+  }
+
+
+  const AjouterExerciceContainer = connect(null, mapDispatchToProps)(AjouterExercice);
+
+
+export default AjouterExercice
+>>>>>>> ffca67069468f6c1b6a369402df2dc5be60438cc
