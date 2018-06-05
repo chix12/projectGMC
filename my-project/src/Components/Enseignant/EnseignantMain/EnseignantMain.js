@@ -58,16 +58,16 @@ class EnseignantMain extends React.Component {
             <div className="enseignant-main-container">
                 <div className = "filters" >
                     <h4>Recherche </h4>
-                    <input type="text"  class="form-control enseignant-input-search" placeholder="Titre" name='title' onChange={this.handleChange} autoComplete='off'/>
+                    <input type="text"  className="form-control enseignant-input-search" placeholder="Titre" name='title' onChange={this.handleChange} autoComplete='off'/>
                   
-                  <select class="custom-select filter-matiere"  name='matiere'onChange={this.handleChange}>
+                  <select className="custom-select filter-matiere"  name='matiere'onChange={this.handleChange}>
                         <option selected disabled>Matières</option>
                         <option value=''>Tous</option>
                         <option>Java Script</option>
                         <option>PHP</option>
                         <option>C++</option>
                    </select>
-                     <select class="custom-select" name='classe'onChange={this.handleChange}>
+                     <select className="custom-select" name='classe'onChange={this.handleChange}>
                         <option selected disabled>Classes</option>
                             <option>LFI1</option>
                             <option>LFI2</option>
@@ -80,7 +80,7 @@ class EnseignantMain extends React.Component {
                 <div className="exams">
                     <div className="enseignant-button">
                         <Link to={`/ajouter_examen/${this.state.enseignant._id}}`}>
-                            <button type="button" class="enseignant-add-button">+</button>
+                            <button type="button" className="enseignant-add-button">+</button>
                         </Link>
                         
                     </div>
@@ -94,21 +94,21 @@ class EnseignantMain extends React.Component {
                     .map(el=>{
                     return (
                         <div key={el._id} className='examen-card'>
-                            <div class="card text-center">
-                                <div class="card-header">
+                            <div className="card text-center">
+                                <div className="card-header">
                                     {el.matiere}
                                 </div>
-                                <div class="card-body"> 
-                                    <h5 class="card-title">{el.title}</h5>
+                                <div className="card-body"> 
+                                    <h5 className="card-title">{el.title}</h5>
                                     <Link to={'/delete_exam/'+this.state.enseignant._id}><input type='button'value='X' style={{background:'none',border:'none',color:'gray', position:'absolute', top:60,right:20}} 
                                     onClick={()=>this.deleteMatiere(el._id)}/></Link>
                                 
-                                    <p class="card-text">{el.content}</p>
+                                    <p className="card-text">{el.content}</p>
                                     <Link to={`/modifier_examen/${el._id}`}>
-                                        <input type='button' class="btn btn-primary" value="Accéder" />
+                                        <input type='button' className="btn btn-primary" value="Accéder" />
                                     </Link>
                                 </div>
-                                <div class="card-footer text-muted">
+                                <div className="card-footer text-muted">
                                     Durée : {el.duree} minutes
                                 </div>
                             </div>

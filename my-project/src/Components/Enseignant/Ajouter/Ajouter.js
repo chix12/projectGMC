@@ -18,7 +18,8 @@ class Ajouter extends React.Component {
           isAdded:false,
           inputData:[],
           outputData:"",
-          testTab : []  
+          testTab : [] ,
+          answers:[] 
         }
       }
       
@@ -59,7 +60,8 @@ class Ajouter extends React.Component {
             idEnseignant:this.state.idEnseignant,
             date:date,
             fullDate:this.state.date,
-            test:this.state.testTab
+            test:this.state.testTab,
+            answers:this.state.answers
         }
        
         axios.post('/add_examen',obj).catch((error) =>{
@@ -122,12 +124,12 @@ class Ajouter extends React.Component {
             <div className='add-component-container'>
                 <h1 className="add-component-header"> Ajouter Examen</h1>
                 <div className='add-component-main'>
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="">Enoncé</a>
+                    <ul className="nav nav-tabs">
+                        <li className="nav-item">
+                            <a className="nav-link active" href="">Enoncé</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Tests</a>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">Tests</a>
                         </li>
                     </ul>
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
@@ -136,28 +138,28 @@ class Ajouter extends React.Component {
             <div className="add-component-body">
                 <div className = 'test-container'>
                     <div className='tests'>
-                        <input type="text" class="form-control inputdata" placeholder="Données (sous format a,b,...)" value={this.state.inputData} name='inputData' onChange={this.handleInputChange} />
-                               <input type="text" class="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
+                        <input type="text" className="form-control inputdata" placeholder="Données (sous format a,b,...)" value={this.state.inputData} name='inputData' onChange={this.handleInputChange} />
+                               <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
                     </div> 
                     <div className="test-btn">
-                               <button type="button" class="enseignant-add-button" onClick={this.addTest}>+</button>
+                               <button type="button" className="enseignant-add-button" onClick={this.addTest}>+</button>
                     </div> 
                 </div>  
 
                 <div className='add-component-duree-matiere'>          
                     <div className='duree-date' >
-                        <input type="text"  class="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree'onChange={this.handleChange}/>
+                        <input type="text"  className="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree'onChange={this.handleChange}/>
                         <input type='datetime-local' className='form-control' name='date' onChange={this.handleChange} />
                     </div>
                     <div className='matiere-classe'>
-                        <select class="form-control matiere" name='matiere' onChange={this.handleChange}>
+                        <select className="form-control matiere" name='matiere' onChange={this.handleChange}>
                             <option selected disabled >Matière </option>
                             <option>Java Script</option>
                             <option>PHP</option>
                             <option>C++</option>
                         </select>
 
-                        <select class="form-control classe" name='classe' onChange={this.handleChange}>
+                        <select className="form-control classe" name='classe' onChange={this.handleChange}>
                             <option selected disabled>Classe</option>
                             <option>LFI1</option>
                             <option>LFI2</option>
@@ -167,9 +169,9 @@ class Ajouter extends React.Component {
                 </div>
         </div>
             <div className='add-component-buttons' >
-                <button type="button" class="btn btn-primary add-button" onClick={this.addExamen}>Ajouter Examen</button>
+                <button type="button" className="btn btn-primary add-button" onClick={this.addExamen}>Ajouter Examen</button>
                 <Link to='/enseignant'>
-                    <button type="button" class="btn btn-secondary add-button">Ignorer</button>
+                    <button type="button" className="btn btn-secondary add-button">Ignorer</button>
                 </Link>
             </div>
         </div>

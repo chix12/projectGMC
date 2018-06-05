@@ -7,10 +7,13 @@ import './TimerExp/TimerExp.css'
 import Editeur from './Editeur'
 
 
+
+
 class EspaceEtudiantMain extends React.Component{
 
     constructor(props){
         super(props)
+                expectedOutput:10,
        /* this.testArray=[
             {
                 input:[2,5],
@@ -18,7 +21,6 @@ class EspaceEtudiantMain extends React.Component{
             },
             {
                 input:[9,1],
-                expectedOutput:10,
             },
             {
                 input:[0,23],
@@ -47,8 +49,8 @@ class EspaceEtudiantMain extends React.Component{
                let d=JSON.stringify(this.getDate(this.state.date))
               
                
-              // axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-                axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"01","heure":"12","minutes":"11"}`).then(
+            //axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
+            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"05","heure":"01","minutes":"47"}`).then(
                 res => {
                     window.localStorage.setItem('exam',JSON.stringify(res.data))
                     this.setState({
@@ -107,7 +109,7 @@ class EspaceEtudiantMain extends React.Component{
         let fermante = code.lastIndexOf('}')
         let codeTab = code.slice(ouvrante, fermante).trim().split('')
         //console.log('funct', codeTab.filter(el => el != "\n").join(''))
-        return codeTab.filter(el => el != "\t").map(el => el==='\n' ? ";" : el).join('')
+        return codeTab.filter(el => el !== "\t").map(el => el==='\n' ? ";" : el).join('')
     }
 
     executerTests = () => {
@@ -182,8 +184,15 @@ class EspaceEtudiantMain extends React.Component{
             <div className='etudiant-main-content'>
             <ul className="nav nav-tabs">
                 <li className="nav-item">
-                    <a className="nav-link active" href="">{this.state.exam.title}</a>
-                </li>                    
+                    {/*<span className="nav-link active">{this.state.exam.title}</span>*/}
+                    <span className="nav-link" >Exercice 1</span>
+                </li>    
+                <li className="nav-item">
+                    <span className="nav-link" >Exercice 2</span>
+                </li>  
+                <li className="nav-item">
+                    <span className="nav-link" >Exercice 3</span>
+                </li>                
             </ul>
 
             {this.state.exam.duree && <TimerExp duree={this.state.exam.duree}/>}
@@ -201,8 +210,9 @@ class EspaceEtudiantMain extends React.Component{
                         {this.state.result.map(el=>{
                             return (
                                 <div>
+                                    
                                     {el.description}: 
-                                    Input: ({el.input[0]},{el.input[1]})
+                                    Input: ({[...el.input].join()})
                                     Expected: {el.expectedOutput} instead got: {el.output}
                                     
                                 </div>
@@ -224,24 +234,16 @@ class EspaceEtudiantMain extends React.Component{
                 <button type="button" className="btn btn-outline-primary btn-executer" onClick={this.executerTests}>
                     Exécuter les tests
                 </button>
-                <button type="button" className="btn btn-outline-success"onClick={this.addCodeEtudiant}>Valider</button>
-               
-                {/*<button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal">Valider</button>*/}
+                {//<button type="button" className="btn btn-outline-success"onClick={this.addCodeEtudiant}>Valider</button>
+                }
+                        <button type="button" className="btn btn-outline-success" onClick={this.addCodeEtudiant}  data-toggle="modal" data-target="#exampleModal">Valider</button>
                     
-                <ModalComponent/>
+                <ModalComponent nbrTest={this.state.exam.test}/>
             
             </div>
             </div>}
 
         </div>
-
-
-
-
-
-
-
-
       )
     }
 }

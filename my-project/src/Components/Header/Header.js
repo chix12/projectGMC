@@ -26,8 +26,8 @@ class Header extends React.Component{
                 </div>
             </div>
         </nav>
-        :
-    <nav className="navbar navbar-dark header"style={{justifyContent:'flex-end'}}>
+        : ""
+    /*<nav className="navbar navbar-dark header"style={{justifyContent:'flex-end'}}>
            
                <div className='logout'>     
                     <Link to='/'>
@@ -37,7 +37,7 @@ class Header extends React.Component{
                     
                 </div>
             
-        </nav>
+        </nav>*/
     )
 }
 }
