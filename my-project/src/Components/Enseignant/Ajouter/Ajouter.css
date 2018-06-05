@@ -73,3 +73,26 @@ textarea {
 .inputdata, .outputdata{
     margin: 10px;
 }
+
+
+
+.ajouter-enonce{
+    width:60%
+}
+
+.ajouter-test{
+    width:40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.add-test-buttons{
+    display: flex;
+    justify-content: center
+}
+
+.add-test-btn{
+    margin-right:10px
+}

@@ -34,7 +34,7 @@ class EspaceEtudiantMain extends React.Component{
             duree : 0,
             exam:{},
             result:[] ,
-            
+            exercices:[],
             answer:{}
         }
     }  
