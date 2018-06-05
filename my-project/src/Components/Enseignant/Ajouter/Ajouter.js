@@ -16,9 +16,7 @@ class Ajouter extends React.Component {
           idEnseignant:this.props.match.params.id.slice(0,-1),
           fullDate:'',
           isAdded:false,
-          exercices:[] ,
-
-          
+          exercices:[] ,         
         }
       }
       
@@ -80,11 +78,7 @@ class Ajouter extends React.Component {
         
      }
 
-     
-
-     
-
-     addExercice=()=>{
+    addExercice=()=>{
 
      }
     render() {
