@@ -10,7 +10,7 @@ class Editeur extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            code:`const sum = (a, b) => {return a + b}`
+            code:``
         
         }
     } 
@@ -31,7 +31,7 @@ class Editeur extends React.Component {
             lineNumbers: true,
             mode: 'jsx'
         };
-        return <CodeMirror value={this.state.code} onChange={this.updateCode} options={options} />
+        return <CodeMirror value={localStorage.getItem('code')} onChange={this.updateCode} options={options} />
     }	
 }
 

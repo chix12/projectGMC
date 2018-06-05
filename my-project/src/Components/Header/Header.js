@@ -5,6 +5,12 @@ import {connect} from 'react-redux'
 
 
 class Header extends React.Component{
+
+
+    logout=()=>{
+        localStorage.setItem('code', '')
+        this.props.logoutFn({})
+    }
     render(){
        
     return (
@@ -17,7 +23,7 @@ class Header extends React.Component{
                 <i className="fas fa-user user-btn"></i>
                 <p className="navbar-brand"> <span className='grey-text'>{this.props.user.prenom} {this.props.user.nom}</span></p>
                 
-                <div className='logout' onClick={()=>this.props.logoutFn({})}>     
+                <div className='logout' onClick={this.logout}>     
                     <Link to='/'>
                         <p className="navbar-brand"> <span className='grey-text'>Logout</span></p>
                     </Link>
