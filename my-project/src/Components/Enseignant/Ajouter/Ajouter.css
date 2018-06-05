@@ -96,3 +96,8 @@ textarea {
 .add-test-btn{
     margin-right:10px
 }
+
+.nav-tab-add-btn:hover{
+    color:#007bff;
+
+}

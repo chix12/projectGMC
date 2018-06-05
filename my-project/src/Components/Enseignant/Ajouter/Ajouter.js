@@ -2,13 +2,13 @@ import React from 'react'
 import './Ajouter.css'
 import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
+import AjouterExercice from './AjouterExercice'
 
 class Ajouter extends React.Component {
     constructor(props){
         super(props)
         this.state={
-          title:"",
-          content:'',
+          title:"",   
           duree:0,
           matiere:'',
           classe:'',
@@ -16,10 +16,9 @@ class Ajouter extends React.Component {
           idEnseignant:this.props.match.params.id.slice(0,-1),
           fullDate:'',
           isAdded:false,
-          inputData:[],
-          outputData:"",
-          testTab : [] ,
-          answers:[] 
+          exercices:[] ,
+
+          content:''
         }
       }
       
@@ -103,18 +102,9 @@ class Ajouter extends React.Component {
         }
      }
 
-     addTest=()=>{
+     
 
-        
-         let Test = {
-             input : this.state.inputData,
-             expectedOutput : this.state.outputData
-         }
-         this.setState({
-             testTab : this.state.testTab.concat(Test),
-             inputData : [],
-             outputData : ""
-         })
+     addExercice=()=>{
 
      }
     render() {
@@ -126,35 +116,15 @@ class Ajouter extends React.Component {
                 <div className='add-component-main'>
                     <ul className="nav nav-tabs">
                         <li className="nav-item">
-                            <a className="nav-link active" href="">Enoncé</a>
+                            <a className="nav-link active" href="">Exercice 1</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="">Tests</a>
+                        <li className="nav-item" onClick={this.addExercice}>
+                            <span className="nav-link nav-tab-add-btn" >+</span>
                         </li>
                     </ul>
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
-                  <div style={{display:'flex'}}> 
-                        <div className="ajouter-enonce">
-                                <textarea style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
-                        </div>
-
-                        <div className="ajouter-test">
-                            <h4>Test</h4>
-                            <div className = 'test-container'>
-                                <div className='tests'>
-                                    <input type="text" className="form-control inputdata" placeholder="Données (sous format a,b,...)" value={this.state.inputData} name='inputData' onChange={this.handleInputChange} />
-                                    <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
-                                    <div className='add-test-buttons'>
-                                        <button type="button" className="btn btn-outline-primary add-test-btn btn-sm" onClick={this.addTest}>Ajouter</button>
-                                        <button type="button" className="btn btn-outline-success btn-sm" onClick={this.addTest}>Afficher</button>
-                                 
-                                    </div>
-                                </div>
-                               
-                            </div> 
-                        </div>
-                   </div>
-
+                 
+                    <AjouterExercice />
                   </div>
             <div className="add-component-body">
                 
