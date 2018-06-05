@@ -1,21 +1,21 @@
 import React from 'react'
 import './Ajouter.css'
+import {connect} from 'react-redux'
 
 class AjouterExercice extends React.Component {
     constructor(props){
         super(props)
         this.state={ 
-            titre:'exercie1',
-            points:0 ,
+            titre:'exercie',
+            //points:0 ,
             idExamen:'' , 
             content:'',
             inputData:[],
             outputData:"",
             testTab : [] ,
-            answers:[],
+            //answers:[],
         }
     }
-
 
     addTest=()=>{
 
@@ -32,11 +32,35 @@ class AjouterExercice extends React.Component {
 
     }
 
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+
+    }
+
+    saveExercice = () => {
+        let exerciceObj = {
+            titre: this.state.titre,
+            //points:0 ,
+            idExamen: this.props.idExamen,
+            content: this.state.content,
+            inputData: this.state.inputData,
+            outputData: this.state.outputData,
+            testTab: this.state.testTab,
+            //answers: this.state.answers,
+        }
+
+        console.log(exerciceObj);
+        
+    }
+
+
     render(){
         return (
             <div style={{display:'flex'}}> 
             <div className="ajouter-enonce">
-                    <textarea style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
+                    <textarea style={{width:'100%'}}name='content' placeholder='Enoncé'onChange={this.handleChange}/>
             </div>
 
             <div className="ajouter-test">
@@ -58,4 +82,25 @@ class AjouterExercice extends React.Component {
         )}
 }
 
-export default AjouterExercice
+const mapStateToProp = state => {
+    if (!state.exercice) return { exercice: {} }
+    return {
+        exercice: state.exercice
+    }
+}
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        AddExercice: (exercice) => {
+            dispatch({
+                type: "SET_EXERCICE",
+                exercice
+            })
+        }
+    }
+}
+
+const AjouterExerciceContainer = connect(mapStateToProp, mapDispatchToProps)(AjouterExercice)
+
+export default AjouterExerciceContainer

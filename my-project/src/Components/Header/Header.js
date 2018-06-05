@@ -50,14 +50,14 @@ class Header extends React.Component{
 
 
 const mapStateToProp = state => {
- //(if(!state.user) return {user:{}}
+ if(!state.user) return {user:{}}
     return {
         user:state.user
     }
   }
 
 
-  const mapDispatchTpProps=dispatch=>{
+  const mapDispatchToProps=dispatch=>{
     return {
       logoutFn:(user)=>{
         dispatch({
@@ -69,7 +69,7 @@ const mapStateToProp = state => {
   }
   
 
-const HeaderContainer = connect(mapStateToProp,mapDispatchTpProps)(Header);
+const HeaderContainer = connect(mapStateToProp,mapDispatchToProps)(Header);
 
 
 export default HeaderContainer;

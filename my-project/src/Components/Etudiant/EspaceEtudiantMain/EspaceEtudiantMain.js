@@ -31,11 +31,10 @@ class EspaceEtudiantMain extends React.Component{
            
             etudiant : {},
             date : new Date(),
-            duree : 0,
             exam:{},
-            result:[] ,
+            testResult:[] ,
             exercices:[],
-            answer:{}
+          //  answer:{}
         }
     }  
 
@@ -80,9 +79,7 @@ class EspaceEtudiantMain extends React.Component{
             heure:String(this.state.date.getHours()).padStart(2, 0) ,
             minutes:String(this.state.date.getMinutes()).padStart(2, 0)
         }
-
         return dateObj
-
     }
 
     getParams=(code)=>{
@@ -122,7 +119,7 @@ class EspaceEtudiantMain extends React.Component{
         const funct = new Function (...params, code)
         //console.log(funct())
         
-        this.setState({result:[]})
+        this.setState({testResult:[]})
        
         this.state.exam.test.map(el=>{
             axios.post('https://api.judge0.com/submissions?wait=true', {
@@ -132,7 +129,7 @@ class EspaceEtudiantMain extends React.Component{
             })
             .then(res => {    
                 this.setState({
-                    result: this.state.result.concat({
+                    testResult: this.state.testResult.concat({
                         input: el.input,
                         expectedOutput: el.expectedOutput,
                         output: res.data.stdout,
@@ -151,8 +148,8 @@ class EspaceEtudiantMain extends React.Component{
     addCodeEtudiant=()=>{
        //console.log('this.state.exam.answers',this.state.exam.answers)
       
-       let objAnswer={idEtudiant:this.props.match.params.id,answer:localStorage.getItem('code')} 
-        let answers=this.state.exam.answers.concat(objAnswer)
+      // let objAnswer={idEtudiant:this.props.match.params.id,answer:localStorage.getItem('code')} 
+      //  let answers=this.state.exam.answers.concat(objAnswer)
 
 
         let obj={title:this.state.exam.title,
@@ -163,7 +160,7 @@ class EspaceEtudiantMain extends React.Component{
             idEnseignant:this.state.exam.idEnseignant,
             date:this.state.exam.date,
             fullDate:this.state.exam.fullDate,
-            answers:answers
+           // answers:answers
         }
         
         
@@ -207,7 +204,7 @@ class EspaceEtudiantMain extends React.Component{
                     <div className='etudiant-test'>
                         <h3>Test </h3>
 
-                        {this.state.result.map(el=>{
+                        {this.state.testResult.map(el=>{
                             return (
                                 <div>
                                     

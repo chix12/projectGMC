@@ -124,7 +124,7 @@ class Ajouter extends React.Component {
                     </ul>
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
                  
-                    <AjouterExercice />
+                    <AjouterExercice idExamen={this.props.match.params.id.slice(0,-1)}/>
                   </div>
             <div className="add-component-body">
                 
