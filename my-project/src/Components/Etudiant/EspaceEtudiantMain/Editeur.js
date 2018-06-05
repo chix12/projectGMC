@@ -11,7 +11,7 @@ class Editeur extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            code:`const sum = (a, b) => {return a + b}`
+            code:``
         
         }
     } 
@@ -46,7 +46,7 @@ class Editeur extends React.Component {
         height="500"
         language="javascript"
         //theme="vs-dark"
-        value={this.state.code}
+        value={localStorage.getItem('code')}
         options={options}
         onChange={this.updateCode}
         editorDidMount={this.editorDidMount}
