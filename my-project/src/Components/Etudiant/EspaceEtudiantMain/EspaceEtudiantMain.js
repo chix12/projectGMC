@@ -47,8 +47,8 @@ class EspaceEtudiantMain extends React.Component{
                let d=JSON.stringify(this.getDate(this.state.date))
               
                
-               axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-               // axios.get(`/exam/LFI2/{"annee":"2018","mois":"05","jour":"28","heure":"01","minutes":"57"}`).then(
+              // axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
+                axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"01","heure":"12","minutes":"11"}`).then(
                 res => {
                     window.localStorage.setItem('exam',JSON.stringify(res.data))
                     this.setState({
@@ -106,7 +106,7 @@ class EspaceEtudiantMain extends React.Component{
         let ouvrante = code.indexOf('{') + 1
         let fermante = code.lastIndexOf('}')
         let codeTab = code.slice(ouvrante, fermante).trim().split('')
-        console.log('funct', codeTab.filter(el => el != "\n").join(''))
+        //console.log('funct', codeTab.filter(el => el != "\n").join(''))
         return codeTab.filter(el => el != "\t").map(el => el==='\n' ? ";" : el).join('')
     }
 
@@ -114,15 +114,17 @@ class EspaceEtudiantMain extends React.Component{
         const localStorage = window.localStorage
         const storedCode = localStorage.getItem('code')
         const code = this.getCode(storedCode)
-        console.log(code)
+        //console.log(code)
         const params = this.getParams(storedCode)
+        
         const funct = new Function (...params, code)
+        //console.log(funct())
         
         this.setState({result:[]})
        
         this.state.exam.test.map(el=>{
             axios.post('https://api.judge0.com/submissions?wait=true', {
-                source_code: `console.log(${funct(...el.input)})`,
+                source_code: `console.log(${JSON.stringify(funct(...el.input))})`,
                 language_id: 29,    
                 expected_output: el.expectedOutput
             })
@@ -134,7 +136,9 @@ class EspaceEtudiantMain extends React.Component{
                         output: res.data.stdout,
                         description:res.data.status.description
                     }),  
+                    
                 })
+                console.log("params", res.data.stdout)
             })
             .catch(e=>console.log(e))
         })
@@ -160,7 +164,7 @@ class EspaceEtudiantMain extends React.Component{
             answers:answers
         }
         
-        console.log(obj)        
+        
         axios.put(`/examen/${this.state.exam._id}`,obj)
           .catch((error) =>{
             console.log(error);
