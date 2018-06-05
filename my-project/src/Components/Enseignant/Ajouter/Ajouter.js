@@ -2,6 +2,7 @@ import React from 'react'
 import './Ajouter.css'
 import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
+import { connect } from 'react-redux'
 import AjouterExercice from './AjouterExercice'
 
 class Ajouter extends React.Component {
@@ -16,7 +17,7 @@ class Ajouter extends React.Component {
           idEnseignant:this.props.match.params.id.slice(0,-1),
           fullDate:'',
           isAdded:false,
-          exercices:[] ,         
+            exercices: [].concat(JSON.parse(localStorage.getItem('exercice')))        
         }
       }
       
@@ -27,7 +28,14 @@ class Ajouter extends React.Component {
                     enseignant:res.data
                 })
             }
-        )}
+        )
+
+
+         
+
+    }
+
+
 
       FormatDate = (date) => {
         let myDateTab = String(date).split('T')
@@ -79,10 +87,12 @@ class Ajouter extends React.Component {
      }
 
     addExercice=()=>{
-
+        this.setState({
+            exercices: this.state.exercices.concat(JSON.parse(localStorage.getItem('exercice')))
+        })
      }
     render() {
-        console.log(this.props.match.params.id)
+        console.log('exercices',this.state.exercices)
        return(
             this.state.isAdded?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
             <div className='add-component-container'>
@@ -98,7 +108,7 @@ class Ajouter extends React.Component {
                     </ul>
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
                  
-                    <AjouterExercice idExamen={this.props.match.params.id.slice(0,-1)}/>
+                    <AjouterExercice />
                   </div>
             <div className="add-component-body">
                 
@@ -136,4 +146,14 @@ class Ajouter extends React.Component {
     }
 }
 
-export default Ajouter
+const mapStateToProp = state => {
+    if (!state.exercice) return { exercice: {} }
+    return {
+        exercice: state.exercice
+    }
+}
+
+const AjouterContainer = connect(mapStateToProp, null)(Ajouter)
+
+
+export default AjouterContainer

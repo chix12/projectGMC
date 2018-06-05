@@ -64,16 +64,17 @@ class AjouterExercice extends React.Component {
         let exerciceObj = {
             titre: this.state.titre,
             //points:0 ,
-            idExamen: this.props.idExamen,
+            //idExamen: this.props.idExamen,
             content: this.state.content,
             //inputData: this.state.inputData,
             //outputData: this.state.outputData,
             testTab: this.state.testTab,
             //answers: this.state.answers,
         }
-        axios.post('/add_exercice', exerciceObj).catch((error) => {
+        /*axios.post('/add_exercice', exerciceObj).catch((error) => {
             console.log(error);
-        })
+        })*/
+        this.props.AddExercice(exerciceObj);
 
         //console.log(exerciceObj);
         
@@ -112,12 +113,6 @@ class AjouterExercice extends React.Component {
         )}
 }
 
-const mapStateToProp = state => {
-    if (!state.exercice) return { exercice: {} }
-    return {
-        exercice: state.exercice
-    }
-}
 
 
 const mapDispatchToProps = dispatch => {
@@ -131,6 +126,6 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const AjouterExerciceContainer = connect(mapStateToProp, mapDispatchToProps)(AjouterExercice)
+const AjouterExerciceContainer = connect(null, mapDispatchToProps)(AjouterExercice)
 
 export default AjouterExerciceContainer
