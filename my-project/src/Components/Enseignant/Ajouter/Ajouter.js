@@ -133,18 +133,31 @@ class Ajouter extends React.Component {
                         </li>
                     </ul>
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
-                    <textarea name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
-                </div>
+                  <div style={{display:'flex'}}> 
+                        <div className="ajouter-enonce">
+                                <textarea style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
+                        </div>
+
+                        <div className="ajouter-test">
+                            <h4>Test</h4>
+                            <div className = 'test-container'>
+                                <div className='tests'>
+                                    <input type="text" className="form-control inputdata" placeholder="Données (sous format a,b,...)" value={this.state.inputData} name='inputData' onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
+                                    <div className='add-test-buttons'>
+                                        <button type="button" className="btn btn-outline-primary add-test-btn btn-sm" onClick={this.addTest}>Ajouter</button>
+                                        <button type="button" className="btn btn-outline-success btn-sm" onClick={this.addTest}>Afficher</button>
+                                 
+                                    </div>
+                                </div>
+                               
+                            </div> 
+                        </div>
+                   </div>
+
+                  </div>
             <div className="add-component-body">
-                <div className = 'test-container'>
-                    <div className='tests'>
-                        <input type="text" className="form-control inputdata" placeholder="Données (sous format a,b,...)" value={this.state.inputData} name='inputData' onChange={this.handleInputChange} />
-                               <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
-                    </div> 
-                    <div className="test-btn">
-                               <button type="button" className="enseignant-add-button" onClick={this.addTest}>+</button>
-                    </div> 
-                </div>  
+                
 
                 <div className='add-component-duree-matiere'>          
                     <div className='duree-date' >
