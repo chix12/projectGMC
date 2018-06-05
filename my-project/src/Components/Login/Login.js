@@ -54,9 +54,6 @@ class Login extends React.Component{
                             id:res.data._id, 
                             statut:'etudiant'  
                         })
-
-                      
-
                         this.props.setUser(res.data)
                     }
                     else{
@@ -117,8 +114,6 @@ const mapDispatchToProps = dispatch => {
     
     return {
       setUser: (user) => {
-        
-        
         dispatch({
           type: "SET_USER",
           user: user
@@ -127,7 +122,6 @@ const mapDispatchToProps = dispatch => {
     }
   }
 
-
-  const LoginContainer = connect(null, mapDispatchToProps)(Login);
+const LoginContainer = connect(null, mapDispatchToProps)(Login);
 
 export default LoginContainer
