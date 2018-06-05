@@ -1,21 +1,53 @@
 import React from 'react'
 import './Ajouter.css'
+import {connect} from 'react-redux'
 
 class AjouterExercice extends React.Component {
     constructor(props){
         super(props)
         this.state={ 
-            titre:'exercie1',
+            titre:'exercie',
             points:0 ,
             idExamen:'' , 
             content:'',
             inputData:[],
             outputData:"",
             testTab : [] ,
-            answers:[],
+          
         }
     }
 
+
+    handleChange=(e)=>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+       
+    }
+
+    handleInputChange=(e)=>{
+       let inputString = e.target.value
+       if (inputString.length>0)
+      {
+           let outputTab = inputString.split(',')
+           for (let i=0;i<outputTab.length;i++){
+               if (outputTab[i].toLowerCase().trim()==='true') 
+                   outputTab[i]= true
+               else if ((outputTab[i].toLowerCase().trim() === 'false'))
+                   outputTab[i] = false
+               else if (!isNaN(parseInt(outputTab[i])))
+                   outputTab[i] = Number(outputTab[i])
+               else 
+                   outputTab[i] = String(outputTab[i])
+       }
+           console.log(outputTab)
+           this.setState({
+               inputData: outputTab
+           }) 
+       }
+    }
+
+    
 
     addTest=()=>{
 
@@ -32,11 +64,22 @@ class AjouterExercice extends React.Component {
 
     }
 
+    saveExercice=()=>{
+
+
+    }
+
     render(){
+        
         return (
             <div style={{display:'flex'}}> 
+            
             <div className="ajouter-enonce">
                     <textarea style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
+            
+            
+                    <button type="button" className="btn btn-outline-secondary add-test-btn btn-sm" onClick={()=>this.saveExercice()}>Save</button>
+                      
             </div>
 
             <div className="ajouter-test">
@@ -47,7 +90,7 @@ class AjouterExercice extends React.Component {
                         <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
                         <div className='add-test-buttons'>
                             <button type="button" className="btn btn-outline-primary add-test-btn btn-sm" onClick={this.addTest}>Ajouter</button>
-                            <button type="button" className="btn btn-outline-success btn-sm" onClick={this.addTest}>Afficher</button>
+                            <button type="button" className="btn btn-outline-success btn-sm" >Afficher</button>
                     
                         </div>
                     </div>
@@ -57,5 +100,21 @@ class AjouterExercice extends React.Component {
             </div>
         )}
 }
+
+const mapDispatchToProps = dispatch => {
+    
+    return {
+      AddExercice: (exercice) => {
+        dispatch({
+          type: "SET_EXERCICE",
+          exercice
+        })
+      }
+    }
+  }
+
+
+  const AjouterExerciceContainer = connect(null, mapDispatchToProps)(AjouterExercice);
+
 
 export default AjouterExercice
