@@ -9,32 +9,51 @@ class AjouterExercice extends React.Component {
         this.state={ 
             titre:'exercie',
             //points:0 ,
-            idExamen:'' , 
-            content:'',
+           
+            content:this.props.exerciceProp?this.props.exerciceProp.content:'',
             inputData:[],
             outputData:"",
             testTab : [] ,
             //answers:[],
+            exerciceObj:{}
+
+            
         }
     }
 
+   
+
+    componentDidUpdate(){
+        
+        this.props.updateExercice(this.state.exerciceObj)
+       
+        
+    }
+   
+
+
+   
     addTest=()=>{
-        let Test = {
+        let test = {
             input : this.state.inputData,
             expectedOutput : this.state.outputData
         }
         this.setState({
-            testTab : this.state.testTab.concat(Test),
+            testTab : this.state.testTab.concat(test),
             inputData : [],
-            outputData : ""
+            outputData : "",
+            exerciceObj:Object.assign(this.state.exerciceObj,{testTab: this.state.testTab.concat(test)}),
+
         })
 
     }
 
     handleChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            exerciceObj:Object.assign(this.state.exerciceObj,e.target.name==='content'&&{[e.target.name]: e.target.value})
         })
+        
 
     }
 
@@ -53,14 +72,16 @@ class AjouterExercice extends React.Component {
                 else 
                     outputTab[i] = String(outputTab[i])
         }
-            console.log(outputTab)
+            
             this.setState({
+                
                 inputData: outputTab
             }) 
         }
      }
 
     saveExercice = () => {
+<<<<<<< HEAD
         let exerciceObj = {
             titre: this.state.titre,
             //points:0 ,
@@ -77,19 +98,33 @@ class AjouterExercice extends React.Component {
         this.props.AddExercice(exerciceObj);
 
         //console.log(exerciceObj);
+=======
+>>>>>>> e6fc9b06fcf4635d891badf40932aec37e0d9942
         
+
+       if(!JSON.parse(localStorage.getItem('exercicetab'))){
+           let tab=[]
+           tab.push(Object.assign({titre:'Exercice '+Number(tab.length+1)},this.state.exerciceObj))
+           localStorage.setItem('exercicetab',JSON.stringify(tab))
+       
+       }
+       else {
+            
+            let tab=JSON.parse(localStorage.getItem('exercicetab'))
+            tab.push(Object.assign({titre:'Exercice '+Number(tab.length+1)},this.state.exerciceObj))
+            localStorage.setItem('exercicetab',JSON.stringify(tab))
+       }
+            
     }
 
 
     render(){
-        
+       console.log(this.props.exerciceProp)
         return (
-            <div style={{display:'flex'}}> 
+        <div style={{display:'flex'}}> 
             
             <div className="ajouter-enonce">
-                    <textarea style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
-            
-            
+                    <textarea style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange} value={this.state.content}/>
                     <button type="button" className="btn btn-outline-secondary add-test-btn btn-sm" onClick={()=>this.saveExercice()}>Save</button>
                       
             </div>
@@ -109,17 +144,26 @@ class AjouterExercice extends React.Component {
                 
                 </div> 
             </div>
-            </div>
+        </div>
         )}
 }
 
+<<<<<<< HEAD
+=======
+const mapStateToProp = state => {
+    
+    return {
+        exercice: state.exercice
+    }
+}
+>>>>>>> e6fc9b06fcf4635d891badf40932aec37e0d9942
 
 
 const mapDispatchToProps = dispatch => {
     return {
-        AddExercice: (exercice) => {
+        updateExercice: (exercice) => {
             dispatch({
-                type: "SET_EXERCICE",
+                type: "UPDATE_EXERCICE",
                 exercice
             })
         }

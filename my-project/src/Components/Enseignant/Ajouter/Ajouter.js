@@ -4,11 +4,13 @@ import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import AjouterExercice from './AjouterExercice'
+import {connect} from 'react-redux'
 
 class Ajouter extends React.Component {
     constructor(props){
         super(props)
         this.state={
+<<<<<<< HEAD
           title:"",   
           duree:0,
           matiere:'',
@@ -18,6 +20,22 @@ class Ajouter extends React.Component {
           fullDate:'',
           isAdded:false,
             exercices: [].concat(JSON.parse(localStorage.getItem('exercice')))        
+=======
+            title:"",   
+            duree:0,
+            matiere:'',
+            classe:'',
+            date:'',
+            idEnseignant:this.props.match.params.id.slice(0,-1),
+            fullDate:'',
+            isAdded:false,
+            exercices:[] , 
+            exerciceTab:['Exercice 1']   ,
+            //exerciceArrayStorage: JSON.parse(localStorage.getItem('exercicetab'))  ?   JSON.parse(localStorage.getItem('exercicetab')) : []
+            exerciceArray:[],
+            activeIndex:0
+        
+>>>>>>> e6fc9b06fcf4635d891badf40932aec37e0d9942
         }
       }
       
@@ -49,8 +67,7 @@ class Ajouter extends React.Component {
             heure:heure[0] ,
             minutes:heure[1]
         }
-        //return ('Y' + myDate[0] + 'M' + myDate[1] + 'D' + myDate[2] + 'T' + heure[0] + 'M' + heure [1])
-
+      
         return JSON.stringify(dateObj)
       } 
 
@@ -88,27 +105,50 @@ class Ajouter extends React.Component {
 
     addExercice=()=>{
         this.setState({
+<<<<<<< HEAD
             exercices: this.state.exercices.concat(JSON.parse(localStorage.getItem('exercice')))
         })
      }
     render() {
         console.log('exercices',this.state.exercices)
+=======
+            exerciceTab:this.state.exerciceTab.concat('Exercice '+Number(this.state.exerciceTab.length+1)),
+            exerciceArray:this.state.exerciceArray.concat(Object.assign({titre:'Exercice '+Number(this.state.exerciceArray.length+1)},this.props.exercice)),
+            activeIndex:this.state.activeIndex+1
+        })
+
+     }
+    render() {
+       
+>>>>>>> e6fc9b06fcf4635d891badf40932aec37e0d9942
        return(
             this.state.isAdded?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
             <div className='add-component-container'>
                 <h1 className="add-component-header"> Ajouter Examen</h1>
                 <div className='add-component-main'>
                     <ul className="nav nav-tabs">
-                        <li className="nav-item">
-                            <a className="nav-link active" href="">Exercice 1</a>
-                        </li>
+                    {this.state.exerciceTab.map((el,i)=> (
+                        
+                            <li className="nav-item" key={i} onClick={()=>this.setState({activeIndex:i})}>
+                                <span className="nav-link" style={{color:this.state.activeIndex===i?"#007bff":""}}>{el}</span>
+                            </li>
+                        
+                    )
+                    )}
+                       
                         <li className="nav-item" onClick={this.addExercice}>
                             <span className="nav-link nav-tab-add-btn" >+</span>
                         </li>
+                        
                     </ul>
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
                  
+<<<<<<< HEAD
                     <AjouterExercice />
+=======
+                 <AjouterExercice exerciceProp={this.state.exerciceArray[this.state.activeIndex]}/>
+                   
+>>>>>>> e6fc9b06fcf4635d891badf40932aec37e0d9942
                   </div>
             <div className="add-component-body">
                 
@@ -147,13 +187,25 @@ class Ajouter extends React.Component {
 }
 
 const mapStateToProp = state => {
+<<<<<<< HEAD
     if (!state.exercice) return { exercice: {} }
+=======
+    
+>>>>>>> e6fc9b06fcf4635d891badf40932aec37e0d9942
     return {
         exercice: state.exercice
     }
 }
 
+<<<<<<< HEAD
 const AjouterContainer = connect(mapStateToProp, null)(Ajouter)
 
 
+=======
+
+
+
+const AjouterContainer = connect(mapStateToProp)(Ajouter)
+
+>>>>>>> e6fc9b06fcf4635d891badf40932aec37e0d9942
 export default AjouterContainer
