@@ -1,83 +1,111 @@
 import React from 'react'
 import './Ajouter.css'
 import {connect} from 'react-redux'
+import axios from 'axios'
 
 class AjouterExercice extends React.Component {
     constructor(props){
         super(props)
         this.state={ 
             titre:'exercie',
-            points:0 ,
-            idExamen:'' , 
-            content:'',
+            //points:0 ,
+           
+            content:this.props.exerciceProp?this.props.exerciceProp.content:'',
             inputData:[],
             outputData:"",
             testTab : [] ,
-          
+            //answers:[],
+            exerciceObj:{}
+
+            
         }
     }
 
+   
 
-    handleChange=(e)=>{
-        this.setState({
-            [e.target.name]:e.target.value
-        })
-       
-    }
-
-    handleInputChange=(e)=>{
-       let inputString = e.target.value
-       if (inputString.length>0)
-      {
-           let outputTab = inputString.split(',')
-           for (let i=0;i<outputTab.length;i++){
-               if (outputTab[i].toLowerCase().trim()==='true') 
-                   outputTab[i]= true
-               else if ((outputTab[i].toLowerCase().trim() === 'false'))
-                   outputTab[i] = false
-               else if (!isNaN(parseInt(outputTab[i])))
-                   outputTab[i] = Number(outputTab[i])
-               else 
-                   outputTab[i] = String(outputTab[i])
-       }
-           console.log(outputTab)
-           this.setState({
-               inputData: outputTab
-           }) 
-       }
-    }
-
-    
-
-    addTest=()=>{
-
+    componentDidUpdate(){
         
-        let Test = {
+        this.props.updateExercice(this.state.exerciceObj)
+       
+        
+    }
+   
+
+
+   
+    addTest=()=>{
+        let test = {
             input : this.state.inputData,
             expectedOutput : this.state.outputData
         }
         this.setState({
-            testTab : this.state.testTab.concat(Test),
+            testTab : this.state.testTab.concat(test),
             inputData : [],
-            outputData : ""
+            outputData : "",
+            exerciceObj:Object.assign(this.state.exerciceObj,{testTab: this.state.testTab.concat(test)}),
+
         })
 
     }
 
-    saveExercice=()=>{
-
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value,
+            exerciceObj:Object.assign(this.state.exerciceObj,e.target.name==='content'&&{[e.target.name]: e.target.value})
+        })
+        
 
     }
 
-    render(){
+    handleInputChange=(e)=>{
+        let inputString = e.target.value
+        if (inputString.length>0)
+       {
+            let outputTab = inputString.split(',')
+            for (let i=0;i<outputTab.length;i++){
+                if (outputTab[i].toLowerCase().trim()==='true') 
+                    outputTab[i]= true
+                else if ((outputTab[i].toLowerCase().trim() === 'false'))
+                    outputTab[i] = false
+                else if (!isNaN(parseInt(outputTab[i])))
+                    outputTab[i] = Number(outputTab[i])
+                else 
+                    outputTab[i] = String(outputTab[i])
+        }
+            
+            this.setState({
+                
+                inputData: outputTab
+            }) 
+        }
+     }
+
+    saveExercice = () => {
+        
+
+       if(!JSON.parse(localStorage.getItem('exercicetab'))){
+           let tab=[]
+           tab.push(Object.assign({titre:'Exercice '+Number(tab.length+1)},this.state.exerciceObj))
+           localStorage.setItem('exercicetab',JSON.stringify(tab))
        
+       }
+       else {
+            
+            let tab=JSON.parse(localStorage.getItem('exercicetab'))
+            tab.push(Object.assign({titre:'Exercice '+Number(tab.length+1)},this.state.exerciceObj))
+            localStorage.setItem('exercicetab',JSON.stringify(tab))
+       }
+            
+    }
+
+
+    render(){
+       console.log(this.props.exerciceProp)
         return (
-            <div style={{display:'flex'}}> 
+        <div style={{display:'flex'}}> 
             
             <div className="ajouter-enonce">
-                    <textarea style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange}/>
-            
-            
+                    <textarea style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange} value={this.state.content}/>
                     <button type="button" className="btn btn-outline-secondary add-test-btn btn-sm" onClick={()=>this.saveExercice()}>Save</button>
                       
             </div>
@@ -97,24 +125,29 @@ class AjouterExercice extends React.Component {
                 
                 </div> 
             </div>
-            </div>
+        </div>
         )}
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProp = state => {
     
     return {
-      AddExercice: (exercice) => {
-        dispatch({
-          type: "SET_EXERCICE",
-          exercice
-        })
-      }
+        exercice: state.exercice
     }
-  }
+}
 
 
-  const AjouterExerciceContainer = connect(null, mapDispatchToProps)(AjouterExercice);
+const mapDispatchToProps = dispatch => {
+    return {
+        updateExercice: (exercice) => {
+            dispatch({
+                type: "UPDATE_EXERCICE",
+                exercice
+            })
+        }
+    }
+}
 
+const AjouterExerciceContainer = connect(mapStateToProp, mapDispatchToProps)(AjouterExercice)
 
-export default AjouterExercice
+export default AjouterExerciceContainer

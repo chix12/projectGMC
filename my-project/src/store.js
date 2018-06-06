@@ -8,7 +8,7 @@ const store = createStore(
     combineReducers({
       user:UserReducer,
       exercice:ExerciceReducer
-        })
+      })
   );
   
 

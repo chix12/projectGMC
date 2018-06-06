@@ -10,6 +10,12 @@ const ExerciceReducer = (state = JSON.parse(localStorage.getItem('exercice')), a
 
         return JSON.parse(localStorage.getItem('exercice'))
     }
+    
+
+    if (action.type === "UPDATE_EXERCICE") {
+       
+        return action.exercice
+    }
 
     return state;
 }

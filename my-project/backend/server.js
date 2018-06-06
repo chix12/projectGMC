@@ -53,7 +53,20 @@ MongoClient.connect(mongo_url,(err,client)=>{
 			}
 		})
     })
-    
+	
+	app.post('/add_exercice', (req, res) => {
+		let new_exercice = req.body
+
+		db.collection('Exercices').insertOne({ ...new_exercice }, (err, data) => {
+			if (err) {
+				res.send('can not add new exercice')
+			}
+			else {
+				res.send('exercice added')
+			}
+		})
+	})
+
     app.get('/etudiants',(req,res)=>{
 		db.collection('Etudiant').find().toArray((err,data)=>{
 			if(err) {
