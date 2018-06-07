@@ -7,7 +7,7 @@ const ExerciceReducer = (state = JSON.parse(localStorage.getItem('exercice')), a
     if (action.type === "SET_EXERCICE") {
 
         localStorage.setItem('exercice', JSON.stringify(action.exercice))
-
+        //console.log(JSON.parse(localStorage.getItem('exercice')));
         return JSON.parse(localStorage.getItem('exercice'))
     }
     
@@ -17,12 +17,7 @@ const ExerciceReducer = (state = JSON.parse(localStorage.getItem('exercice')), a
         return action.exercice
     }
 
-    if (action.type === "UPDATE_EXERCICE_ARRAY") {
-        //console.log(action.exercice)
-        
-         return action.exercice
-     }
-
+   
     return state;
 }
 

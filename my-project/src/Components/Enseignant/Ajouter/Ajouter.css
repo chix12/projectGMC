@@ -21,6 +21,7 @@
 
 textarea {
   height: 300px;
+  border:1px solid #ced4da
 }
 
 .add-component-buttons{
@@ -60,8 +61,10 @@ textarea {
 }
 
 .add-examen-title{
-    border-bottom: none;
-    border-top: none
+    
+    border-top: none;
+    border-left: none;
+    margin-bottom: 20px
 }
 
 .ajouter-duree-input{
@@ -74,8 +77,6 @@ textarea {
     margin: 10px;
 }
 
-
-
 .ajouter-enonce{
     width:60%
 }
@@ -85,7 +86,10 @@ textarea {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    border:1px solid #ced4da;
+    height:300px
+
 }
 
 .add-test-buttons{
@@ -100,4 +104,13 @@ textarea {
 .nav-tab-add-btn:hover{
     color:#007bff;
 
+}
+
+.nav-tab-add-btn{
+    font-size:17px
+}
+
+.exercice-item{
+    border:1px solid #ced4da;
+    border-bottom: none
 }

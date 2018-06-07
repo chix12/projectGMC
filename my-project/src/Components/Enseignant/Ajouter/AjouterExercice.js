@@ -1,6 +1,7 @@
 import React from 'react'
 import './Ajouter.css'
 import {connect} from 'react-redux'
+import ModalTest from './ModalTest'
 
 class AjouterExercice extends React.Component {
     constructor(props){
@@ -14,19 +15,19 @@ class AjouterExercice extends React.Component {
             outputData:"",
             testTab : [] ,
             
-            exerciceObj:{},
+          
 
 
-
-            exerciceTab:['Exercice 1']   ,
-            exerciceArray:[{titre:"exercice 1"}],
+            exerciceArray:[{titre:"Exercice 1"}],
             activeIndex:0
             
         }
     }
 
    
-
+    componentDidUpdate(){
+        this.props.setExerciceArray(this.state.exerciceArray)
+    }
     
 
 
@@ -40,8 +41,7 @@ class AjouterExercice extends React.Component {
             testTab : this.state.testTab.concat(test),
             inputData : [],
             outputData : "",
-            exerciceObj:Object.assign(this.state.exerciceObj,{testTab: this.state.testTab.concat(test)}),
-
+           
             exerciceArray:this.state.exerciceArray.map((el,i)=>{
                
                 if(i===this.state.activeIndex){
@@ -59,7 +59,6 @@ class AjouterExercice extends React.Component {
         
         this.setState({
             [e.target.name]: e.target.value,
-            exerciceObj:Object.assign(this.state.exerciceObj,e.target.name==='content'&&{[e.target.name]: e.target.value}),
            
             exerciceArray:this.state.exerciceArray.map((el,i)=>{
                
@@ -98,33 +97,16 @@ class AjouterExercice extends React.Component {
         }
      }
 
-    saveExercice = () => {
-        
-
-       if(!JSON.parse(localStorage.getItem('exercicetab'))){
-           let tab=[]
-           tab.push(Object.assign({titre:'Exercice '+Number(tab.length+1)},this.state.exerciceObj))
-           localStorage.setItem('exercicetab',JSON.stringify(tab))
-       
-       }
-       else {
-            
-            let tab=JSON.parse(localStorage.getItem('exercicetab'))
-            tab.push(Object.assign({titre:'Exercice '+Number(tab.length+1)},this.state.exerciceObj))
-            localStorage.setItem('exercicetab',JSON.stringify(tab))
-       }
-            
-    }
-
+   
 
 
     addExercice=()=>{
         
         this.setState({
-            exerciceTab:this.state.exerciceTab.concat('Exercice '+Number(this.state.exerciceTab.length+1)),
             exerciceArray:this.state.exerciceArray.concat(Object.assign({titre:'Exercice '+Number(this.state.exerciceArray.length+1)})),
-            activeIndex:this.state.activeIndex+1,
-            content:''
+            activeIndex:this.state.exerciceArray.length,
+            content:'',
+            testTab:[]
         })
 
      }
@@ -142,9 +124,9 @@ class AjouterExercice extends React.Component {
         return (
         <div>
             <ul className="nav nav-tabs">
-                {this.state.exerciceTab.map((el,i)=> ( 
-                    <li className="nav-item" key={i} onClick={()=>this.onClickExerciceItem(i)}>
-                        <span className="nav-link" style={{color:this.state.activeIndex===i?"#007bff":""}}>{el}</span>
+                {this.state.exerciceArray.map((el,i)=> ( 
+                    <li className="nav-item exercice-item" key={i} onClick={()=>this.onClickExerciceItem(i)}>
+                        <span className="nav-link" style={{color:this.state.activeIndex===i?"#007bff":""}}>{el.titre}</span>
                     </li>  
                 ))}  
                     <li className="nav-item" onClick={this.addExercice}>
@@ -155,8 +137,8 @@ class AjouterExercice extends React.Component {
             <div style={{display:'flex'}}> 
                 
                 <div className="ajouter-enonce">
-                        <textarea value={this.state.content} style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange} />
-                        <button type="button" className="btn btn-outline-secondary add-test-btn btn-sm" onClick={()=>this.saveExercice()}>Save</button>    
+                    
+                    <textarea value={this.state.content} style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange} />
                 </div>
 
                 <div className="ajouter-test">
@@ -167,8 +149,8 @@ class AjouterExercice extends React.Component {
                             <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
                             <div className='add-test-buttons'>
                                 <button type="button" className="btn btn-outline-primary add-test-btn btn-sm" onClick={this.addTest}>Ajouter</button>
-                                <button type="button" className="btn btn-outline-success btn-sm" >Afficher</button>
-                        
+                                <button type="button" className="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModalLong">Afficher</button>
+                                <ModalTest testTab={this.state.exerciceArray[this.state.activeIndex].testTab}/>
                             </div>
                         </div>
                     </div> 
@@ -178,12 +160,6 @@ class AjouterExercice extends React.Component {
         )}
 }
 
-const mapStateToProp = state => {
-    
-    return {
-        exercice: state.exercice
-    }
-}
 
 
 const mapDispatchToProps = dispatch => {
@@ -193,11 +169,18 @@ const mapDispatchToProps = dispatch => {
                 type: "UPDATE_EXERCICE",
                 exercice
             })
+        },
+
+        setExerciceArray: (exerciceArray) => {
+            dispatch({
+                type: "SET_EXERCICE_ARRAY",
+                exerciceArray
+            })
         }
         
     }
 }
 
-const AjouterExerciceContainer = connect(mapStateToProp, mapDispatchToProps)(AjouterExercice)
+const AjouterExerciceContainer = connect(null, mapDispatchToProps)(AjouterExercice)
 
 export default AjouterExerciceContainer

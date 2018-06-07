@@ -17,9 +17,6 @@ class Ajouter extends React.Component {
             idEnseignant:this.props.match.params.id.slice(0,-1),
             fullDate:'',
             isAdded:false,
-            exercices:[] , 
-            
-            //exerciceArrayStorage: JSON.parse(localStorage.getItem('exercicetab'))  ?   JSON.parse(localStorage.getItem('exercicetab')) : []
             
         
         }
@@ -53,16 +50,16 @@ class Ajouter extends React.Component {
       addExamen=()=>{
         let date = this.FormatDate(this.state.date)
        
-        let obj={title:this.state.title,
-            content:this.state.content,
+        let obj={
+            title:this.state.title,
             duree:this.state.duree,
             classe:this.state.classe,
             matiere:this.state.matiere,
             idEnseignant:this.state.idEnseignant,
             date:date,
             fullDate:this.state.date,
-            test:this.state.testTab,
-            answers:this.state.answers
+            exercices:this.props.exerciceArray
+          
         }
        
         axios.post('/add_examen',obj).catch((error) =>{
@@ -93,9 +90,9 @@ class Ajouter extends React.Component {
                     
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
                  
-                 <AjouterExercice />
+                    <AjouterExercice />
                    
-                  </div>
+                </div>
             <div className="add-component-body">
                 
 
@@ -135,7 +132,8 @@ class Ajouter extends React.Component {
 const mapStateToProp = state => {
     
     return {
-        exercice: state.exercice
+        exercice: state.exercice,
+        exerciceArray:state.exerciceArray
     }
 }
 
