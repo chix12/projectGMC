@@ -1,10 +1,7 @@
-//var React = require('react');
 import React from 'react'
-//import CodeMirror from "react-codemirror"
-//import 'codemirror/lib/codemirror.css'
-//import 'codemirror/mode/jsx/jsx'
 import './Editeur.css'
 import MonacoEditor from 'react-monaco-editor'
+import {connect} from 'react-redux'
 
 class Editeur extends React.Component {
 
@@ -12,33 +9,48 @@ class Editeur extends React.Component {
         super(props)
         this.state={
             //codeList: localStorage.getItem('codeList')
-            codeList:[]
+            codeList:JSON.parse(localStorage.getItem('codeList')),
+            //code: localStorage.getItem('code')
+            code:''
         }
     } 
 
 
-	updateCode= (newCode)=> {
-        const localStorage = window.localStorage
+    componentDidUpdate(){
+        
+        this.props.setCodeList(this.state.codeList)
+    }
 
+  
+	updateCode= (newCode)=> {
+       
+       
 		this.setState({
-            codeList: this.codeList.map((el,i)=>{
-                if(this.props.index===i){
-                    return newCode
+            code: newCode,
+            codeList:this.state.codeList.map((el,i)=>{
+               
+                if(i===this.props.index){
+                   
+                    return Object.assign(this.state.codeList[this.props.index],{code: newCode})
                 }
                 else return el
-            }),
+            })
         });
         
         localStorage.setItem('code', newCode)
+        //localStorage.setItem('codeList', codeTab)
     }
   
     render() {
-        /*let options = {
-            lineNumbers: true,
-            mode: 'javascript'
-        };
-        return <CodeMirror value={this.state.code} onChange={this.updateCode} options={options} />*/
-
+        //console.log('codeList',this.state.codeList)
+        if(!localStorage.getItem('codeList').code){  
+            let codeTab=[]
+            for(let i=0;i<this.props.nbrExercice;i++){
+                codeTab[i]={exercice:'exercice '+Number(i+1),code:''}
+            }
+           localStorage.setItem('codeList',JSON.stringify(codeTab))
+        }
+ 
         const code = this.state.code;
         const options = {
             selectOnLineNumbers: true
@@ -50,7 +62,7 @@ class Editeur extends React.Component {
                 language="javascript"
                 //theme="vs-dark"
                 // value={localStorage.getItem('code')}
-               value = {this.state.code}
+                value = {this.state.code}
                 options={options}
                 onChange={this.updateCode}
                 editorDidMount={this.editorDidMount}
@@ -59,4 +71,23 @@ class Editeur extends React.Component {
     }
 }
 
-export default Editeur
+
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        
+
+        setCodeList: (codeList) => {
+            dispatch({
+                type: "SET_CODE_LIST",
+                codeList
+            })
+        }
+        
+    }
+}
+
+const EditeurContainer = connect(null, mapDispatchToProps)(Editeur)
+
+export default EditeurContainer

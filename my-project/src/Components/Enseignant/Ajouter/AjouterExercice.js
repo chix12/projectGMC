@@ -15,9 +15,6 @@ class AjouterExercice extends React.Component {
             outputData:"",
             testTab : [] ,
             
-          
-
-
             exerciceArray:[{titre:"Exercice 1"}],
             activeIndex:0
             
@@ -69,8 +66,6 @@ class AjouterExercice extends React.Component {
                 else return el
             })
         })
-
-        
 
     }
 
