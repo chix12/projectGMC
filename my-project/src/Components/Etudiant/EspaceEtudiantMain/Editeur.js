@@ -11,7 +11,8 @@ class Editeur extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            code: localStorage.getItem('code')
+            //codeList: localStorage.getItem('codeList')
+            codeList:[]
         }
     } 
 
@@ -20,7 +21,12 @@ class Editeur extends React.Component {
         const localStorage = window.localStorage
 
 		this.setState({
-            code: newCode,
+            codeList: this.codeList.map((el,i)=>{
+                if(this.props.index===i){
+                    return newCode
+                }
+                else return el
+            }),
         });
         
         localStorage.setItem('code', newCode)

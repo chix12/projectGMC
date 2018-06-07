@@ -13,20 +13,8 @@ class EspaceEtudiantMain extends React.Component{
 
     constructor(props){
         super(props)
-                expectedOutput:10,
-       /* this.testArray=[
-            {
-                input:[2,5],
-                expectedOutput:7,
-            },
-            {
-                input:[9,1],
-            },
-            {
-                input:[0,23],
-                expectedOutput:23,
-            }
-        ]*/
+               
+      
         this.state = {
            
             etudiant : {},
@@ -34,7 +22,8 @@ class EspaceEtudiantMain extends React.Component{
             exam:{},
             testResult:[] ,
             exercices:[],
-          //  answer:{}
+            activeIndex:0
+          
         }
     }  
 
@@ -49,11 +38,13 @@ class EspaceEtudiantMain extends React.Component{
               
                
             //axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"05","heure":"01","minutes":"47"}`).then(
+            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"07","heure":"10","minutes":"00"}`).then(
                 res => {
                     window.localStorage.setItem('exam',JSON.stringify(res.data))
                     this.setState({
                         exam: JSON.parse(localStorage.getItem('exam')),
+                        exercices:JSON.parse(localStorage.getItem('exam')).exercices,
+                        content:JSON.parse(localStorage.getItem('exam')).exercices[0].content
                     })
 
                    // console.log('storage',window.localStorage.getItem('exam'))
@@ -62,6 +53,7 @@ class EspaceEtudiantMain extends React.Component{
             )
         }
     )
+    
 }
 
 
@@ -121,7 +113,7 @@ class EspaceEtudiantMain extends React.Component{
         
         this.setState({testResult:[]})
        
-        this.state.exam.test.map(el=>{
+        this.state.exam.exercices[this.state.activeIndex].testTab.map(el=>{
             axios.post('https://api.judge0.com/submissions?wait=true', {
                 source_code: `console.log(${JSON.stringify(funct(...el.input))})`,
                 language_id: 29,    
@@ -137,7 +129,7 @@ class EspaceEtudiantMain extends React.Component{
                     }),  
                     
                 })
-                console.log("params", res.data.stdout)
+                
             })
             .catch(e=>console.log(e))
         })
@@ -168,10 +160,16 @@ class EspaceEtudiantMain extends React.Component{
           .catch((error) =>{
             console.log(error);
           })
-
-         
-
     }
+
+
+    onClickExerciceItem=(i)=>{
+        this.setState({
+            activeIndex:i,
+            content:this.state.exercices[i]&&this.state.exercices[i].content
+        })
+    }
+
     render(){
      
         return (   
@@ -180,16 +178,14 @@ class EspaceEtudiantMain extends React.Component{
             {this.state.exam &&
             <div className='etudiant-main-content'>
             <ul className="nav nav-tabs">
-                <li className="nav-item">
-                    {/*<span className="nav-link active">{this.state.exam.title}</span>*/}
-                    <span className="nav-link" >Exercice 1</span>
-                </li>    
-                <li className="nav-item">
-                    <span className="nav-link" >Exercice 2</span>
-                </li>  
-                <li className="nav-item">
-                    <span className="nav-link" >Exercice 3</span>
-                </li>                
+                {this.state.exercices&&this.state.exercices.map((el,i)=>{
+                    return (
+                    <li className="nav-item" style={{color:this.state.activeIndex===i?"#007bff":""}} onClick={()=>this.onClickExerciceItem(i)}>
+                        <span className="nav-link" >{el.titre}</span>
+                    </li> 
+                    )
+                })}
+                             
             </ul>
 
             {this.state.exam.duree && <TimerExp duree={this.state.exam.duree}/>}
@@ -198,7 +194,7 @@ class EspaceEtudiantMain extends React.Component{
                 <div className='etudiant-probleme-test-code'>
                 <div className='etudiant-probleme-test'>
                     <div className='etudiant-probleme'>
-                        <h3> Enoncé </h3>{this.state.exam.content}
+                        <h3> Enoncé </h3>{this.state.content}
                     </div>
 
                     <div className='etudiant-test'>
@@ -221,7 +217,7 @@ class EspaceEtudiantMain extends React.Component{
                 <div className='etudiant-code'>
                     <h3> Code </h3>
                     <div >
-                        <Editeur/>
+                        <Editeur index={this.state.activeIndex}/>
                     </div>  
                 </div>
 
