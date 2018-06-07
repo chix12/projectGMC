@@ -5,6 +5,7 @@ import axios from 'axios'
 import TimerExp from './TimerExp/TimerExp'
 import './TimerExp/TimerExp.css'
 import Editeur from './Editeur'
+import {connect} from 'react-redux'
 
 
 
@@ -22,7 +23,8 @@ class EspaceEtudiantMain extends React.Component{
             exam:{},
             testResult:[] ,
             exercices:[],
-            activeIndex:0
+            activeIndex:0,
+            codeList:this.props.codeList
           
         }
     }  
@@ -171,7 +173,7 @@ class EspaceEtudiantMain extends React.Component{
     }
 
     render(){
-     
+     console.log('codeList',this.state.codeList)
         return (   
         <div className='etudiant-main' >
           
@@ -217,7 +219,7 @@ class EspaceEtudiantMain extends React.Component{
                 <div className='etudiant-code'>
                     <h3> Code </h3>
                     <div >
-                        <Editeur index={this.state.activeIndex}/>
+                        <Editeur index={this.state.activeIndex} nbrExercice={this.state.exercices.length}/>
                     </div>  
                 </div>
 
@@ -241,5 +243,14 @@ class EspaceEtudiantMain extends React.Component{
     }
 }
 
-export default EspaceEtudiantMain
+const mapStateToProp = state => {
+    console.log('state',state.codeList)
+    return {
+        codeList:state.codeList
+    }
+}
+
+const EspaceEtudiantMainContainer = connect(mapStateToProp)(EspaceEtudiantMain)
+
+export default EspaceEtudiantMainContainer
     

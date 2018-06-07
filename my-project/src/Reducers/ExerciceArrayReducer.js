@@ -1,6 +1,4 @@
 
-const localStorage = window.localStorage
-
 
 const ExerciceArrayReducer = (state = [], action) => {
 
