@@ -57,9 +57,6 @@ class AjouterExercice extends React.Component {
                 else return el
             })
         })
-
-        
-
     }
 
     handleInputChange=(e)=>{

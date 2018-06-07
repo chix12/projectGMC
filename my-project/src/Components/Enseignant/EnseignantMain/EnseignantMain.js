@@ -115,13 +115,12 @@ class EnseignantMain extends React.Component {
                         </div>
                     )}
                 )}
-                    
-
                 </div>
                 
             </div>
         )
     }
 }
+
 
 export default EnseignantMain;

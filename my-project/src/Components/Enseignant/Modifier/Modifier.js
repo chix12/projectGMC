@@ -2,6 +2,7 @@ import React from 'react'
 import './Modifier.css'
 import axios from 'axios'
 import {Link,Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 class Modifier extends React.Component {
 
@@ -101,7 +102,7 @@ class Modifier extends React.Component {
         }
         console.log(this.state.exercices);
         
-        axios.put(`/examen/${this.props.match.params.id}`,obj)
+          axios.put(`/examen/${this.props.user._id}`,obj)
           .catch((error) =>{
             console.log(error);
           });
@@ -163,7 +164,9 @@ class Modifier extends React.Component {
                 <div className='edit-component-buttons' >
                    
                         <button type="button" class="btn btn-primary edit-button" onClick={this.editExamen}>Modifier</button>
-                        <Link to={`/enseignant/${this.state.idEnseignant}`}>  <button type="button" class="btn btn-secondary edit-button">Ignorer</button> </Link>
+                        <Link to={`/enseignant/${this.props.user._id}`}>  
+                            <button type="button" class="btn btn-secondary edit-button">Ignorer</button>
+                         </Link>
                    
                 </div>
             </div>
@@ -171,4 +174,13 @@ class Modifier extends React.Component {
     }
 }
 
-export default Modifier
+const mapStateToProp = state => {
+    if (!state.user) return { user: {} }
+    return {
+        user: state.user
+    }
+}
+
+const ModifierContainer = connect(mapStateToProp)(Modifier)
+
+export default ModifierContainer

@@ -1,8 +1,4 @@
-//var React = require('react');
 import React from 'react'
-//import CodeMirror from "react-codemirror"
-//import 'codemirror/lib/codemirror.css'
-//import 'codemirror/mode/jsx/jsx'
 import './Editeur.css'
 import MonacoEditor from 'react-monaco-editor'
 
