@@ -33,8 +33,11 @@ textarea {
 }
 
 .edit-examen-title{
-    border-bottom: none;
-    border-top: none
+    
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 20px
 }
 
 .modifier-duree-input{
@@ -48,4 +51,16 @@ textarea {
     height:200px;
 }
 
+textarea {
+  height: 300px;
+  border:1px solid #ced4da
+}
 
+.nav-tab-add-btn{
+    font-size:17px
+}
+
+.exercice-item{
+    border:1px solid #ced4da;
+    border-bottom: none
+}

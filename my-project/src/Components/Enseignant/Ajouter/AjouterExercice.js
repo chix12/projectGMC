@@ -1,5 +1,5 @@
 import React from 'react'
-import './Ajouter.css'
+//import './Ajouter.css'
 import {connect} from 'react-redux'
 import ModalTest from './ModalTest'
 
@@ -7,30 +7,18 @@ class AjouterExercice extends React.Component {
     constructor(props){
         super(props)
         this.state={ 
-            titre:'',
-           
             content:'',
-            
             inputData:[],
             outputData:"",
             testTab : [] ,
-            
-          
-
-
             exerciceArray:[{titre:"Exercice 1"}],
             activeIndex:0
-            
         }
     }
 
-   
     componentDidUpdate(){
         this.props.setExerciceArray(this.state.exerciceArray)
     }
-    
-
-
    
     addTest=()=>{
         let test = {
@@ -97,9 +85,6 @@ class AjouterExercice extends React.Component {
         }
      }
 
-   
-
-
     addExercice=()=>{
         
         this.setState({
@@ -123,17 +108,17 @@ class AjouterExercice extends React.Component {
    
         return (
         <div>
-            <ul className="nav nav-tabs">
-                {this.state.exerciceArray.map((el,i)=> ( 
-                    <li className="nav-item exercice-item" key={i} onClick={()=>this.onClickExerciceItem(i)}>
-                        <span className="nav-link" style={{color:this.state.activeIndex===i?"#007bff":""}}>{el.titre}</span>
-                    </li>  
-                ))}  
+                <ul className="nav nav-tabs">
+                    {this.state.exerciceArray.map((el, i) => (
+                        <li className="nav-item exercice-item" key={i} onClick={() => this.onClickExerciceItem(i)}>
+                            <span className="nav-link" style={{ color: this.state.activeIndex === i ? "#007bff" : "" }}>{el.titre}</span>
+                        </li>
+                    ))}
                     <li className="nav-item" onClick={this.addExercice}>
                         <span className="nav-link nav-tab-add-btn" >+</span>
                     </li>
-                        
-            </ul>
+
+                </ul>
             <div style={{display:'flex'}}> 
                 
                 <div className="ajouter-enonce">
