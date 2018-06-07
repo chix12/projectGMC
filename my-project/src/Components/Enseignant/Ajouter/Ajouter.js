@@ -18,10 +18,9 @@ class Ajouter extends React.Component {
             fullDate:'',
             isAdded:false,
             exercices:[] , 
-            exerciceTab:['Exercice 1']   ,
+            
             //exerciceArrayStorage: JSON.parse(localStorage.getItem('exercicetab'))  ?   JSON.parse(localStorage.getItem('exercicetab')) : []
-            exerciceArray:[],
-            activeIndex:0
+            
         
         }
       }
@@ -83,14 +82,7 @@ class Ajouter extends React.Component {
         
      }
 
-    addExercice=()=>{
-        this.setState({
-            exerciceTab:this.state.exerciceTab.concat('Exercice '+Number(this.state.exerciceTab.length+1)),
-            exerciceArray:this.state.exerciceArray.concat(Object.assign({titre:'Exercice '+Number(this.state.exerciceArray.length+1)},this.props.exercice)),
-            activeIndex:this.state.activeIndex+1
-        })
-
-     }
+    
     render() {
        
        return(
@@ -98,24 +90,10 @@ class Ajouter extends React.Component {
             <div className='add-component-container'>
                 <h1 className="add-component-header"> Ajouter Examen</h1>
                 <div className='add-component-main'>
-                    <ul className="nav nav-tabs">
-                    {this.state.exerciceTab.map((el,i)=> (
-                        
-                            <li className="nav-item" key={i} onClick={()=>this.setState({activeIndex:i})}>
-                                <span className="nav-link" style={{color:this.state.activeIndex===i?"#007bff":""}}>{el}</span>
-                            </li>
-                        
-                    )
-                    )}
-                       
-                        <li className="nav-item" onClick={this.addExercice}>
-                            <span className="nav-link nav-tab-add-btn" >+</span>
-                        </li>
-                        
-                    </ul>
+                    
                     <input type='text' placeholder='Titre' className='add-examen-title' name='title' onChange={this.handleChange}/>
                  
-                 <AjouterExercice exerciceProp={this.state.exerciceArray[this.state.activeIndex]}/>
+                 <AjouterExercice />
                    
                   </div>
             <div className="add-component-body">

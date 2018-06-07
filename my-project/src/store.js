@@ -3,11 +3,11 @@ import UserReducer from './Reducers/UserReducer'
 import ExerciceReducer from "./Reducers/ExerciceReducer";
 
 
-
 const store = createStore(
     combineReducers({
       user:UserReducer,
-      exercice:ExerciceReducer
+      exercice:ExerciceReducer,
+      
       })
   );
   
