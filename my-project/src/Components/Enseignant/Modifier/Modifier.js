@@ -1,5 +1,6 @@
 import React from 'react'
 import './Modifier.css'
+import EditModalTest from './EditModalTest'
 import axios from 'axios'
 import {Link,Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -122,7 +123,8 @@ class Modifier extends React.Component {
     }
 
     render() {
-        
+        //console.log('testTab', this.state.exercices.testTab)
+        console.log('index', this.state.activeIndex)
         return(
             
             this.state.isModified?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
@@ -138,32 +140,52 @@ class Modifier extends React.Component {
                                     </li>                                  
                                 ))}
                             </ul>
-                            
-                            <textarea value={this.state.content} style={{ width: '100%' }} name='content' placeholder='Enoncé' onChange={this.handleChange} />
+                            <div style={{ display: 'flex' }}>
+                                <div className="modifier-enonce">
+                                    <textarea value={this.state.content} style={{ width: '100%' }} name='content' placeholder='Enoncé' onChange={this.handleChange} />
+                                </div>
+                                <div className="modifier-test">
+                                    <h4 style={{ color: 'black' }}>Tests</h4>
+                                    <div className='test-container'>
+                                        <div className='tests'>
+                                            <input type="text" className="form-control inputdata" placeholder="Données (sous format a,b,...)" value={this.state.inputData} name='inputData' onChange={this.handleInputChange} />
+                                            <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
+                                            <div className='add-test-buttons'>
+                                                <button type="button" className="btn btn-outline-primary add-test-btn btn-sm" onClick={this.addTest}>Ajouter</button>
+                                                <button type="button" className="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModalLong">Afficher</button>
+                                                <EditModalTest />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                 </div>
-                <div className='edit-component-duree-matiere'>
-                     <input type="text"  class="form-control modifier-duree-input"  placeholder="Durée" value={this.state.duree} name='duree'onChange={this.handleChange}/>
-                     <select class="form-control" name='matiere' value={this.state.matiere} onChange={this.handleChange}>
-                        <option selected disabled >Matière </option>
-                        <option>Java Script</option>
-                        <option>PHP</option>
-                        <option>C++</option>
-                    </select>
+                    <div className='add-component-duree-matiere'>
+                        <div className='duree-date' >
+                            <input type="text" className="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree' onChange={this.handleChange} />
+                            <input type='datetime-local' className='form-control' name='date' onChange={this.handleChange} />
+                        </div>
+                        <div className='matiere-classe'>
+                            <select className="form-control matiere" name='matiere' onChange={this.handleChange}>
+                                <option selected disabled >Matière </option>
+                                <option>Java Script</option>
+                                <option>PHP</option>
+                                <option>C++</option>
+                            </select>
 
-                    <select class="form-control" name='classe' value={this.state.classe} onChange={this.handleChange}>
-                        <option selected disabled>Classe</option>
-                        <option>LFI1</option>
-                        <option>LFI2</option>
-                        <option>LFI3 </option>
-                    </select>
-
-                    <input type='datetime-local' className='form-control' name='fullDate' value={this.state.fullDate} onChange={this.handleChange}/>
-                </div>
+                            <select className="form-control classe" name='classe' onChange={this.handleChange}>
+                                <option selected disabled>Classe</option>
+                                <option>LFI1</option>
+                                <option>LFI2</option>
+                                <option>LFI3 </option>
+                            </select>
+                        </div>
+                    </div>
 
                 <div className='edit-component-buttons' >
                    
-                        <button type="button" class="btn btn-primary edit-button" onClick={this.editExamen}>Modifier</button>
+                        <button type="button" class="btn btn-primary edit-button" onClick={this.editExamen}>Modifier Examen</button>
                         <Link to={`/enseignant/${this.props.user._id}`}>  
                             <button type="button" class="btn btn-secondary edit-button">Ignorer</button>
                          </Link>

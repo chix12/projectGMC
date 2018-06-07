@@ -1,9 +1,10 @@
 .edit-component-container{
     display: flex;
     flex-direction: column; 
-    align-items: center
-
+    align-items: center;
+    margin: auto;
 }
+
 
 .edit-component-main{
     display: flex;
@@ -19,7 +20,6 @@
 }
 
 .edit-button{
-    width: 90px;
     margin: 15px;
 }
 
@@ -64,3 +64,21 @@ textarea {
     border:1px solid #ced4da;
     border-bottom: none
 }
+
+.modifier-enonce{
+    width : 60%
+}
+
+
+.modifier-test{
+    width:40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border:1px solid #ced4da;
+    height:300px
+
+}
+
+
