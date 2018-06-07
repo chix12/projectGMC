@@ -17,30 +17,38 @@ class Modifier extends React.Component {
           date:'',
           idEnseignant:'',
           fullDate:'',
-          isModified:false
+          isModified:false,
+          exercices: [],
+                /*exercice :{
+                titre,
+                content,
+                TestTab
+            }*/
+            exercice:{},
+          activeIndex: 0
         
         }
     }
+
 
       componentDidMount(){
         axios.get(`/examen/${this.props.match.params.id}`)
         .then(
             res =>{
-                
-                this.setState({
 
+                this.setState({
                     title:res.data.title,
-                    content:res.data.content,
                     duree:res.data.duree,
                     matiere:res.data.matiere,
                     classe:res.data.classe,
                     date:res.data.date,
                     idEnseignant:res.data.idEnseignant,
                     fullDate:res.data.fullDate,
-                    test : res.data.test
-                    
+                    exercices : res.data.exercices,
+                    content : res.data.exercices[this.state.activeIndex].content
                 })
             }
+
         )
         .catch((error) =>{
             console.log(error);
@@ -49,7 +57,16 @@ class Modifier extends React.Component {
 
     handleChange=(e)=>{
         this.setState({
-          [e.target.name]:e.target.value
+          [e.target.name]:e.target.value,
+
+          exercices: this.state.exercices.map((el, i) => {
+
+                if (i === this.state.activeIndex) {
+
+                    return Object.assign(this.state.exercices[this.state.activeIndex], e.target.name === 'content' && { [e.target.name]: e.target.value })
+                }
+                else return el
+            })
         })
       }
 
@@ -65,8 +82,6 @@ class Modifier extends React.Component {
             heure:heure[0] ,
             minutes:heure[1]
         }
-        //return ('Y' + myDate[0] + 'M' + myDate[1] + 'D' + myDate[2] + 'T' + heure[0] + 'M' + heure [1])
-
         return JSON.stringify(dateObj)
       }  
 
@@ -74,16 +89,17 @@ class Modifier extends React.Component {
 
         let date = this.FormatDate(this.state.fullDate)
         let obj={title:this.state.title,
-            content:this.state.content,
+            
             duree:this.state.duree,
             classe:this.state.classe,
             matiere:this.state.matiere,
             idEnseignant:this.state.idEnseignant,
             date:date,
             fullDate:this.state.fullDate,
-            answers:[],
-            test : this.state.test
+            exercices : this.state.exercices, 
+            activeIndex: 0
         }
+        console.log(this.state.exercices);
         
         axios.put(`/examen/${this.props.match.params.id}`,obj)
           .catch((error) =>{
@@ -95,6 +111,15 @@ class Modifier extends React.Component {
           })
       }
 
+
+    onClickExerciceItem = (i) => {
+
+        this.setState({
+            activeIndex: i,
+            content : this.state.exercices[i] ? this.state.exercices[i].content : ""
+        })
+    }
+
     render() {
         
         return(
@@ -103,16 +128,18 @@ class Modifier extends React.Component {
             <div className='edit-component-container'>
                 <h1 className="edit-component-header"> Modifier Enoncé</h1>
                 <div className='edit-component-main'>
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="">Enoncé</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Tests</a>
-                        </li>
-                    </ul>
-                    <input type='text' placeholder='Titre' value={this.state.title} className='edit-examen-title' name='title' onChange={this.handleChange}/>
-                    <textarea name='content' placeholder='Enoncé' value={this.state.content}onChange={this.handleChange}/>  
+                        <input type='text' placeholder='Titre' value={this.state.title} className='edit-examen-title' name='title' onChange={this.handleChange} />
+                        <div className = "edit-component-nav-tabs">
+                            <ul className="nav nav-tabs">
+                                {this.state.exercices.map((el, i) => (
+                                    <li className="nav-item exercice-item" name="exercices"  key={i} onClick={()=> {this.onClickExerciceItem(i)}}>
+                                        <span className="nav-link" style={{color: this.state.activeIndex === i && "#007bff"}}>{el.titre}</span>
+                                    </li>                                  
+                                ))}
+                            </ul>
+                            
+                            <textarea value={this.state.content} style={{ width: '100%' }} name='content' placeholder='Enoncé' onChange={this.handleChange} />
+                        </div>
                 </div>
                 <div className='edit-component-duree-matiere'>
                      <input type="text"  class="form-control modifier-duree-input"  placeholder="Durée" value={this.state.duree} name='duree'onChange={this.handleChange}/>
