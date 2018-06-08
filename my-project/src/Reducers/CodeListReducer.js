@@ -1,8 +1,9 @@
 
 
 const CodeListReducer = (state = [], action) => {
+   
     if (action.type === "SET_CODE_LIST") {
-       console.log('store',action.codeList)
+       //console.log('store',action.codeList)
         return action.codeList
     }
    
