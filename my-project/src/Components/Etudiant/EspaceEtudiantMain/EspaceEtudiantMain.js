@@ -14,9 +14,7 @@ import MonacoEditor from 'react-monaco-editor'
 class EspaceEtudiantMain extends React.Component{
 
     constructor(props){
-        super(props)
-               
-      
+        super(props)      
         this.state = {
            
             etudiant : {},

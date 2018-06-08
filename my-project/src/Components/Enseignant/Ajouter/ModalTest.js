@@ -23,7 +23,8 @@ class ModalTest extends React.Component{
                             <th scope="col">#</th>
                             <th scope="col">Données</th>
                             <th scope="col">Résultat attendu</th>
-                            
+
+
                             </tr>
                         </thead>
                         <tbody>
@@ -45,17 +46,12 @@ class ModalTest extends React.Component{
                                     <th scope="row">{i+1}</th>
                                     <td>{[...el.input].join()}</td>
                                     <td>{el.expectedOutput}</td>
+                                    {/*<td><i className="far fa-edit" ></i></td>*/}
                                 </tr>
                             )
                                 }):''}
-                            
-                            
                         </tbody>
                     </table>
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Save changes</button>
                 </div>
                 </div>
             </div>
