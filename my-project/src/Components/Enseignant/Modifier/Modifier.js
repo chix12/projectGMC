@@ -27,8 +27,10 @@ class Modifier extends React.Component {
                 TestTab
             }*/
             exercice:{},
-          activeIndex: 0
-        
+          activeIndex: 0,
+          inputData : [],
+          outputData : "",
+          testTab : []
         }
     }
 
@@ -47,7 +49,8 @@ class Modifier extends React.Component {
                     idEnseignant:res.data.idEnseignant,
                     fullDate:res.data.fullDate,
                     exercices : res.data.exercices,
-                    content : res.data.exercices[this.state.activeIndex].content
+                    content : res.data.exercices[this.state.activeIndex].content,
+                    testTab: res.data.exercices[this.state.activeIndex].testTab
                 })
             }
 
@@ -70,7 +73,28 @@ class Modifier extends React.Component {
                 else return el
             })
         })
-      }
+    }
+
+    handleInputChange = (e) => {
+        let inputString = e.target.value
+        if (inputString.length > 0) {
+            let outputTab = inputString.split(',')
+            for (let i = 0; i < outputTab.length; i++) {
+                if (outputTab[i].toLowerCase().trim() === 'true')
+                    outputTab[i] = true
+                else if ((outputTab[i].toLowerCase().trim() === 'false'))
+                    outputTab[i] = false
+                else if (!isNaN(parseInt(outputTab[i])))
+                    outputTab[i] = Number(outputTab[i])
+                else
+                    outputTab[i] = String(outputTab[i])
+            }
+
+            this.setState({
+                inputData: outputTab
+            })
+        }
+    }
 
       FormatDate = (date) => {
         let myDateTab = String(date).split('T')
@@ -113,6 +137,28 @@ class Modifier extends React.Component {
           })
       }
 
+    addTest = () => {
+        let test = {
+            input: this.state.inputData,
+            expectedOutput: this.state.outputData
+        }
+
+        console.log('test', this.state.testTab.concat(test))
+        this.setState({
+            testTab: this.state.testTab.concat(test),
+            inputData: [],
+            outputData: "",
+
+            exercices: this.state.exercices.map((el, i) => {
+                if (i === this.state.activeIndex) {
+                    return Object.assign(this.state.exercices[this.state.activeIndex], { testTab: this.state.testTab.concat(test) })
+                }
+                else return el
+            })
+
+        })
+
+    }
 
     onClickExerciceItem = (i) => {
 
@@ -123,10 +169,9 @@ class Modifier extends React.Component {
     }
 
     render() {
-        //console.log('testTab', this.state.exercices.testTab)
-        console.log('index', this.state.activeIndex)
-        return(
-            
+        console.log('tab',this.state.exercices);
+        
+        return(            
             this.state.isModified?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
             <div className='edit-component-container'>
                 <h1 className="edit-component-header"> Modifier Enoncé</h1>
@@ -152,8 +197,8 @@ class Modifier extends React.Component {
                                             <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
                                             <div className='add-test-buttons'>
                                                 <button type="button" className="btn btn-outline-primary add-test-btn btn-sm" onClick={this.addTest}>Ajouter</button>
-                                                <button type="button" className="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModalLong">Afficher</button>
-                                                <EditModalTest />
+                                                <button type="button" className="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#edit-modal">Afficher</button>
+                                                <EditModalTest testTab = {this.state.exercices[this.state.activeIndex]&&this.state.exercices[this.state.activeIndex].testTab}/>
                                             </div>
                                         </div>
                                     </div>
