@@ -4,8 +4,9 @@ import ModalComponent from './ModalComponent'
 import axios from 'axios'
 import TimerExp from './TimerExp/TimerExp'
 import './TimerExp/TimerExp.css'
-import Editeur from './Editeur'
+//import Editeur from './Editeur'
 import {connect} from 'react-redux'
+import MonacoEditor from 'react-monaco-editor'
 
 
 
@@ -21,8 +22,10 @@ class EspaceEtudiantMain extends React.Component{
             exam:{},
             testResult:[] ,
             exercices:[],
+            codeList:[],
             activeIndex:0,
-            codeList:this.props.codeList
+            code: JSON.parse(localStorage.getItem('codeList'))[0].code
+           
           
         }
     }  
@@ -44,11 +47,11 @@ class EspaceEtudiantMain extends React.Component{
                     this.setState({
                         exam: JSON.parse(localStorage.getItem('exam')),
                         exercices:JSON.parse(localStorage.getItem('exam')).exercices,
-                        content:JSON.parse(localStorage.getItem('exam')).exercices[0].content
+                        content:JSON.parse(localStorage.getItem('exam')).exercices[0].content,
+                        codeList:JSON.parse(localStorage.getItem('exam')).exercices.map((el,i)=>{return {titre:'Exercice '+Number(i+1),code:''}})
+                        
                     })
-
-                   // console.log('storage',window.localStorage.getItem('exam'))
-                   
+ 
                 }
             )
         }
@@ -97,7 +100,7 @@ class EspaceEtudiantMain extends React.Component{
         let ouvrante = code.indexOf('{') + 1
         let fermante = code.lastIndexOf('}')
         let codeTab = code.slice(ouvrante, fermante).trim().split('')
-        //console.log('funct', codeTab.filter(el => el != "\n").join(''))
+       
         return codeTab.filter(el => el !== "\t").map(el => el==='\n' ? ";" : el).join('')
     }
 
@@ -105,12 +108,11 @@ class EspaceEtudiantMain extends React.Component{
         const localStorage = window.localStorage
         const storedCode = localStorage.getItem('code')
         const code = this.getCode(storedCode)
-        //console.log(code)
+        
         const params = this.getParams(storedCode)
         
         const funct = new Function (...params, code)
-        //console.log(funct())
-        
+       
         this.setState({testResult:[]})
        
         this.state.exam.exercices[this.state.activeIndex].testTab.map(el=>{
@@ -138,12 +140,7 @@ class EspaceEtudiantMain extends React.Component{
 
 
     addCodeEtudiant=()=>{
-       //console.log('this.state.exam.answers',this.state.exam.answers)
-      
-      // let objAnswer={idEtudiant:this.props.match.params.id,answer:localStorage.getItem('code')} 
-      //  let answers=this.state.exam.answers.concat(objAnswer)
-
-
+     
         let obj={title:this.state.exam.title,
             content:this.state.exam.content,
             duree:this.state.exam.duree,
@@ -164,14 +161,39 @@ class EspaceEtudiantMain extends React.Component{
 
 
     onClickExerciceItem=(i)=>{
+       
         this.setState({
             activeIndex:i,
-            content:this.state.exercices[i]&&this.state.exercices[i].content
+            content:this.state.exercices[i]&&this.state.exercices[i].content,
+            code:JSON.parse(localStorage.getItem('codeList'))[i].code
+           
+
         })
     }
 
+
+    updateCode= (newCode)=> {
+        const localStorage = window.localStorage
+
+        let codeTab=this.state.codeList.map((el,i)=>{
+            if(i===this.state.activeIndex){
+                return Object.assign(this.state.codeList[this.state.activeIndex],{code:newCode})
+            }
+            else return el
+        })
+
+		this.setState({
+            code: newCode,
+            codeList:codeTab
+        });
+        
+        localStorage.setItem('codeList', JSON.stringify(codeTab))
+        localStorage.setItem('code', newCode)
+    }
+
     render(){
-     console.log('codeList',this.state.codeList)
+     console.log(this.state.codeList)
+     
         return (   
         <div className='etudiant-main' >
           
@@ -217,7 +239,16 @@ class EspaceEtudiantMain extends React.Component{
                 <div className='etudiant-code'>
                     <h3> Code </h3>
                     <div >
-                        <Editeur index={this.state.activeIndex} nbrExercice={this.state.exercices.length}/>
+                        <MonacoEditor
+                            width="100%"
+                            height="500"
+                            language="javascript"
+                            value = {this.state.code}
+                            options={{selectOnLineNumbers: true}}
+                            onChange={this.updateCode}
+                            editorDidMount={this.editorDidMount}
+                        />
+
                     </div>  
                 </div>
 
@@ -241,14 +272,7 @@ class EspaceEtudiantMain extends React.Component{
     }
 }
 
-const mapStateToProp = state => {
-    console.log('state',state.codeList)
-    return {
-        codeList:state.codeList
-    }
-}
 
-const EspaceEtudiantMainContainer = connect(mapStateToProp)(EspaceEtudiantMain)
 
-export default EspaceEtudiantMainContainer
+export default EspaceEtudiantMain
     
