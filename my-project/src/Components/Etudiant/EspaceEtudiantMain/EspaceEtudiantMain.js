@@ -24,7 +24,10 @@ class EspaceEtudiantMain extends React.Component{
             exercices:[],
             codeList:[],
             activeIndex:0,
-            code: JSON.parse(localStorage.getItem('codeList'))[0].code
+            code: JSON.parse(localStorage.getItem('codeList'))[0].code,
+            //code:''
+            testShown:false,
+            testTab:[]
            
           
         }
@@ -41,14 +44,16 @@ class EspaceEtudiantMain extends React.Component{
               
                
             //axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"07","heure":"10","minutes":"00"}`).then(
+            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"09","heure":"03","minutes":"34"}`).then(
                 res => {
                     window.localStorage.setItem('exam',JSON.stringify(res.data))
+                    let exam=JSON.parse(localStorage.getItem('exam'))
                     this.setState({
-                        exam: JSON.parse(localStorage.getItem('exam')),
-                        exercices:JSON.parse(localStorage.getItem('exam')).exercices,
-                        content:JSON.parse(localStorage.getItem('exam')).exercices[0].content,
-                        codeList:JSON.parse(localStorage.getItem('exam')).exercices.map((el,i)=>{return {titre:'Exercice '+Number(i+1),code:''}})
+                        exam: exam,
+                        exercices:exam.exercices,
+                        content:exam.exercices[0].content,
+                        codeList:exam.exercices.map((el,i)=>{return {titre:'Exercice '+Number(i+1),code:''}}).concat({idEtudiant:this.state.etudiant._id}),
+                        testTab:exam.exercices[0].testTab
                         
                     })
  
@@ -135,6 +140,10 @@ class EspaceEtudiantMain extends React.Component{
             })
             .catch(e=>console.log(e))
         })
+
+        this.setState({
+            testShown:true
+        })
     }
 
 
@@ -165,7 +174,8 @@ class EspaceEtudiantMain extends React.Component{
         this.setState({
             activeIndex:i,
             content:this.state.exercices[i]&&this.state.exercices[i].content,
-            code:JSON.parse(localStorage.getItem('codeList'))[i].code
+            code:JSON.parse(localStorage.getItem('codeList'))[i].code,
+            testTab:this.state.exercices[i]&&this.state.exercices[i].testTab,
            
 
         })
@@ -192,7 +202,7 @@ class EspaceEtudiantMain extends React.Component{
     }
 
     render(){
-     console.log(this.state.codeList)
+     
      
         return (   
         <div className='etudiant-main' >
@@ -219,21 +229,40 @@ class EspaceEtudiantMain extends React.Component{
                         <h3> Enoncé </h3>{this.state.content}
                     </div>
 
-                    <div className='etudiant-test'>
-                        <h3>Test </h3>
+                    {this.state.testShown?
 
-                        {this.state.testResult.map(el=>{
-                            return (
-                                <div>
-                                    
-                                    {el.description}: 
-                                    Input: ({[...el.input].join()})
-                                    Expected: {el.expectedOutput} instead got: {el.output}
-                                    
-                                </div>
-                            )
-                        })}
-                    </div>
+                        <div className='etudiant-test'>                    
+                            <h3>Test</h3>
+
+                            {this.state.testResult.map(el=>{
+                                return (
+                                    <div>
+                                        
+                                        {el.description}: 
+                                        Input: ({[...el.input].join()})
+                                        Expected: {el.expectedOutput} instead got: {el.output}
+                                        
+                                    </div>
+                                )
+                            })}         
+                        </div>
+                    :
+                    <div className='etudiant-test'>                    
+                            <h3>Exemples</h3>
+
+                            {this.state.testTab.map(el=>{
+                                return (
+                                    <div>
+                                        
+                                        
+                                         "{[...el.input].join()}"
+                                        => {el.expectedOutput} 
+                                        
+                                    </div>
+                                )
+                            })}         
+                        </div>
+                    }
                 </div>
                 
                 <div className='etudiant-code'>

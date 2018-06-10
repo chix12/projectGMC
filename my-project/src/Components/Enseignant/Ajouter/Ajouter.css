@@ -21,7 +21,9 @@
 
 textarea {
   height: 300px;
-  border:1px solid #ced4da
+  border:1px solid #ced4da;
+  margin:none;
+ 
 }
 
 .add-component-buttons{
@@ -79,7 +81,8 @@ textarea {
 }
 
 .ajouter-enonce{
-    width:60%
+    width:60%;
+    
 }
 
 .ajouter-test{
@@ -89,7 +92,7 @@ textarea {
     justify-content: center;
     align-items: center;
     border:1px solid #ced4da;
-    height:300px
+    height:345px
 
 }
 
@@ -114,4 +117,15 @@ textarea {
 .exercice-item{
     border:1px solid #ced4da;
     border-bottom: none
+}
+
+.input-nbr-points{
+    position:absolute;
+    width:70px;
+    right:0px;
+    margin: none;
+}
+
+.ajouter-exercice{
+    margin-bottom: 30px
 }

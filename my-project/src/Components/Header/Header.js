@@ -8,7 +8,7 @@ class Header extends React.Component{
 
 
     logout=()=>{
-        localStorage.setItem('code', '')
+        
         this.props.logoutFn({})
     }
     render(){

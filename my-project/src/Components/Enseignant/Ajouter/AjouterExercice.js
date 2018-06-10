@@ -12,7 +12,8 @@ class AjouterExercice extends React.Component {
             outputData:"",
             testTab : [] ,
             exerciceArray:[{titre:"Exercice 1"}],
-            activeIndex:0
+            activeIndex:0,
+            nbrPoints:''
         }
     }
 
@@ -52,7 +53,7 @@ class AjouterExercice extends React.Component {
                
                 if(i===this.state.activeIndex){
                     
-                    return Object.assign(this.state.exerciceArray[this.state.activeIndex],e.target.name==='content'&&{[e.target.name]: e.target.value})
+                    return Object.assign(this.state.exerciceArray[this.state.activeIndex],(e.target.name==='content'||e.target.name==='nbrPoint')&&{[e.target.name]: e.target.value})
                 }
                 else return el
             })
@@ -104,7 +105,7 @@ class AjouterExercice extends React.Component {
     render(){
    
         return (
-        <div>
+        <div className='ajouter-exercice'>
                 <ul className="nav nav-tabs">
                     {this.state.exerciceArray.map((el, i) => (
                         <li className="nav-item exercice-item" key={i} onClick={() => this.onClickExerciceItem(i)}>
@@ -119,8 +120,10 @@ class AjouterExercice extends React.Component {
             <div style={{display:'flex'}}> 
                 
                 <div className="ajouter-enonce">
-                    
+           
                     <textarea value={this.state.content} style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange} />
+                    <input type="number" className="form-control mt-0"name='nbrPoints' value={this.state.nbrPoints} onChange={this.handleChange} min="0" max="20" placeholder='Nombre des points'/>
+                
                 </div>
 
                 <div className="ajouter-test">
@@ -129,6 +132,7 @@ class AjouterExercice extends React.Component {
                         <div className='tests'>
                             <input type="text" className="form-control inputdata" placeholder="Données (sous format a,b,...)" value={this.state.inputData} name='inputData' onChange={this.handleInputChange} />
                             <input type="text" className="form-control outputdata" placeholder="Résultat attendu" name='outputData' value={this.state.outputData} onChange={this.handleChange} />
+                           
                             <div className='add-test-buttons'>
                                 <button type="button" className="btn btn-outline-primary add-test-btn btn-sm" onClick={this.addTest}>Ajouter</button>
                                 <button type="button" className="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModalLong">Afficher</button>
