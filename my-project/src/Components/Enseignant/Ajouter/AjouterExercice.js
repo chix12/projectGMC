@@ -81,7 +81,7 @@ class AjouterExercice extends React.Component {
                 inputData: outputTab
             }) 
         }
-     }
+    }
 
     addExercice=()=>{
         
