@@ -53,7 +53,7 @@ class AjouterExercice extends React.Component {
                
                 if(i===this.state.activeIndex){
                     
-                    return Object.assign(this.state.exerciceArray[this.state.activeIndex],(e.target.name==='content'||e.target.name==='nbrPoint')&&{[e.target.name]: e.target.value})
+                    return Object.assign(this.state.exerciceArray[this.state.activeIndex],(e.target.name==='content'||e.target.name==='nbrPoints')&&{[e.target.name]: e.target.value})
                 }
                 else return el
             })
@@ -73,7 +73,7 @@ class AjouterExercice extends React.Component {
                 else if (!isNaN(parseInt(outputTab[i])))
                     outputTab[i] = Number(outputTab[i])
                 else 
-                    outputTab[i] = String(outputTab[i])
+                    outputTab[i] = outputTab[i]
         }
             
             this.setState({

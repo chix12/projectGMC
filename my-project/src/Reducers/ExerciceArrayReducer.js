@@ -7,11 +7,7 @@ const ExerciceArrayReducer = (state = [], action) => {
        
         return action.exerciceArray
     }
-    
 
-   
-
-   
     return state;
 }
 

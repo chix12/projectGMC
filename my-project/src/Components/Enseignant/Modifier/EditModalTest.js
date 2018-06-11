@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 class EditModalTest extends React.Component {
     constructor (props){
@@ -6,7 +7,9 @@ class EditModalTest extends React.Component {
         this.state={
             isEditable:false,
             index : -1,
-            inputData: ''
+            testTab:this.props.testTab,
+            inputData:'',
+            expectedOutput:'',       
     }
 }
 
@@ -19,16 +22,80 @@ class EditModalTest extends React.Component {
     }
 
     editField = (i) => {
+        //console.log(this.state.testTab[i])
         this.setState({
             isEditable : true,
-            index : i
+            index : i,
+            inputData:this.props.testTab[i].input.join(),
+            expectedOutput:this.props.testTab[i].expectedOutput
         })
     }
+
+
+    handleOutputChange = (e) => {
+        
+        this.setState({
+            expectedOutput: e.target.value,
+            testTab:this.state.testTab.map((el,i)=>{
+                if(i===this.state.index){
+                    return Object.assign(el,{expectedOutput:e.target.value})
+                }
+                else return el
+            })
+            
+        })
+    }
+
+
+    handleInputChange=(e)=>{
+        
+        let inputString = e.target.value
+        if (inputString.length>0)
+       {
+            let inputTab = inputString.split(',')
+            for (let i=0;i<inputTab.length;i++){
+                if (inputTab[i].toLowerCase().trim()==='true') 
+                    inputTab[i]= true
+                else if ((inputTab[i].toLowerCase().trim() === 'false'))
+                    inputTab[i] = false
+                else if (!isNaN(parseInt(inputTab[i])))
+                    inputTab[i] = Number(inputTab[i])
+                else 
+                    inputTab[i] = inputTab[i]
+        }
+
+        
+            
+            this.setState({
+                
+                inputData:  inputTab,
+                testTab:this.state.testTab.map((el,i)=>{
+                    if(i===this.state.index){
+                        return Object.assign(el,{input:inputTab})
+                    }
+                    else return el
+                })
+            }) 
+        }
+    }
+
+    saveChanges=()=>{
+    
+        this.setState({
+            isEditable:false,
+            
+
+        })
+
+        this.props.setTests(this.state.testTab)
+    }
+    
     
     render () {
+      
         return(
-            <div class="modal" id="edit-modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
+            <div class="modal" id="edit-modal" tabindex="-1" role="dialog" >
+                <div class="modal-dialog modal-lg" role="document" >
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Tests</h5>
@@ -47,23 +114,31 @@ class EditModalTest extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.props.testTab ? this.props.testTab.map((el, i) => {
+                                    {this.props.testTab.map((el, i) => {
                                         return (
                                             <tr>
-                                                <th scope="row">{i + 1}></th>
-                                                <td>{(this.state.isEditable && this.state.index === i)?
-                                                    <input name='inputData' type='text' value={[...el.input].join()} onChange={this.handleChange}/>
-                                                    :[...el.input].join()}</td>
-                                                <td>{el.expectedOutput}</td>
+                                                <th scope="row">{i + 1}</th>
+                                                <td>
+                                                    {(this.state.isEditable && this.state.index === i) ?
+                                                    <input name='inputData' type='text'  value={this.state.inputData}onChange={this.handleInputChange}/>
+                                                    :
+                                                    [...el.input].join()}
+                                                </td>
+                                                <td>
+                                                    {(this.state.isEditable && this.state.index === i) ?
+                                                    <input name='expectedOutput' type='text'  value={this.state.expectedOutput}onChange={this.handleOutputChange}/>
+                                                    :
+                                                    el.expectedOutput}
+                                                </td>
                                                 <td><i className="far fa-edit" onClick={()=>this.editField(i)}></i></td>
                                             </tr>
                                         )
-                                    }) : ''}
+                                    })}
                                 </tbody>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-primary" onClick={this.saveChanges} data-dismiss="modal">Save changes</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -73,4 +148,20 @@ class EditModalTest extends React.Component {
     }
 }
 
-export default EditModalTest
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setTests: (testTab) => {
+            dispatch({
+                type: "SET_TESTS",
+                testTab
+            })
+        }        
+    }
+}
+
+const EditModalTestContainer = connect(null, mapDispatchToProps)(EditModalTest)
+
+
+export default EditModalTestContainer

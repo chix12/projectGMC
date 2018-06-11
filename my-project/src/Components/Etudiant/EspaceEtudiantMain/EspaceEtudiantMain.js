@@ -44,7 +44,7 @@ class EspaceEtudiantMain extends React.Component{
               
                
             //axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"09","heure":"03","minutes":"34"}`).then(
+            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"10","heure":"03","minutes":"30"}`).then(
                 res => {
                     window.localStorage.setItem('exam',JSON.stringify(res.data))
                     let exam=JSON.parse(localStorage.getItem('exam'))
@@ -162,10 +162,10 @@ class EspaceEtudiantMain extends React.Component{
         }
         
         
-        axios.put(`/examen/${this.state.exam._id}`,obj)
+        /*axios.put(`/examen/${this.state.exam._id}`,obj)
           .catch((error) =>{
             console.log(error);
-          })
+          })*/
     }
 
 
@@ -176,6 +176,7 @@ class EspaceEtudiantMain extends React.Component{
             content:this.state.exercices[i]&&this.state.exercices[i].content,
             code:JSON.parse(localStorage.getItem('codeList'))[i].code,
             testTab:this.state.exercices[i]&&this.state.exercices[i].testTab,
+            testShown:false
            
 
         })
@@ -226,7 +227,7 @@ class EspaceEtudiantMain extends React.Component{
                 <div className='etudiant-probleme-test-code'>
                 <div className='etudiant-probleme-test'>
                     <div className='etudiant-probleme'>
-                        <h3> Enoncé </h3>{this.state.content}
+                        <h3> Instructions </h3>{this.state.content}
                     </div>
 
                     {this.state.testShown?
@@ -236,28 +237,35 @@ class EspaceEtudiantMain extends React.Component{
 
                             {this.state.testResult.map(el=>{
                                 return (
+                                    el.description==='Accepted'?
                                     <div>
                                         
-                                        {el.description}: 
+                                        <span className='text-success'>Test Passed: </span>
+                                        Input: ({[...el.input].join()})
+                                        Result: {el.output}
+                                        
+                                    </div>
+                                    :
+                                    <div>
+                                        
+                                        <span className='text-danger'>{el.description}: </span>
                                         Input: ({[...el.input].join()})
                                         Expected: {el.expectedOutput} instead got: {el.output}
-                                        
+                                    
                                     </div>
                                 )
                             })}         
                         </div>
                     :
                     <div className='etudiant-test'>                    
-                            <h3>Exemples</h3>
+                            <h3>Examples</h3>
 
                             {this.state.testTab.map(el=>{
                                 return (
-                                    <div>
-                                        
-                                        
-                                         "{[...el.input].join()}"
-                                        => {el.expectedOutput} 
-                                        
+                                    <div> 
+                                         {[...el.input].join()}
+                                         <i class="fas fa-long-arrow-alt-right" style={{margin:'0px 10px'}}></i> 
+                                         {el.expectedOutput} 
                                     </div>
                                 )
                             })}         

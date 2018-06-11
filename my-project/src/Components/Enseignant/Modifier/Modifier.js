@@ -39,7 +39,7 @@ class Modifier extends React.Component {
         axios.get(`/examen/${this.props.match.params.id}`)
         .then(
             res =>{
-
+                let exercices=res.data.exercices
                 this.setState({
                     title:res.data.title,
                     duree:res.data.duree,
@@ -48,9 +48,9 @@ class Modifier extends React.Component {
                     date:res.data.date,
                     idEnseignant:res.data.idEnseignant,
                     fullDate:res.data.fullDate,
-                    exercices : res.data.exercices,
-                    content : res.data.exercices[this.state.activeIndex].content,
-                    testTab: res.data.exercices[this.state.activeIndex].testTab
+                    exercices : exercices,
+                    content : exercices[this.state.activeIndex].content,
+                    testTab: exercices[this.state.activeIndex].testTab
                 })
             }
 
@@ -114,8 +114,8 @@ class Modifier extends React.Component {
       editExamen=()=>{
 
         let date = this.FormatDate(this.state.fullDate)
-        let obj={title:this.state.title,
-            
+        let obj={
+            title:this.state.title,
             duree:this.state.duree,
             classe:this.state.classe,
             matiere:this.state.matiere,
@@ -125,8 +125,7 @@ class Modifier extends React.Component {
             exercices : this.state.exercices, 
             activeIndex: 0
         }
-        console.log(this.state.exercices);
-        
+       
           axios.put(`/examen/${this.props.user._id}`,obj)
           .catch((error) =>{
             console.log(error);
@@ -143,7 +142,7 @@ class Modifier extends React.Component {
             expectedOutput: this.state.outputData
         }
 
-        console.log('test', this.state.testTab.concat(test))
+       
         this.setState({
             testTab: this.state.testTab.concat(test),
             inputData: [],
@@ -164,17 +163,17 @@ class Modifier extends React.Component {
 
         this.setState({
             activeIndex: i,
-            content : this.state.exercices[i] ? this.state.exercices[i].content : ""
+            content : this.state.exercices[i].content ,
+            testTab:this.state.exercices[i].testTab
         })
     }
 
     render() {
-        console.log('tab',this.state.exercices);
-        
+    console.log('testTab',this.props.testTab)
         return(            
             this.state.isModified?<Redirect to={`/enseignant/${this.state.idEnseignant}`}/>:
             <div className='edit-component-container'>
-                <h1 className="edit-component-header"> Modifier Enoncé</h1>
+                <h1 className="edit-component-header"> Modifier Examen</h1>
                 <div className='edit-component-main'>
                         <input type='text' placeholder='Titre' value={this.state.title} className='edit-examen-title' name='title' onChange={this.handleChange} />
                         <div className = "edit-component-nav-tabs">
@@ -198,7 +197,7 @@ class Modifier extends React.Component {
                                             <div className='add-test-buttons'>
                                                 <button type="button" className="btn btn-outline-primary add-test-btn btn-sm" onClick={this.addTest}>Ajouter</button>
                                                 <button type="button" className="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#edit-modal">Afficher</button>
-                                                <EditModalTest testTab = {this.state.exercices[this.state.activeIndex]&&this.state.exercices[this.state.activeIndex].testTab}/>
+                                                {this.state.exercices[this.state.activeIndex]&&<EditModalTest testTab = {this.state.exercices[this.state.activeIndex].testTab} />}
                                             </div>
                                         </div>
                                     </div>
@@ -208,18 +207,18 @@ class Modifier extends React.Component {
                 </div>
                     <div className='add-component-duree-matiere'>
                         <div className='duree-date' >
-                            <input type="text" className="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree' onChange={this.handleChange} />
-                            <input type='datetime-local' className='form-control' name='date' onChange={this.handleChange} />
+                            <input type="text" className="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree' value={this.state.duree}onChange={this.handleChange} />
+                            <input type='datetime-local' className='form-control' name='fullDate' value={this.state.fullDate} onChange={this.handleChange} />
                         </div>
                         <div className='matiere-classe'>
-                            <select className="form-control matiere" name='matiere' onChange={this.handleChange}>
+                            <select className="form-control matiere" name='matiere' value={this.state.matiere}onChange={this.handleChange}>
                                 <option selected disabled >Matière </option>
                                 <option>Java Script</option>
                                 <option>PHP</option>
                                 <option>C++</option>
                             </select>
 
-                            <select className="form-control classe" name='classe' onChange={this.handleChange}>
+                            <select className="form-control classe" name='classe' value={this.state.classe} onChange={this.handleChange}>
                                 <option selected disabled>Classe</option>
                                 <option>LFI1</option>
                                 <option>LFI2</option>
@@ -242,9 +241,11 @@ class Modifier extends React.Component {
 }
 
 const mapStateToProp = state => {
-    if (!state.user) return { user: {} }
+    
     return {
-        user: state.user
+        user: state.user,
+        testTab:state.tests
+
     }
 }
 

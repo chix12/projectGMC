@@ -3,6 +3,7 @@ import UserReducer from './Reducers/UserReducer'
 import ExerciceReducer from "./Reducers/ExerciceReducer";
 import ExerciceArrayReducer from "./Reducers/ExerciceArrayReducer";
 import CodeListReducer from "./Reducers/CodeListReducer"
+import TestsReducer from "./Reducers/TestsReducer";
 
 
 const store = createStore(
@@ -10,7 +11,8 @@ const store = createStore(
       user:UserReducer,
       exercice:ExerciceReducer,
       exerciceArray:ExerciceArrayReducer,
-      codeList:CodeListReducer
+      codeList:CodeListReducer,
+      tests:TestsReducer
       
       })
   );

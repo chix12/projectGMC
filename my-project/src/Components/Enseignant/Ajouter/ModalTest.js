@@ -2,7 +2,7 @@ import React from 'react'
 
 class ModalTest extends React.Component{
     render(){
-        console.log('testTab', this.props.testTab)
+        
         return (
         <div>
            
