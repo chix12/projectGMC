@@ -70,6 +70,7 @@ class Modifier extends React.Component {
 
                     return Object.assign(this.state.exercices[this.state.activeIndex], e.target.name === 'content' && { [e.target.name]: e.target.value })
                 }
+
                 else return el
             })
         })
@@ -126,7 +127,7 @@ class Modifier extends React.Component {
             activeIndex: 0
         }
        
-          axios.put(`/examen/${this.props.user._id}`,obj)
+          axios.put(`/examen/${this.props.match.params.id}`,obj)
           .catch((error) =>{
             console.log(error);
           });
@@ -207,7 +208,7 @@ class Modifier extends React.Component {
                 </div>
                     <div className='add-component-duree-matiere'>
                         <div className='duree-date' >
-                            <input type="text" className="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree' value={this.state.duree}onChange={this.handleChange} />
+                            <input type="text" className="form-control ajouter-duree-input" id="staticEmail" placeholder="Durée (minutes)" name='duree' value={this.state.duree} onChange={this.handleChange} />
                             <input type='datetime-local' className='form-control' name='fullDate' value={this.state.fullDate} onChange={this.handleChange} />
                         </div>
                         <div className='matiere-classe'>
@@ -245,7 +246,6 @@ const mapStateToProp = state => {
     return {
         user: state.user,
         testTab:state.tests
-
     }
 }
 

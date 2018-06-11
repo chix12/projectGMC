@@ -24,7 +24,7 @@ class EspaceEtudiantMain extends React.Component{
             exercices:[],
             codeList:[],
             activeIndex:0,
-            code: JSON.parse(localStorage.getItem('codeList'))[0].code,
+            code: "",
             //code:''
             testShown:false,
             testTab:[]
@@ -44,7 +44,7 @@ class EspaceEtudiantMain extends React.Component{
               
                
             //axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"10","heure":"03","minutes":"30"}`).then(
+            axios.get(`/exam/LFI1/{"annee":"2018","mois":"06","jour":"07","heure":"11","minutes":"33"}`).then(
                 res => {
                     window.localStorage.setItem('exam',JSON.stringify(res.data))
                     let exam=JSON.parse(localStorage.getItem('exam'))
@@ -58,7 +58,9 @@ class EspaceEtudiantMain extends React.Component{
                     })
  
                 }
-            )
+                ).catch((error) => {
+                    console.log(error);
+                }); 
         }
     )
     
@@ -83,30 +85,37 @@ class EspaceEtudiantMain extends React.Component{
     }
 
     getParams=(code)=>{
-        let ouvrante = code.indexOf('=')+ 1
-        let fermante = code.indexOf('=>')
-
-        let paramsString = String(code.slice(ouvrante,fermante))
-        if (paramsString.includes('('))
-            {
+        let codeTab = code.split(' ')
+        if (codeTab[0]==='const') {
+            let ouvrante = code.indexOf('=')+ 1
+            let fermante = code.indexOf('=>')
+            let paramsString = String(code.slice(ouvrante,fermante))
+            if (paramsString.includes('(')) {
                 let parentheseOuvrante = paramsString.indexOf('(') + 1
                 let parentheseFermante = paramsString.indexOf(')')
                 let paramsTab = paramsString.slice(parentheseOuvrante, parentheseFermante)
-                                            .split(',').map(el => el.trim())
-               
+                    .split(',').map(el => el.trim())
                 return paramsTab
             }
-        else 
-           
-            return Array.from(paramsString.trim())
+            else
+                return Array.from(paramsString.trim())
+        }
+        else if (codeTab[0]=== 'function') {
+            let parentheseOuvrante = code.indexOf('(') + 1
+            let parentheseFermante = code.indexOf(')')
+            let paramsTab = code.slice(parentheseOuvrante, parentheseFermante)
+                .split(',').map(el => el.trim())
+
+            return paramsTab
+        }
+        else    
+            return []
     }
 
     getCode = (code) => {
         let ouvrante = code.indexOf('{') + 1
         let fermante = code.lastIndexOf('}')
-        let codeTab = code.slice(ouvrante, fermante).trim().split('')
-       
-        return codeTab.filter(el => el !== "\t").map(el => el==='\n' ? ";" : el).join('')
+        return code.slice(ouvrante, fermante).trim()
     }
 
     executerTests = () => {
@@ -115,7 +124,7 @@ class EspaceEtudiantMain extends React.Component{
         const code = this.getCode(storedCode)
         
         const params = this.getParams(storedCode)
-        
+        console.log('params',params)
         const funct = new Function (...params, code)
        
         this.setState({testResult:[]})
