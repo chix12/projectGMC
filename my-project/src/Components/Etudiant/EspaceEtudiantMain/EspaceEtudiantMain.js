@@ -104,9 +104,9 @@ class EspaceEtudiantMain extends React.Component{
     getCode = (code) => {
         let ouvrante = code.indexOf('{') + 1
         let fermante = code.lastIndexOf('}')
-        let codeTab = code.slice(ouvrante, fermante).trim().split('')
+        let codeTab = code.slice(ouvrante, fermante).trim()
        
-        return codeTab.filter(el => el !== "\t").map(el => el==='\n' ? ";" : el).join('')
+        return codeTab
     }
 
     executerTests = () => {
