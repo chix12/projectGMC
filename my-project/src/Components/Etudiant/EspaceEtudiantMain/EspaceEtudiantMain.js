@@ -27,8 +27,8 @@ class EspaceEtudiantMain extends React.Component{
             code: JSON.parse(localStorage.getItem('codeList'))[0].code,
             //code:''
             testShown:false,
-            testTab:[]
-           
+            testTab:[],
+           erreur:''
           
         }
     }  
@@ -58,7 +58,9 @@ class EspaceEtudiantMain extends React.Component{
                     })
  
                 }
-            )
+                ).catch((error) => {
+                    console.log(error);
+                }); 
         }
     )
     
@@ -83,30 +85,37 @@ class EspaceEtudiantMain extends React.Component{
     }
 
     getParams=(code)=>{
-        let ouvrante = code.indexOf('=')+ 1
-        let fermante = code.indexOf('=>')
-
-        let paramsString = String(code.slice(ouvrante,fermante))
-        if (paramsString.includes('('))
-            {
+        let codeTab = code.split(' ')
+        if (codeTab[0]==='const') {
+            let ouvrante = code.indexOf('=')+ 1
+            let fermante = code.indexOf('=>')
+            let paramsString = String(code.slice(ouvrante,fermante))
+            if (paramsString.includes('(')) {
                 let parentheseOuvrante = paramsString.indexOf('(') + 1
                 let parentheseFermante = paramsString.indexOf(')')
                 let paramsTab = paramsString.slice(parentheseOuvrante, parentheseFermante)
-                                            .split(',').map(el => el.trim())
-               
+                    .split(',').map(el => el.trim())
                 return paramsTab
             }
-        else 
-           
-            return Array.from(paramsString.trim())
+            else
+                return Array.from(paramsString.trim())
+        }
+        else if (codeTab[0]=== 'function') {
+            let parentheseOuvrante = code.indexOf('(') + 1
+            let parentheseFermante = code.indexOf(')')
+            let paramsTab = code.slice(parentheseOuvrante, parentheseFermante)
+                .split(',').map(el => el.trim())
+
+            return paramsTab
+        }
+        else    
+            return []
     }
 
     getCode = (code) => {
         let ouvrante = code.indexOf('{') + 1
         let fermante = code.lastIndexOf('}')
-        let codeTab = code.slice(ouvrante, fermante).trim()
-       
-        return codeTab
+        return code.slice(ouvrante, fermante).trim()
     }
 
     executerTests = () => {
@@ -115,14 +124,28 @@ class EspaceEtudiantMain extends React.Component{
         const code = this.getCode(storedCode)
         
         const params = this.getParams(storedCode)
+        console.log('params',params)
+        let funct
         
-        const funct = new Function (...params, code)
+            funct = new Function (...params, code)
+        
        
         this.setState({testResult:[]})
        
         this.state.exam.exercices[this.state.activeIndex].testTab.map(el=>{
+            let callValue
+            try {
+                callValue=funct(...el.input)
+            }catch(err) {
+                console.log('ERROR: ', err.message)
+
+                callValue = ''
+                this.setState({
+                    erreur:err
+                })
+            }
             axios.post('https://api.judge0.com/submissions?wait=true', {
-                source_code: `console.log(${JSON.stringify(funct(...el.input))})`,
+                source_code: `console.log(${JSON.stringify(callValue)})`,
                 language_id: 29,    
                 expected_output: el.expectedOutput
             })
@@ -235,26 +258,32 @@ class EspaceEtudiantMain extends React.Component{
                         <div className='etudiant-test'>                    
                             <h3>Test</h3>
 
-                            {this.state.testResult.map(el=>{
-                                return (
-                                    el.description==='Accepted'?
-                                    <div>
-                                        
-                                        <span className='text-success'>Test Passed: </span>
-                                        Input: ({[...el.input].join()})
-                                        Result: {el.output}
-                                        
-                                    </div>
-                                    :
-                                    <div>
-                                        
-                                        <span className='text-danger'>{el.description}: </span>
-                                        Input: ({[...el.input].join()})
-                                        Expected: {el.expectedOutput} instead got: {el.output}
-                                    
-                                    </div>
-                                )
-                            })}         
+                            {this.state.erreur!=="" ? this.state.erreur :
+        
+                                    this.state.testResult.map(el=>{
+                                        return (
+                                            el.description==='Accepted'?
+                                            <div>
+                                                
+                                                <span className='text-success'>Test Passed: </span>
+                                                Input: ({[...el.input].join()})
+                                                Result: {el.output}
+                                                
+                                            </div>
+                                            :
+                                            <div>
+                                                
+                                                <span className='text-danger'>{el.description}: </span>
+                                                Input: ({[...el.input].join()})
+                                                Expected: {el.expectedOutput} instead got: {el.output}
+                                            
+                                            </div>
+                                        )
+                                    })       
+
+                            }
+
+                             
                         </div>
                     :
                     <div className='etudiant-test'>                    
