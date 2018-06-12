@@ -13,8 +13,6 @@ class AjouterExercice extends React.Component {
             testTab : [] ,
             exerciceArray:[{titre:"Exercice 1"}],
             activeIndex:0,
-            
-            
         }
     }
 
@@ -23,10 +21,13 @@ class AjouterExercice extends React.Component {
     }
    
     addTest=()=>{
+        console.log('input',this.state.inputData);
+        
         let test = {
-            input : this.state.inputData,
+            input : this.state.inputData.map(el => typeof(el)==='string' ? el : JSON.parse(el)),
             expectedOutput : this.state.outputData
         }
+                
         this.setState({
             testTab : this.state.testTab.concat(test),
             inputData : [],
@@ -61,67 +62,58 @@ class AjouterExercice extends React.Component {
         })
     }
 
-    handleInputChange=(e)=>{
+    handleInputChange = (e) => {
         let inputString = e.target.value
-        let outputTab=[]
-        if (inputString.length>0)
-       {
-           if(
-               (inputString.includes('[')&&(inputString.includes(']')))
-               ||
-               (inputString.includes('{')&&(inputString.includes('}')))
-            )  
-                {
-                    //outputTab=JSON.parse(inputString)
+        let inputTab = []
+        if (inputString.length > 0) {
+            if (
+                (inputString.includes('[') && (inputString.includes(']')))
+                ||
+                (inputString.includes('{') && (inputString.includes('}')))
+            ) {
 
-                    outputTab = inputString
-                    let tab=inputString.split('],[')
-
-                    tab[0]=tab[0]+"]"
-                    tab[tab.length-1]="["+tab[tab.length-1]
-
-                    for(let i=1;i<tab.length-1;i++){
-                        
-                        tab[i]="["+tab[i]+"]"
+               // inputTab = inputString
+                let tab = inputString.split('],[')
+                if (tab.length > 1) {
+                    tab[0] = tab[0] + "]"
+                    tab[tab.length - 1] = "[" + tab[tab.length - 1]
+                    for (let i = 1; i < tab.length - 1; i++) {
+                        tab[i] = "[" + tab[i] + "]"
                     }
-
-                    tab=tab.map(el=>console.log(el))
-
-                  
-                    
-
                 }
 
-           
-            else{
-            outputTab = inputString.split(',')
-            //console.log(outputTab)
-            for (let i=0;i<outputTab.length;i++){
-                if (outputTab[i].toLowerCase().trim()==='true') 
-                    outputTab[i]= true
-                else if ((outputTab[i].toLowerCase().trim() === 'false'))
-                    outputTab[i] = false
+                inputTab = tab
+                //tab=tab.map(el=>console.log('tab',el))
+                console.log('tab', tab)
+            }
 
 
-                else if (outputTab[i].toLowerCase().includes('[')&&outputTab[i].toLowerCase().includes(']')) {
-                    
-                    /*console.log(outputTab[i].slice(outputTab[i].indexOf('['),outputTab[i].indexOf(']')+1))
-                    outputTab[i] = outputTab[i].slice(outputTab[i].indexOf('['),outputTab[i].indexOf(']')+1)
-                */ }
+            else {
+                inputTab = inputString.split(',')
+                //console.log(inputTab)
+                for (let i = 0; i < inputTab.length; i++) {
+                    if (inputTab[i].toLowerCase().trim() === 'true')
+                        inputTab[i] = true
+                    else if ((inputTab[i].toLowerCase().trim() === 'false'))
+                        inputTab[i] = false
 
-                else if (!isNaN(parseInt(outputTab[i])))
-                    outputTab[i] = Number(outputTab[i])
-                else 
-                    outputTab[i] = outputTab[i]
-        }
-    }
-            
+
+                    else if (inputTab[i].toLowerCase().includes('[') && inputTab[i].toLowerCase().includes(']')) {
+                }
+
+                    else if (!isNaN(parseInt(inputTab[i])))
+                        inputTab[i] = Number(inputTab[i])
+                    else
+                        inputTab[i] = inputTab[i]
+                }
+            }
+
             this.setState({
-                
-                inputData: outputTab
-            }) 
+
+                inputData: inputTab
+            })
         }
-    
+
     }
 
     addExercice=()=>{
@@ -144,7 +136,8 @@ class AjouterExercice extends React.Component {
         })
      }
     render(){
-   
+        console.log('test',this.state.testTab);
+        
         return (
         <div className='ajouter-exercice'>
                 <ul className="nav nav-tabs">
