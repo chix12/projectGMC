@@ -22,13 +22,17 @@ class EspaceEtudiantMain extends React.Component{
             exam:{},
             testResult:[] ,
             exercices:[],
-            codeList:[],
+            codeList:JSON.parse(localStorage.getItem('codeList')),
             activeIndex:0,
             code: JSON.parse(localStorage.getItem('codeList'))[0].code,
-            //code:''
+            //code:'',
             testShown:false,
             testTab:[],
-           erreur:''
+           erreur:'',
+           nbrTestPassed:0,
+           nbrTestPassedTab:[],
+           
+          
           
         }
     }  
@@ -53,7 +57,8 @@ class EspaceEtudiantMain extends React.Component{
                         exercices:exam.exercices,
                         content:exam.exercices[0].content,
                         codeList:exam.exercices.map((el,i)=>{return {titre:'Exercice '+Number(i+1),code:''}}).concat({idEtudiant:this.state.etudiant._id}),
-                        testTab:exam.exercices[0].testTab
+                        testTab:exam.exercices[0].testTab,
+                        nbrTestPassedTab:exam.exercices.map(el=>0)
                         
                     })
  
@@ -124,20 +129,21 @@ class EspaceEtudiantMain extends React.Component{
         const code = this.getCode(storedCode)
         
         const params = this.getParams(storedCode)
-        console.log('params',params)
+        
         let funct
         
             funct = new Function (...params, code)
         
        
         this.setState({testResult:[]})
+        let nbrTestPassed=0
        
         this.state.exam.exercices[this.state.activeIndex].testTab.map(el=>{
             let callValue
             try {
                 callValue=funct(...el.input)
             }catch(err) {
-                console.log('ERROR: ', err.message)
+                console.log('ERROR: ', err)
 
                 callValue = ''
                 this.setState({
@@ -149,16 +155,29 @@ class EspaceEtudiantMain extends React.Component{
                 language_id: 29,    
                 expected_output: el.expectedOutput
             })
-            .then(res => {    
+            .then(res => {   
+                if(res.data.status.description==='Accepted'){
+                    nbrTestPassed++
+                } 
+               
                 this.setState({
                     testResult: this.state.testResult.concat({
                         input: el.input,
                         expectedOutput: el.expectedOutput,
                         output: res.data.stdout,
-                        description:res.data.status.description
-                    }),  
-                    
+                        description:res.data.status.description,
+                    }),
+                    nbrTestPassed:nbrTestPassed,
+                    nbrTestPassedTab:this.state.nbrTestPassedTab.map((el,i)=>{
+                        if(i===this.state.activeIndex){
+                            return nbrTestPassed
+                        }
+                        else return el
+                    })
+
                 })
+
+                
                 
             })
             .catch(e=>console.log(e))
@@ -171,26 +190,7 @@ class EspaceEtudiantMain extends React.Component{
 
 
 
-    addCodeEtudiant=()=>{
-     
-        let obj={title:this.state.exam.title,
-            content:this.state.exam.content,
-            duree:this.state.exam.duree,
-            classe:this.state.exam.classe,
-            matiere:this.state.exam.matiere,
-            idEnseignant:this.state.exam.idEnseignant,
-            date:this.state.exam.date,
-            fullDate:this.state.exam.fullDate,
-           // answers:answers
-        }
-        
-        
-        /*axios.put(`/examen/${this.state.exam._id}`,obj)
-          .catch((error) =>{
-            console.log(error);
-          })*/
-    }
-
+    
 
     onClickExerciceItem=(i)=>{
        
@@ -225,10 +225,32 @@ class EspaceEtudiantMain extends React.Component{
         localStorage.setItem('code', newCode)
     }
 
+
+    validerExamen=()=>{
+        console.log('exercices',this.state.exercices)
+
+        let nombreTests=0
+        for(let i=0; i<this.state.exercices.length;i++){
+            nombreTests+=this.state.exercices[i].testTab.length
+        }
+
+       
+        let nombreTestsPassed=this.state.nbrTestPassedTab.reduce(function(acc, val) { return acc + val; })
+
+       let result=parseInt(nombreTestsPassed/nombreTests*100)
+
+       this.setState({
+           result:result
+       })
+
+       console.log('nombreTests',nombreTests)
+       console.log('nombreTestsPassed',nombreTestsPassed)
+       console.log('result',result)
+    }
+
+
     render(){
-     
-     
-        return (   
+       return (   
         <div className='etudiant-main' >
           
             {this.state.exam &&
@@ -267,7 +289,7 @@ class EspaceEtudiantMain extends React.Component{
                                                 
                                                 <span className='text-success'>Test Passed: </span>
                                                 Input: ({[...el.input].join()})
-                                                Result: {el.output}
+                                                Value == {el.output}
                                                 
                                             </div>
                                             :
@@ -324,11 +346,10 @@ class EspaceEtudiantMain extends React.Component{
                 <button type="button" className="btn btn-outline-primary btn-executer" onClick={this.executerTests}>
                     Exécuter les tests
                 </button>
-                {//<button type="button" className="btn btn-outline-success"onClick={this.addCodeEtudiant}>Valider</button>
-                }
-                        <button type="button" className="btn btn-outline-success" onClick={this.addCodeEtudiant}  data-toggle="modal" data-target="#exampleModal">Valider</button>
+               
+                <button type="button" className="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal" onClick={this.validerExamen}>Valider</button>
                     
-                <ModalComponent nbrTest={this.state.exam.test}/>
+                <ModalComponent result={this.state.result}/>
             
             </div>
             </div>}

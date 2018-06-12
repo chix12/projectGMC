@@ -128,7 +128,7 @@ class Ajouter extends React.Component {
 }
 
 const mapStateToProp = state => {
-    console.log('exerciceArray',state.exerciceArray)
+    
     return {
         exercice: state.exercice,
         exerciceArray:state.exerciceArray

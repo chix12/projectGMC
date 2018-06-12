@@ -13,7 +13,8 @@ class AjouterExercice extends React.Component {
             testTab : [] ,
             exerciceArray:[{titre:"Exercice 1"}],
             activeIndex:0,
-            nbrPoints:''
+            nbrPoints:'',
+            
         }
     }
 
@@ -62,25 +63,65 @@ class AjouterExercice extends React.Component {
 
     handleInputChange=(e)=>{
         let inputString = e.target.value
+        let outputTab=[]
         if (inputString.length>0)
        {
-            let outputTab = inputString.split(',')
+           if(
+               (inputString.includes('[')&&(inputString.includes(']')))
+               ||
+               (inputString.includes('{')&&(inputString.includes('}')))
+            )  
+                {
+                    //outputTab=JSON.parse(inputString)
+
+                    outputTab = inputString
+                    let tab=inputString.split('],[')
+
+                    tab[0]=tab[0]+"]"
+                    tab[tab.length-1]="["+tab[tab.length-1]
+
+                    for(let i=1;i<tab.length-1;i++){
+                        
+                        tab[i]="["+tab[i]+"]"
+                    }
+
+                    tab=tab.map(el=>console.log(el))
+
+                  
+                    
+
+                }
+
+           
+            else{
+            outputTab = inputString.split(',')
+            //console.log(outputTab)
             for (let i=0;i<outputTab.length;i++){
                 if (outputTab[i].toLowerCase().trim()==='true') 
                     outputTab[i]= true
                 else if ((outputTab[i].toLowerCase().trim() === 'false'))
                     outputTab[i] = false
+
+
+                else if (outputTab[i].toLowerCase().includes('[')&&outputTab[i].toLowerCase().includes(']')) {
+                    
+                    /*console.log(outputTab[i].slice(outputTab[i].indexOf('['),outputTab[i].indexOf(']')+1))
+                    outputTab[i] = outputTab[i].slice(outputTab[i].indexOf('['),outputTab[i].indexOf(']')+1)
+                */ }
+
                 else if (!isNaN(parseInt(outputTab[i])))
                     outputTab[i] = Number(outputTab[i])
                 else 
                     outputTab[i] = outputTab[i]
         }
+    }
             
             this.setState({
                 
                 inputData: outputTab
             }) 
         }
+    
     }
 
     addExercice=()=>{

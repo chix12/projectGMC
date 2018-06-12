@@ -10,8 +10,7 @@ class ModalComponent extends React.Component {
       points:0,   
       intervalResult:0,
       height:200,
-      nbrTest:this.props.nbrTest,
-      grade:0
+      grade:this.props.result
     }
 } 
 
@@ -24,7 +23,7 @@ class ModalComponent extends React.Component {
             points:this.state.points+1
           })
         }
-      ,80)
+      ,40)
     })
   
   }
@@ -46,19 +45,11 @@ class ModalComponent extends React.Component {
   }
 
 
- /* getGrade=()=>{
-    if(this.props.nbrTest!==undefined){
-    this.setState({
-      grade:Math.floor(20/this.state.nbrTest.length)
-    })
-  }
-  }*/
 
 
   render(){
-//console.log('length',this.props.nbrTest)
 
-  if(this.state.points===17){
+  if(this.state.points===this.props.result){
     clearInterval(this.state.intervalCounter)
    
   }
@@ -84,7 +75,7 @@ class ModalComponent extends React.Component {
 
 
               <div className="bg-primary" onClick={this.getResult} style={{color:'white',zIndex:100, width:'100%',height:this.state.height,position:'absolute',top:0,left:0}}>
-              <h3 style={{textAlign:'center',margin:'50px'}}>Votre Résultat</h3>
+              <h3 style={{textAlign:'center',marginTop:'48px'}}>Get Result</h3>
               <div style={{textAlign:'center',marginTop:'68px'}}>
                 <i className="fas fa-arrow-down fa-lg" style={{marginRight:'10px'}}></i>
                 <i className="fas fa-arrow-down fa-lg" style={{marginRight:'10px'}}></i>
@@ -96,7 +87,7 @@ class ModalComponent extends React.Component {
               </div>
                   <div className='modal-result'>
                     
-                    <h1 className='modal-result-points'>{this.state.points} points </h1>
+                    <h1 className='modal-result-points' style={{fontSize:'100px'}}>{this.state.points} % </h1>
                   </div>
                 
                   
