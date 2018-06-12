@@ -13,7 +13,7 @@ class AjouterExercice extends React.Component {
             testTab : [] ,
             exerciceArray:[{titre:"Exercice 1"}],
             activeIndex:0,
-            nbrPoints:'',
+            
             
         }
     }
@@ -54,7 +54,7 @@ class AjouterExercice extends React.Component {
                
                 if(i===this.state.activeIndex){
                     
-                    return Object.assign(this.state.exerciceArray[this.state.activeIndex],(e.target.name==='content'||e.target.name==='nbrPoints')&&{[e.target.name]: e.target.value})
+                    return Object.assign(this.state.exerciceArray[this.state.activeIndex],e.target.name==='content'&&{[e.target.name]: e.target.value})
                 }
                 else return el
             })
@@ -163,8 +163,7 @@ class AjouterExercice extends React.Component {
                 <div className="ajouter-enonce">
            
                     <textarea value={this.state.content} style={{width:'100%'}}name='content'  placeholder='Enoncé'onChange={this.handleChange} />
-                    <input type="number" className="form-control mt-0"name='nbrPoints' value={this.state.nbrPoints} onChange={this.handleChange} min="0" max="20" placeholder='Nombre des points'/>
-                
+                    
                 </div>
 
                 <div className="ajouter-test">
