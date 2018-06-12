@@ -2,6 +2,7 @@ import React from 'react'
 import './EnseignantMain.css'
 import { Link} from 'react-router-dom'
 import axios from 'axios'
+import {connect} from 'react-redux'
 
 class EnseignantMain extends React.Component {
 
@@ -123,4 +124,15 @@ class EnseignantMain extends React.Component {
 }
 
 
-export default EnseignantMain;
+const mapStateToProp = state => {
+   
+       return {
+           user:state.user
+       }
+     }
+
+     
+const EnseignantMainContainer = connect(mapStateToProp)(EnseignantMain);
+
+
+export default EnseignantMainContainer;

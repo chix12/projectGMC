@@ -63,7 +63,7 @@ class AjouterExercice extends React.Component {
 
     handleInputChange=(e)=>{
         let inputString = e.target.value
-        let outputTab=[]
+        let inputTab=[]
         if (inputString.length>0)
        {
            if(
@@ -72,53 +72,60 @@ class AjouterExercice extends React.Component {
                (inputString.includes('{')&&(inputString.includes('}')))
             )  
                 {
-                    //outputTab=JSON.parse(inputString)
+                    //inputTab=JSON.parse(inputString)
 
-                    outputTab = inputString
+                    inputTab = inputString
                     let tab=inputString.split('],[')
 
-                    tab[0]=tab[0]+"]"
-                    tab[tab.length-1]="["+tab[tab.length-1]
 
+                    if(tab.length>1){
+                        tab[0]=tab[0]+"]"
+                        tab[tab.length-1]="["+tab[tab.length-1]
+    
+                    
+
+                   
                     for(let i=1;i<tab.length-1;i++){
                         
                         tab[i]="["+tab[i]+"]"
                     }
-
-                    tab=tab.map(el=>console.log(el))
+                }
 
                   
+
+                  
+                    console.log('tab',tab)
                     
 
                 }
 
            
             else{
-            outputTab = inputString.split(',')
-            //console.log(outputTab)
-            for (let i=0;i<outputTab.length;i++){
-                if (outputTab[i].toLowerCase().trim()==='true') 
-                    outputTab[i]= true
-                else if ((outputTab[i].toLowerCase().trim() === 'false'))
-                    outputTab[i] = false
+            inputTab = inputString.split(',')
+            //console.log(inputTab)
+            for (let i=0;i<inputTab.length;i++){
+                if (inputTab[i].toLowerCase().trim()==='true') 
+                    inputTab[i]= true
+                else if ((inputTab[i].toLowerCase().trim() === 'false'))
+                    inputTab[i] = false
 
 
-                else if (outputTab[i].toLowerCase().includes('[')&&outputTab[i].toLowerCase().includes(']')) {
+                else if (inputTab[i].toLowerCase().includes('[')&&inputTab[i].toLowerCase().includes(']')) {
                     
-                    /*console.log(outputTab[i].slice(outputTab[i].indexOf('['),outputTab[i].indexOf(']')+1))
-                    outputTab[i] = outputTab[i].slice(outputTab[i].indexOf('['),outputTab[i].indexOf(']')+1)
+                    /*console.log(inputTab[i].slice(inputTab[i].indexOf('['),inputTab[i].indexOf(']')+1))
+                    inputTab[i] = inputTab[i].slice(inputTab[i].indexOf('['),inputTab[i].indexOf(']')+1)
                 */ }
 
-                else if (!isNaN(parseInt(outputTab[i])))
-                    outputTab[i] = Number(outputTab[i])
+                else if (!isNaN(parseInt(inputTab[i])))
+                    inputTab[i] = Number(inputTab[i])
                 else 
-                    outputTab[i] = outputTab[i]
+                    inputTab[i] = inputTab[i]
         }
     }
             
             this.setState({
                 
-                inputData: outputTab
+                inputData: inputTab
             }) 
         }
     
