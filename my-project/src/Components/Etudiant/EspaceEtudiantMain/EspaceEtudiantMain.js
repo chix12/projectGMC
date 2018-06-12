@@ -8,9 +8,6 @@ import './TimerExp/TimerExp.css'
 import {connect} from 'react-redux'
 import MonacoEditor from 'react-monaco-editor'
 
-
-
-
 class EspaceEtudiantMain extends React.Component{
 
     constructor(props){
@@ -48,7 +45,7 @@ class EspaceEtudiantMain extends React.Component{
               
                
             //axios.get('/exam/'+this.state.etudiant.classe+"/"+d).then(
-            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"10","heure":"03","minutes":"30"}`).then(
+            axios.get(`/exam/LFI2/{"annee":"2018","mois":"06","jour":"10","heure":"10","minutes":"10"}`).then(
                 res => {
                     window.localStorage.setItem('exam',JSON.stringify(res.data))
                     let exam=JSON.parse(localStorage.getItem('exam'))
@@ -70,8 +67,6 @@ class EspaceEtudiantMain extends React.Component{
     )
     
 }
-
-
 
     getDate=(date)=>{
             
@@ -186,11 +181,7 @@ class EspaceEtudiantMain extends React.Component{
         this.setState({
             testShown:true
         })
-    }
-
-
-
-    
+    } 
 
     onClickExerciceItem=(i)=>{
        
